@@ -1,0 +1,1865 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[portuguese]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage[colorlinks,allcolors=blue]{hyperref}
+\usepackage{amsmath,amsfonts,amsthm}
+%\usepackage[urw-garamond]{mathdesign}
+
+\newcommand{\dpar}[1]{\left(#1\right)}
+\newcommand{\dsqr}[1]{\left[#1\right]}
+\newcommand{\dcur}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\langle#1\rangle}
+\newcommand{\dang}[1]{\left\langle#1\right\rangle}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{cor}[thm]{Corolário}
+\newtheorem{lem}[thm]{Lema}
+\theoremstyle{definition}
+\newtheorem{ex}[thm]{Exemplo}
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\pr}{pr}
+
+\title{Notas de álgebra linear}
+
+\author{Max Jáuregui}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Espaços e subespaços vetoriais}
+Um conjunto $E$ é um \textit{espaço vetorial} se estão definidas em
+$E$ as operações de \textit{adição} e multiplicação por um escalar
+(número real), que cumprem os seguintes axiomas:
+\begin{enumerate}
+\item para quaisquer $u,v\in E$ e $\alpha\in\R$, $u+v\in E$ e
+  $\alpha u\in E$;
+\item para quaisquer $u,v,w\in E$ e $\alpha,\beta\in\R$,
+  $u+(v+w)=(u+v)+w$ e $\alpha(\beta u)=(\alpha \beta)u$;
+\item para quaisquer $u,v\in E$, $u+v=v+u$;
+\item existe $0\in E$ tal que $u+0=0$ para todo $u\in E$;
+\item para qualquer $u\in E$ existe $-u\in E$ tal que $u+(-u)=0$;
+\item para qualquer $u\in E$, $1u=u$;
+\item para quaisquer $u,v\in E$ e $\alpha,\beta\in\R$,
+  $\alpha(u+v)=\alpha u+\alpha v$ e
+  $(\alpha+\beta)u=\alpha u+\beta u$.
+\end{enumerate}
+Os elementos de $E$ são chamados de \textit{vetores}.
+
+Exemplos de espaços vetoriais são:
+\begin{itemize}
+\item $\R^n$: espaço euclidiano $n$-dimensional;
+\item $\R^X$: conjunto das funções $f:X\to Y$, definindo
+  $(f+g)(x)=f(x)+g(x)$ e $(\alpha f)(x)=\alpha f(x)$;
+\item $M(m\times n)$: conjunto das matrizes $m\times n$.
+\end{itemize}
+
+\begin{thm}
+  Se $u$ e $v$ são vetores de um espaço vetorial $E$, então
+  $u+v=u+w\Rightarrow v=w$.
+\end{thm}
+\begin{cor}
+  Se $u$ e $v$ são vetores de um espaço vetorial $E$, então
+  \begin{enumerate}
+  \item $u+v=u\Rightarrow v=0$;
+  \item $u+v=0\Rightarrow v=-u$;
+  \item $0u=0$;
+  \item $(-1)u=-u$.
+  \end{enumerate}
+\end{cor}
+
+Um \textit{subespaço} de um espaço vetorial $E$ é um conjunto
+$F\subset E$ tal que
+\begin{enumerate}
+\item $0\in F$;
+\item para quaisquer $u,v\in F$, $u+v\in F$;
+\item para quaisquer $\alpha\in\R$ e $u\in F$, $\alpha u\in F$.
+\end{enumerate}
+
+Exemplos de subespaços são:
+\begin{itemize}
+\item A origem $\{0\}$;
+\item Retas que passam pela origem: fixado $v\in E$, $v\ne 0$,
+  $$F=\{\alpha v\in E:\alpha\in\R\}\,;$$
+\item Hiperplanos que passam pela origem:
+  $$H=\{(x_1,\ldots,x_n)\in E:\alpha_1x_1+\cdots+\alpha_nx_n=0\}\,.$$
+\end{itemize}
+
+Como a interseção de uma família arbitrária de subespaços é claramente
+um subespaço, segue em particular que o conjunto das soluções do
+sistema linear
+\begin{equation*}
+  \begin{split}
+    a_{11}x_1+\cdots+a_{1n}x_n&=0\\
+    \vdots\qquad\qquad&\quad\,\,\vdots\\
+    a_{m1}x_1+\cdots+a_{mn}x_n&=0
+  \end{split}
+\end{equation*}
+é um subespaço de $\R^n$;
+
+Seja $E$ um espaço vetorial. O \textit{subespaço gerado} por um
+conjunto $X\subset E$ é o conjunto $S(X)$ de todas as combinações
+lineares $\alpha_1x_1+\cdots+\alpha_nx_n$, com $x_1,\ldots,x_n\in
+X$. Pode-se provar facilmente que $S(X)$ é o menor subespaço que
+contém $X$, no sentido que se $F\subset E$ é um subespaço que contém
+$X$, então $S(X)\subset F$. Se $S(X)=F$, diz-se que $X$ é um
+\textit{conjunto de geradores de $F$}.
+
+Dado um espaço vetorial $E$, seja $v\in E$ com $v\ne 0$. O subespaço
+gerado por $\{v\}$ é a reta que contém $v$ e passa pela origem.
+
+O conjunto $\{(1,0), (0,1)\}\subset \R^2$ é claramente um conjunto de
+geradores de $\R^2$.
+
+% \begin{thm}
+%   Dado $X\subset E$, seja $Y=(X\setminus\{v\})\cup \{v+\alpha u\}$,
+%   onde $\alpha\in\R$ e $u,v\in X$. Logo, $S(Y)=S(X)$.
+% \end{thm}
+% \begin{proof}
+%   $u,v+\alpha u\in S(Y)\Rightarrow v\in S(Y)\Rightarrow X\subset
+%   S(Y)\Rightarrow S(X)\subset S(Y)$. Analogamente vamos ter que
+%   $S(Y)\subset S(X)$.
+% \end{proof}
+
+Se $F_1$ e $F_2$ são subespaços, pode-se verificar imediatamente que o
+subespaço gerado por $F_1\cup F_2$ é o conjunto
+$F_1+F_2=\{u+v:u\in F_1\,,v\in F_2\}$. Quando $F_1\cap F_2=\{0\}$,
+escreve-se $F_1\oplus F_2$ no lugar de $F_1+F_2$ e diz-se que
+$F_1\oplus F_2$ é a \textit{soma direta} de $F_1$ e $F_2$.
+
+\begin{thm}
+  Sejam $F,F_1$ e $F_2$ subespaços. As seguintes afirmações são
+  equivalentes:
+  \begin{enumerate}
+  \item $F=F_1\oplus F_2$;
+  \item Para cada $v\in F$ existem únicos $u_1\in F_1$ e $u_2\in F_2$
+    tais que $v=u_1+u_2$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  ($1\Rightarrow 2$) Se existem $u_1,v_1\in F_1$ e $u_2,v_2\in F_2$
+  tais que $v=u_1+u_2=v_1+v_2$, então $F_1\ni u_1-v_1=v_2-u_2\in
+  F_2$. Logo, devemos ter $u_1=v_1$ e $u_2=v_2$. ($2\Rightarrow 1$) Se
+  $v\in F_1\cap F_2$, então $v=v+0=0+v$, o que implica que $v=0$.
+\end{proof}
+
+Podemos verificar facilmente que $\R^2$ é a soma direta das retas que
+passam pela origem $\{(\alpha,\alpha)\in\R^2:\alpha\in\R\}$ e
+$\{(-\alpha,\alpha)\in\R^2:\alpha\in\R\}$.
+
+% \begin{thm}
+%   Sejam $X,Y\subset E$. Tem-se que
+%   \begin{enumerate}
+%   \item $X\subset Y\Rightarrow S(X)\subset S(Y)$;
+%   \item $S(X\cap Y)\subset S(X)\cap S(Y)$;
+%   \item $S(X\cup Y)=S(X)+S(Y)$.
+%   \end{enumerate}
+% \end{thm}
+% \begin{proof}
+%   \begin{enumerate}
+%   \item $X\subset Y\subset S(Y)\Rightarrow S(X)\subset S(Y)$.
+%   \item
+%     $X\cap Y\subset X, X\cap Y\subset Y\Rightarrow S(X\cap Y)\subset
+%     S(X), S(X\cap Y)\subset S(Y)\Rightarrow S(X\cap Y)\subset
+%     S(X)\cap S(Y)$.
+%   \item
+%     $X\cup Y\subset S(X)+S(Y)\Rightarrow S(X\cup Y)\subset
+%     S(X)+S(Y)$. Por outro lado, dado $w\in S(X)+S(Y)$, existem
+%     $u\in S(X)$ e $v\in S(Y)$ tais que $w=u+v$. Como $u$ e $v$ são
+%     combinações lineares de vetores de $X$ e de $Y$ respectivamente,
+%     segue que $w$ é combinação linear de vetores de $X\cup
+%     Y$. Portanto, $S(X)+S(Y)\subset S(X\cup Y)$.\qedhere
+%   \end{enumerate}
+% \end{proof}
+
+Seja $E$ um espaço vetorial. A \textit{reta} que passa pelos pontos
+$u,v\in E$ é o conjunto
+$$R=\{(1-\alpha)u+\alpha v:\alpha\in \R\}\,.$$
+Uma \textit{variedade afim} é um conjunto $V\subset E$ tal que a reta
+que passa por qualquer par de pontos de $V$ está contida em $V$. Vemos
+dessa definição que todo subespaço é uma variedade afim. De fato toda
+variedade afim pode ser obtida transladando um subespaço de acordo com
+o seguinte
+
+\begin{thm}
+  \label{thm:1}
+  Se $V$ é uma variedade afim, existe um único subespaço $F$ tal que
+  $V=x+F=\{x\}+F$ para qualquer $x\in V$.
+\end{thm}
+\begin{proof}
+  Fixado $x_0\in V$, seja $F_0=-x_0+V$. Vemos que $0\in F_0$. Dado
+  $u\in F_0$, temos que $x_0+u\in V$, o que implica que
+  $\forall \alpha\in\R\,, x_0+\alpha
+  u=[\alpha(x_0+u)+(1-\alpha)x_0]\in V$. Logo, $\alpha u\in
+  F_0$. Dados $u,v\in F$, temos que $[(x_0+u)/2+(x_0+v)/2]\in V$. Isso
+  implica que $(u+v)/2\in F$ e, por conseguinte, $u+v\in
+  F_0$. Portanto, $F_0$ é um subespaço. Se existe um subespaço
+  $G_0\subset E$ tal que $V=x_0+G_0$,
+  $u\in G_0\Leftrightarrow x_0+u\in V\Leftrightarrow u\in
+  F_0$. Portanto, para cada $x\in V$ existe um único subespaço
+  $F\subset E$ tal que $V=x+F$. Logo, dados $x,y\in V$, existem únicos
+  subespaços $F,G\subset E$ tais que $V=x+F=y+G$. Vemos que
+  $u\in F\Rightarrow x+u\in V\Rightarrow (-y+x)+u\in G$. Como
+  $-y+x\in G$, segue que $u\in G$. Logo, $F\subset G$. Analogamente
+  podemos provar que $G\subset F$.
+\end{proof}
+
+O conjunto das soluções do sistema linear
+\begin{equation}
+  \label{eq:1}
+  \begin{split}
+    a_{11}x_1+\cdots+a_{1n}x_n&=b_1\\
+    \vdots\qquad\qquad&\quad\,\,\vdots\\
+    a_{m1}x_1+\cdots+a_{mn}x_n&=b_m
+  \end{split}
+\end{equation}
+é claramente uma variedade afim $V$ de $\R^n$. Se
+$v=(x_1,\ldots,x_n)\in V$ e $F$ é o subespaço das soluções do sistema
+homogêneo associado, pelo teorema~\ref{thm:1}, $V=v+F$ e, por
+conseguinte, toda solução do sistema~(\ref{eq:1}) pode ser obtida
+somando a solução particular $v$ com a solução geral do sistema
+homogêneo associado.
+
+% Seja $X\subset E$ um conjunto não-vazio. A \textit{variedade afim
+% gerada} por $X$ é o conjunto $V(X)$ formado por todas as combinações
+% lineares $\alpha_1x_1+\cdots+\alpha_nx_n$, com $x_1,\ldots,x_n\in X$
+% e $\alpha_1+\cdots+\alpha_n=1$. Segue imediatamente dessa definição
+% que $V(X)$ é uma variedade afim.
+
+% \begin{thm}
+%   Dado $X\subset E$, seja $x_0\in X$. O subespaço $F$ gerado pelo
+%   conjunto $\{x-x_0:x\in X\}$ é tal que $V(X)=x_0+F$.
+% \end{thm}
+% \begin{proof}
+%   Pelo teorema~\ref{thm:1}, existe um único espaço vetorial $F$ tal
+%   que $V=x_0+F$. Se $u\in F$, então $x_0+u\in V$ e, por conseguinte,
+%   existem $x_1,\ldots,x_n\in X$ e $\alpha_1,\ldots,\alpha_n\in \R$
+%   com $\alpha_1+\cdots+\alpha_n=1$ tais que
+%   $x_0+u=\alpha_1x_1+\cdots+\alpha_nx_n$. Isso implica que
+%   $u=\alpha_1(x_1-x_0)+\cdots+\alpha_n(x_n-x_0)$. Dessa maneira,
+%   temos que $F\subset S(-x_0+X)$. Como $-x_0+X\subset -x_0+V=F$,
+%   então $S(-x_0+X)\subset F$ e, portanto, $F=S(-x_0+X)$.
+% \end{proof}
+
+% O \textit{segmento de reta} de extremidades $u,v\in E$ é o conjunto
+% $$[u,v]=\{(1-\alpha)u+\alpha v:0\le \alpha\le 1\}\,.$$
+% Um conjunto $X\subset E$ é dito um \textit{conjunto convexo} se todo
+% segmento de reta com extremidades em pontos de $X$ está contido em
+% $X$. A \textit{combinação convexa} de vetores $v_1,\ldots,v_n\in E$
+% é o vetor $\alpha_1v_1+\cdots+\alpha_nv_n$, onde
+% $\alpha_1,\ldots,\alpha_n\in [0,1]$ e $\alpha_1+\cdots+\alpha_n=1$.
+
+% \begin{thm}
+%   Se $X\subset E$ é um conjunto convexo, então toda combinação
+%   convexa de vetores de $X$ pertence a $X$.
+% \end{thm}
+% \begin{proof}
+%   Procedemos por indução no número de vetores que participam da
+%   combinação convexa. Primeiramente, por definição, a combinação
+%   convexa de dois vetores de $X$ pertence a $X$. Suponhamos que o
+%   teorema seja válida para a combinação convexa de $n$ vetores de
+%   $X$. Se $x_1,x_2,\ldots,x_{n+1}\in X$, consideremos a combinação
+%   convexa $v=\alpha_1x_1+\alpha_2x_2+\cdots+\alpha_{n+1}x_{n+1}$ com
+%   $\alpha_1+\alpha_2+\cdots+\alpha_{n+1}=1$. Se $\alpha_1=1$,
+%   $v=x_1\in X$. Se $\alpha_1\ne 0$, então definimos
+%   $\beta_2=\alpha_2/(1-\alpha_1),
+%   \ldots,\beta_{n+1}=\alpha_{n+1}/(1-\alpha_1)$. Vemos que
+%   $\beta_2,\ldots,\beta_{n+1}\in [0,1]$ e
+%   $\beta_2+\cdots+\beta_{n+1}=1$. Logo,
+%   $u=\beta_2x_2+\cdots+\beta_{n+1}x_{n+1}\in X$ e, por conseguinte,
+%   $v=\alpha_1x_1+(1-\alpha_1)u\in X$.
+% \end{proof}
+
+% A \textit{envoltória convexa} de um conjunto $X\subset E$ é o
+% conjunto $C(X)$ de todas as combinações convexas de vetores de
+% $X$. Segue imediatamente dessa definição que $C(X)$ é o menor
+% conjunto convexo que contém $X$.
+
+% Um \textit{cone} é um conjunto $C\subset E$ tal que
+% $v\in C\Rightarrow \alpha v\in C$ para qualquer $\alpha>0$.
+
+% \begin{thm}
+%   Um cone $C\subset E$ é um conjunto convexo se, e somente se,
+%   $u,v\in C\Rightarrow u+v\in C$.
+% \end{thm}
+% \begin{proof}
+%   $(\Rightarrow)$ Dados $u,v\in C$, temos que $(u+v)/2\in C$, o que
+%   implica que, $u+v\in C$. ($\Leftarrow$) Dados $u,v\in C$ e
+%   $\alpha\in[0,1]$, temos que $(1-\alpha)u\in C$ e $\alpha v\in
+%   C$. Logo, $(1-\alpha)u+\alpha v\in C$.
+% \end{proof}
+
+% \begin{thm}
+%   Se $C\subset E$ é um cone convexo, então $S(C)=\{u-v:u,v\in C\}$.
+% \end{thm}
+% \begin{proof}
+%   Vemos imediatamente que $F=\{u-v:u,v\in C\}$ é um subespaço. Dado
+%   $u\in C$, $u+v\in C$ para todo $v\in C$. Logo, $u=(u+v)-v\in F$ e,
+%   por conseguinte, $C\subset F$. Portanto, $S(C)\subset F$. A
+%   inclusão recíproca é obvia.
+% \end{proof}
+
+\section{Bases}
+
+Seja $E$ um espaço vetorial. Diz-se que um conjunto $X\subset E$ é
+\textit{linearmente independente (L.I.)} quando nenhum vetor de $X$ é
+combinação linear de vetores de $X$. Nesse caso também diz-se que os
+vetores de $X$ são L.I.. Se $X=\{v\}$, põe-se por definição que $X$ é
+L.I. quando $v\ne 0$. Vemos imediatamente que, se $X$ é L.I., qualquer
+$Y\subset X$ é L.I..
+
+O conjunto $\{(1,0), (0,1)\}$ é claramente um subconjunto $L.I.$ de
+$\R^2$. O conjunto $\{x, x^2,x^3,\ldots\}$ é claramente um subconjunto
+L.I. do espaço vetorial dos polinômios em $x$.
+
+\begin{thm}
+  Um conjunto $X$ é L.I. se, e somente se,
+  $$\forall x_1,\ldots,x_n\in X\,, \alpha_1x_1+\cdots+\alpha_nx_n=0\Rightarrow
+  \alpha_1=\ldots=\alpha_n=0\,.$$
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Se existem $x_1,\ldots,x_n\in X$ tais que
+  $\alpha_1x_1+\cdots+\alpha_nx_n=0$ com $\alpha_n\ne 0$, então
+  $x_n=-(\alpha_1/\alpha_n)x_1-\cdots-(\alpha_{n-1}/\alpha_n)x_{n-1}$,
+  o que implica que $X$ não é L.I.. ($\Leftarrow$) Se $X$ não é L.I.,
+  existem $v,x_1,\ldots,x_n\in X$ tais que
+  $v=\alpha_1x_1+\cdots+\alpha_nx_n$, o que implica que
+  $v-\alpha_1x_1-\cdots-\alpha_nx_n=0$.
+\end{proof}
+\begin{cor}
+  \label{thm:2}
+  Se $\{x_1,\ldots,x_n\}$ é L.I. e
+  $\alpha_1x_1+\cdots+\alpha_nx_n=\beta_1x_1+\cdots+\beta_nx_n$, então
+  $\alpha_i=\beta_i$, $i=1,\ldots,n$.
+\end{cor}
+
+\begin{thm}
+  O conjunto $X=\{x_1,\ldots,x_n\}$ é L.I. se nenhum vetor é
+  combinação linear dos anteriores.
+\end{thm}
+\begin{proof}
+  Se $X$ não é L.I., existem $\alpha_1,\ldots,\alpha_n\in\R$ não todos
+  nulos tais que $\alpha_1x_1+\cdots+\alpha_nx_n=0$. Seja $r$ o maior
+  índice tal que $\alpha_r\ne 0$. Logo,
+  $x_r=-(\alpha_1/\alpha_r)x_1-\cdots-(\alpha_{r-1}/\alpha_r)x_{r-1}$.
+\end{proof}
+
+Seja $E$ um espaço vetorial. Um conjunto $X\subset E$ é
+\textit{linearmente dependente (L.D.)}  quando não é L.I.. Vemos
+imediatamente que, se um subconjunto $Y\subset X$ é L.D., $X$ é
+L.D.. Em particular, se $0\in X$, $X$ é L.D..
+
+O conjunto $\{(1,0), (0,1), (1,1)\}\subset \R^2$ é claramente L.D..
+
+Seja $E$ um espaço vetorial. Uma \textit{base} de $E$ é um conjunto
+L.I.  $B\subset E$ tal que $S(B)=E$. Se $B$ é uma base de $E$ e
+$v=\alpha_1x_1+\cdots+\alpha_nx_n$ com $x_1,\ldots,x_n\in B$, pelo
+corolário~\ref{thm:2}, os números $\alpha_1,\ldots,\alpha_n$ são
+únicos e são chamados de as \textit{coordenadas} do vetor $v$ na base
+$B$.
+
+O conjunto $\{(0,1),(1,0)\}\subset \R^2$ é claramente uma base de
+$\R^2$, chamada de a \textit{base canônica} de $\R^2$. O conjunto
+$\{1,x,x^2,\ldots\}$ é claramente uma base do espaço vetorial dos
+polinômios em $x$.
+
+\begin{lem}
+  \label{thm:3}
+  O sistema linear homogêneo
+  \begin{equation}
+    \label{eq:2}
+    \begin{split}
+      a_{11}x_1+\cdots+a_{1n}x_n&=0\\
+      \vdots\qquad\qquad&\quad\,\,\vdots\\
+      a_{m1}x_1+\cdots+a_{mn}x_n&=0
+    \end{split}
+  \end{equation}
+  tem uma solução não trivial quando $m<n$, ou seja, tem uma solução
+  $(x_1,\ldots,x_n)\ne 0$.
+\end{lem}
+\begin{proof}
+  Procedemos por indução no número de equações. Se temos uma equação
+  $a_{11}x_1+\cdots+a_{1n}x_n=0$ com $n>1$ e $a_{1n}\ne 0$, então,
+  fixados $x_1,\ldots,x_{n-1}\in\R$,
+  $$\dpar{x_1,\ldots,x_{n-1},-\frac{a_{11}}{a_{1n}}x_1-\cdots-\frac{a_{1n-1}}{a_{1n}}x_{n-1}}$$
+  é uma solução não trivial. Suponhamos que o lema seja válido para
+  $m-1$ equações e consideremos o sistema~(\ref{eq:2}). Renomeando os
+  coeficientes e as variáveis se necessário, podemos supor que
+  $a_{mn}\ne 0$. Logo, da última equação de~(\ref{eq:2}) obtemos que
+  \begin{equation}
+    \label{eq:3}
+    x_n=-\frac{a_{m1}}{a_{mn}}x_1-\cdots-\frac{a_{mn-1}}{a_{mn}}x_{n-1}\,.
+  \end{equation}
+  Substituindo essa expressão nas $m-1$ equações restantes, obtemos um
+  sistema de $m-1$ equações com $n-1>m-1$ incógnitas, o qual, pela
+  hipótese de indução, tem uma solução não trivial
+  $(x_1,\ldots, x_{n-1})$. Logo, $(x_1,\ldots,x_{n-1},x_n)$ com $x_n$
+  dado por~(\ref{eq:3}) é uma solução não trivial de~(\ref{eq:2}).
+\end{proof}
+
+\begin{thm}
+  Seja $E$ um espaço vetorial. Se $\{u_1,\ldots,u_n\}$ é um conjunto
+  de geradores de $E$, então qualquer conjunto com mais de $n$ vetores
+  é L.D..
+\end{thm}
+\begin{proof}
+  Dados $v_1,\ldots,v_{n+1}\in E$, temos que
+  $v_i=\alpha_{1i}u_1+\cdots+\alpha_{ni}u_n$, $i=1,\ldots,n+1$. Se
+  $\beta_1v_1+\cdots+\beta_{n+1}v_{n+1}=0$, então
+  $$\dpar{\sum_{i=1}^{n+1}\alpha_{1i}\beta_i}u_1+\cdots+\dpar{\sum_{i=1}^{n+1}\alpha_{ni}\beta_i}u_n=0\,,$$
+  o qual é satisfeito em particular quando
+  \begin{equation*}
+    \begin{split}
+      \alpha_{11}\beta_1+\cdots+\alpha_{1n+1}\beta_{n+1}&=0\\
+      \vdots\qquad\qquad&\quad\,\,\,\vdots\\
+      \alpha_{n1}\beta_1+\cdots+\alpha_{nn+1}\beta_{n+1}&=0\,.\\
+    \end{split}
+  \end{equation*}
+  Pelo lema~\ref{thm:3}, esse sistema tem uma solução não trivial
+  $(\beta_1,\ldots,\beta_{n+1})$, o que implica que
+  $\{v_1,\ldots,v_{n+1}\}$ é L.D..
+\end{proof}
+
+\begin{cor}
+  Seja $E$ um espaço vetorial. Se $\{x_1,\ldots,x_n\}$ é uma base de
+  $E$, então toda base de $E$ tem $n$ elementos.
+\end{cor}
+
+Um espaço vetorial $E$ tem \textit{dimensão finita} quando existe uma base
+$\{u_1,\ldots,u_n\}\subset E$. O número $n$ é chamado de
+\textit{dimensão} de $E$ e é denotado por $\dim E$. Se $E=\{0\}$,
+põe-se por definição que $\dim E=0$. Quando um espaço vetorial não tem
+dimensão finita, diz-se que tem \textit{dimensão infinita}.
+
+\begin{cor}
+  Seja $E$ um espaço vetorial com $\dim E=n$. Um conjunto $X\subset E$
+  de $n$ elementos é L.I. se, e somente se, $S(X)=E$.
+\end{cor}
+
+\begin{thm}
+  Seja $E$ um espaço vetorial com $\dim E=n$. Tem-se que
+  \begin{enumerate}
+  \item todo conjunto de geradores de $E$ contém uma base;
+  \item todo conjunto L.I. de $E$ pode ser estendido a uma base;
+  \item todo subespaço $F\subset E$ é de dimensão finita e
+    $\dim F\le n$;
+  \item se $F\subset E$ é um subespaço tal que $\dim F=n$, então
+    $F=E$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item Seja $X$ um conjunto de geradores de $E$ e seja
+    $B=\{x_1,\ldots,x_m\}$ um subconjunto de $X$ com o número máximo
+    de vetores L.I. ($m\le n$). Se existe $u\in X$ tal que $u$ não é
+    combinação linear de vetores de $B$, então $B\cup\{u\}$ seria um
+    conjunto L.I.. Contradição! Logo, todo vetor de $X$ deve ser
+    combinação linear de vetores de $B$. Como $X\subset S(B)$ e
+    $S(X)=E$, segue que $S(B)=E$, ou seja, $B$ é uma base de $E$.
+  \item Seja $\{v_1,\ldots,v_k\}\subset E$ um conjunto
+    L.I.. Procuramos um vetor $v_{k+1}\in E$ que não seja combinação
+    linear de $v_1,\ldots,v_k$. Se esse vetor não existe,
+    $\{v_1,\ldots,v_k\}$ é um conjunto de geradores de $E$ e, por
+    conseguinte, uma base de $E$. Por outro lado, se tal vetor existe,
+    procuramos por um vetor $v_{k+2}\in E$ que não seja combinação
+    linear de $v_1,\ldots,v_k,v_{k+1}$. Seguindo esse procedimento, o
+    qual tem fim devido a que existem no máximo $n$ vetores L.I. em
+    $E$, obtemos um conjunto
+    $B=\{v_1,\ldots,v_k,v_{k+1},\ldots,v_m\}\subset E$ que tem o
+    número máximo de vetores L.I.. Logo, $B$ é uma base de $E$.
+  \item Seja $B=\{v_1,\ldots,v_m\}\subset F$ um conjunto com o número
+    máximo de vetores L.I.. Logo, $B$ é uma base de $F$. Como
+    $B\subset E$ é L.I., deve-se ter $m\le n$.
+  \item Seja $B=\{u_1,\ldots,u_n\}$ uma base de $F$. Como $B\subset E$
+    é um conjunto L.I. que tem $n$ elementos, $S(B)=E$, ou seja, $B$ é
+    uma base de $E$. Portanto, $F=E$.\qedhere
+  \end{enumerate}
+\end{proof}
+
+O hiperplano
+$H=\{(x_1,\ldots,x_n)\in\R^n:\alpha_1x_1+\cdots+\alpha_nx_n=0\}$ tem
+dimensão $n-1$. Com efeito, assumindo que $\alpha_n\ne 0$, temos que
+$$x_n=-\frac{\alpha_1}{\alpha_n}x_1-\cdots-\frac{\alpha_{n-1}}{\alpha_n}x_{n-1}\,.$$
+Logo, os vetores
+$$(1,0,\ldots,0,-\alpha_1/\alpha_n),(0,1,\ldots,0,-\alpha_2/\alpha_n),\ldots,(0,0,\ldots,1,-\alpha_{n-1}/\alpha_n)$$
+formam uma base de $H$.
+
+Define-se a \textit{dimensão} de uma variedade afim $V$ como a
+dimensão do subespaço $F$ tal que $V=x+F$ para qualquer $x\in V$.
+
+\section{Transformações lineares}
+
+Dados os espaços vetoriais $E$ e $F$, uma \textit{transformação
+  linear} é uma aplicação $A:E\to F$ tal que $A(u+v)=Au+Av$ e
+$A(\alpha u)=\alpha Au$ para quaisquer $\alpha\in\R$ e $u,v\in E$. Se
+$F=E$, diz-se que $A$ é um \textit{operador linear}. Se $F=\R$, diz-se
+que $A$ é um \textit{funcional linear}.
+
+O conjunto ${\cal L}(E,F)$ de todas as transformações lineares
+$A:E\to F$ é claramente um espaço vetorial. Se $F=E$, escrevemos
+${\cal L}(E)$ no lugar de ${\cal L}(E,E)$. Se $F=\R$, escrevemos $E^*$
+no lugar de ${\cal L}(E,\R)$, que é chamado de \textit{espaço dual} de
+$E$.
+
+\begin{thm}
+  \label{thm:4}
+  Sejam $E$ e $F$ espaços vetoriais, ${\cal B}$ uma base de $E$ e
+  $f:{\cal B}\to F$ uma aplicação qualquer. Existe uma única
+  transformação linear $A:E\to F$ tal que $Au=f(u)$ para todo
+  $u\in {\cal B}$.
+\end{thm}
+\begin{proof}
+  Definimos a aplicação $A:E\to F$ pondo
+  $Av=\alpha_1f(u_1)+\cdots+\alpha_nf(u_n)$ quando
+  $v=\alpha_1u_1+\cdots+\alpha_nu_n$ com $u_1,\ldots,u_n\in{\cal
+    B}$. Vamos provar que $A$ é uma transformação linear. Dados
+  $v,w\in E$, existem $u_1,\ldots,u_n\in \mathcal{B}$ e
+  $\alpha_1,\ldots,\alpha_n,\beta_1,\ldots,\beta_n\in \R$, talvez não
+  todos diferentes de zero, tais que
+  $v=\alpha_1u_1+\cdots+\alpha_nu_n$ e
+  $w=\beta_1u_1+\cdots+\beta_nu_n$. Logo,
+  \begin{equation*}
+    \begin{split}
+      A(u+v)&=A\dpar{\sum_{i=1}^n(\alpha_i+\beta_i)u_i}\\
+      &=\sum_{i=1}^n(\alpha_i+\beta_i)f(u_i)\\
+      &=\sum_{i=1}^n\alpha_if(u_i)+\sum_{i=1}^n\beta_if(u_i)\\
+      &=Av+Aw\,.
+    \end{split}
+  \end{equation*}
+  Por outro lado, dado $\gamma\in\R$, temos que
+  $$A(\gamma
+  v)=A\dpar{\sum_{i=1}^n(\gamma\alpha_i)u_i}=\gamma\sum_{i=1}^n\alpha_if(u_i)=\gamma
+  Av\,.$$ Vamos provar agora a unicidade de $A$. Seja $B:E\to F$ uma
+  transformação linear tal que $B(u)=f(u)$ para todo
+  $u\in\mathcal{B}$. Para qualquer $v\in E$ existem
+  $u_1,\ldots,u_n\in\mathcal{B}$ tais que
+  $v=\alpha_1u_1+\cdots+\alpha_nu_n$. Logo,
+  \begin{equation*}
+    Bv=B\dpar{\sum_{i=1}^n\alpha_iu_i}=\sum_{i=1}^n\alpha_if(u_i)=Av\,.\qedhere
+  \end{equation*}
+\end{proof}
+
+Se $E$ é um espaço vetorial com $\dim E=1$, toda operador linear
+$A:E\to E$ é da forma $A=\lambda I$, onde $\lambda\in\R$ e $I:E\to E$
+é o \textit{operador identidade} definido por $Iv=v$. Com efeito,
+escolhendo $u\in E$, $u\ne 0$, temos que $\{u\}$ é uma base de
+$E$. Pelo teorema~\ref{thm:4}, o operador $A$ fica definido pela
+igualdade $Au=w$. Logo, dado $v\in E$, existe $\alpha\in\R$ tal que
+$v=\alpha u$ e, por conseguinte, $Av=\alpha w$. Como $w=\lambda u$
+para um certo $\lambda\in\R$,
+$Av=\alpha\lambda u=\lambda v=\lambda Iv$.
+
+A rotação de vetores no plano é um exemplo de um operador linear. Com
+efeito, esse operador $R$ está definido pelas equações
+$R(1,0)=(\cos\theta,\sen\theta)$ e $R(0,1)=(-\sen\theta,\cos\theta)$.
+
+Se $C_0([a,b])$ é o espaço vetorial das funções contínuas
+$f:[a,b]\to\R$, a função $I:C_0([a,b])\to\R$ definida por
+$I(f)=\int_a^bf(x)\,dx$ é um funcional linear.
+
+Se $A:E\to F$ e $B:F\to G$ são transformações lineares, então a
+aplicação $BA:E\to G$, definida por $BAv=B(Av)$, é uma transformação
+linear, chamada de o \textit{produto} de $B$ e $A$. Com efeito, dados
+$u,v\in E$ e $\alpha\in\R$ temos que $BA(u+v)=B(Au+Av)=BAu+BAv$ e
+$BA(\alpha v)=B(\alpha Av)=\alpha BAv$.
+
+Um operador $A:E\to E$ é dito \textit{nilpotente} quando existe
+$k\in\N$ tal que $A^k=0$. Por exemplo, o operador $A:\R^2\to\R^2$
+definido por $A(1,0)=(0,1)$ e $A(0,1)=0$ é nilpotente, pois $A^2=0$.
+
+A \textit{imagem} de uma transformação linear $A:E\to F$ é o conjunto
+$Im(A)=\{Av\in F:v\in E\}$. Vemos imediatamente que $Im(A)$ é um
+subespaço de $F$. Se $Im(A)=F$, diz-se que $A$ é \textit{sobrejetiva}.
+
+Um funcional linear $A:E\to \R$ é nulo ou é sobrejetivo, pois os
+únicos subespaços de $\R$ são $\{0\}$ e o próprio $\R$.
+ 
+\begin{thm}
+  \label{thm:5}
+  Uma transformação linear $A:E\to F$ é sobrejetiva se, e somente se,
+  todo conjunto de geradores de $E$ é transformado em um conjunto de
+  geradores de $F$.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Dado $w\in F$, existe $v\in E$ tal que $Av=w$. Se
+  $X\subset E$ é um conjunto de geradores de $E$, existem
+  $u_1,\ldots,u_n\in X$ tais que
+  $v=\alpha_1u_1+\cdots+\alpha_nu_n$. Logo,
+  $w=\alpha_1Au_1+\cdots+\alpha_nAu_n$. Portanto, $\{Au\in F:u\in X\}$
+  é um conjunto de geradores de $F$. ($\Leftarrow$) Dado $w\in F$,
+  existem $u_1,\ldots,u_n\in E$ tais que
+  $w=\alpha_1Au_1+\cdots+\alpha_nAu_n=A(\alpha_1u_1+\cdots+\alpha_nu_n)$. Logo,
+  $A$ é sobrejetiva.
+\end{proof}
+\begin{cor}
+  \label{thm:6}
+  Se $A:E\to F$ é uma transformação linear e $\dim E<\infty$, então
+  $\dim Im(A)\le \dim E$.
+\end{cor}
+
+Uma transformação linear $B:F\to E$ é dita uma \textit{inversa à
+  direita} de uma transformação linear $A:E\to F$ quando $AB:F\to F$ é
+o operador identidade, ou seja, $ABv=v$ para todo $v\in F$.
+
+\begin{thm}
+  \label{thm:7}
+  Seja $F$ um espaço vetorial de dimensão finita. Uma transformação
+  linear $A:E\to F$ é sobrejetiva se, e somente se, possui uma inversa
+  à direita.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Seja $X$ um conjunto de geradores de $E$. Pelo
+  teorema~\ref{thm:5}, o conjunto $\{Au:u\in X\}$ é um conjunto de
+  geradores de $F$. Como $\dim F<\infty$, existem
+  $u_1,\ldots,u_n\in X$ tais que $\{Au_1,\ldots,Au_n\}$ é uma base de
+  $F$. Definimos então uma transformação linear $B:F\to E$ pondo
+  $B(Au_i)=u_i$, $i=1,\ldots, n$. Dado $v\in F$, temos que
+  $v=\alpha_1Au_1+\cdots+\alpha_nAu_n$ e
+  $ABv=A(\alpha_1u_1+\cdots+\alpha_nu_n)=v$. Portanto, $B$ é uma
+  inversa à direita de $A$. $(\Leftarrow)$ Seja $B:F\to E$ uma inversa
+  à direita de $A$. Dado $w\in F$, seja $Bw=v$. Dessa maneira, existe
+  $v\in E$ tal que $Av=ABw=w$, ou seja, $A$ é sobrejetiva.
+\end{proof}
+
+O funcional $I:C^0([a,b])\to \R$ definido por $I(f)=\int_a^bf(x)\,dx$
+é sobrejetivo. Uma inversa à direita de $I$ é a transformação linear
+$J:\R\to C^0([a,b])$ definida por $J(1)=1/(b-a)$.
+
+O \textit{núcleo} de uma transformação linear $A:E\to F$ é o conjunto
+$N(A)=\{v\in E:Av=0\}$. Assim como a imagem de $A$, podemos verificar
+imediatamente que $N(A)$ é um subespaço de $E$.
+
+Uma transformação linear $A:E\to F$ é \textit{injetiva} se, dados
+$u,v\in E$, $Au=Av\Rightarrow u=v$. Por exemplo, a transformação
+linear $A:\R^2\to\R^3$ definida por $A(1,0)=(1,0,0)$ e
+$A(0,1)=(0,1,0)$ é injetiva.
+
+\begin{thm}
+  \label{thm:8}
+  Uma transformação linear $A:E\to F$ é injetiva se, e somente se,
+  $N(A)=\{0\}$.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Dado $v\in E$, se $Av=0=A0$, então
+  $v=0$. ($\Leftarrow$) Dados $u,v\in E$,
+  $Au=Av\Rightarrow A(u-v)=0\Rightarrow u-v\in N(A)\Rightarrow u-v=0$.
+\end{proof}
+
+\begin{thm}
+  \label{thm:9}
+  Uma transformação linear $A:E\to F$ é injetiva se, e somente se,
+  todo subconjunto L.I. de $E$ é transformado em um subconjunto
+  L.I. de $F$.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Dado um conjunto L.I. $X\subset E$, seja
+  $Y=\{Au:u\in X\}$. Se $v_1,\ldots,v_n\in Y$ e
+  $\alpha_1v_1+\cdots+\alpha_nv_n=0$, existem $u_1,\ldots,u_n\in X$
+  tais que $v_i=Au_i$, $i=1,\ldots,n$. Logo,
+  $\alpha_1v_1+\cdots+\alpha_nv_n=0\Rightarrow
+  \alpha_1Au_1+\cdots+\alpha_nAu_n=A(\alpha_1u_1+\cdots+\alpha_nu_n)=0\Rightarrow
+  \alpha_1u_1+\cdots+\alpha_nu_n=0\Rightarrow
+  \alpha_1=\ldots=\alpha_n=0$. ($\Leftarrow$) Para qualquer $v\in E$
+  com $v\ne 0$ temos que $Av\ne 0$. Logo, $N(A)=\{0\}$ e, pelo
+  teorema~\ref{thm:8}, $A$ é injetiva.
+\end{proof}
+
+\begin{cor}
+  \label{thm:10}
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita. Se existe uma
+  transformação linear injetiva $A:E\to F$, então $\dim E\le \dim F$.
+\end{cor}
+
+Segue do corolário~\ref{thm:10} que não existe transformação linear
+injetiva $A:\R^3\to\R^2$.
+
+\begin{thm}
+  \label{thm:11}
+  Seja $A:E\to F$ uma transformação linear. Para cada $b\in Im(A)$, o
+  conjunto $V=\{x\in E:Ax=b\}$ é uma variedade afim de $E$ paralela a
+  $N(A)$.
+\end{thm}
+\begin{proof}
+  Verifica-se facilmente que $V$ é uma variedade afim. Dado
+  $x_0\in V$, vemos que
+  $x\in V\Leftrightarrow x-x_0\in N(A)\Leftrightarrow x\in
+  x_0+N(A)$. Portanto, $V=x_0+N(A)$.
+\end{proof}
+
+Uma transformação linear $B:F\to E$ é uma \textit{inversa à esquerda}
+de uma transformação linear $A:E\to F$ se $BA:E\to E$ é o operador
+identidade.
+
+\begin{thm}
+  \label{thm:12}
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita. Uma
+  transformação linear $A:E\to F$ é injetiva se, e somente se, possui
+  uma inversa à esquerda.
+\end{thm}
+\begin{proof}
+  $(\Rightarrow)$ Seja $\{u_1,\ldots,u_n\}$ uma base de $E$. Pelo
+  teorema~\ref{thm:9}, o conjunto $\{Au_1,\ldots,Au_n\}$ é
+  L.I.. Logo, pode ser estendido a uma base
+  $\{Au_1,\ldots,Au_n,v_1,\ldots,v_m\}$ de $F$.  Definimos então a
+  transformação linear $B:F\to E$ pondo $B(Au_i)=u_i$ para
+  $i=1,\ldots,n$ e $Bv_j=u_1$ para $j=1,\ldots,m$. Dado $v\in E$,
+  temos que $v=\alpha_1+\cdots+\alpha_nv_n$ e
+  $Av=\alpha_1Au_1+\cdots+\alpha_nAu_n$. Logo,
+  $BAv=\alpha_1u_1+\cdots+\alpha_nu_n=v$. Dessa maneira, $B$ é uma
+  inversa à esquerda de $A$. ($\Leftarrow$) Se $B:F\to E$ é uma
+  inversa à esquerda de $A$, dados $u,v\in E$,
+  $Au=Av\Rightarrow u=BAu=BAv=v$. Portanto, $A$ é injetiva.
+\end{proof}
+
+A transformação linear $A:\R\to \R^2$ definida por $A(1)=(1,1)$ é
+claramente injetiva. Uma inversa à esquerda de $A$ é o funcional
+linear $B:\R^2\to\R$ definido por $B(1,1)=1$ e $B(-1,1)=0$.
+
+Uma transformação linear $A:E\to F$ é \textit{invertível} quando
+possui uma inversa à esquerda e uma inversa à direita. Nesse caso, se
+$B,C:F\to E$ são respectivamente uma inversa à esquerda e uma inversa
+à direita de $A$, então $B=B(AC)=(BA)C=C$, ou seja, $A$ possui uma
+única transformação linear inversa, chamada de a \textit{inversa} de
+$A$ e denotada usualmente por $A^{-1}$.
+
+Uma transformação linear $A:E\to F$ é chamada de um
+\textit{isomorfismo} quando é injetiva e sobrejetiva. Nesse caso,
+diz-se também que $E$ e $F$ são \textit{isomorfos}. Em virtude dos
+teoremas~\ref{thm:5} e~\ref{thm:9}, uma transformação linear
+$A:E\to F$ é um isomorfismo se, e somente se, transforma bases de $E$
+em bases de $F$. Além disso, se $E$ e $F$ têm dimensão finita, segue
+dos dos corolários~\ref{thm:6} e~\ref{thm:10} que $\dim E=\dim
+F$. Nesse caso, pelos teoremas~\ref{thm:7} e~\ref{thm:12}, temos
+também que uma transformação linear $A:E\to F$ é um isomorfismo se, e
+somente se, é invertível.
+
+Se $E$ e $F$ são espaços vetoriais de dimensão finita com
+$\dim E=\dim F$, então eles são isomorfos. Com efeito, se
+$\{u_1,\ldots,u_n\}$ é uma base de $E$ e $\{v_1,\ldots,v_n\}$ é uma
+base de $F$, basta definir uma transformação linear $A:E\to F$ pondo
+$Au_i=v_i$, $i=1,\ldots,n$. Como $A$ transforma uma base de $E$ em uma
+base de $F$, $A$ é um isomorfismo.
+
+O espaço vetorial dos polinômios em $x$ de grau $\le n$ é isomorfo a
+$\R^{n+1}$, pois ambos têm a mesma dimensão.
+
+\begin{thm}[Teorema do núcleo e da imagem]
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita. Se $A:E\to F$
+  é uma transformação linear, então $\dim E=\dim N(A)+\dim Im(A)$.
+\end{thm}
+\begin{proof}
+  Sejam $\{Au_1,\ldots,Au_m\}$ uma base de $Im(A)$ e
+  $\{v_1,\ldots,v_n\}$ uma base de $N(A)$. O conjunto
+  ${\cal B}=\{u_1,\ldots,u_m,v_1,\ldots,v_n\}$ é L.I., pois
+  $\alpha_1u_1+\cdots+\alpha_mu_m+\beta_1v_1+\cdots+\beta_nv_n=0\Rightarrow
+  \alpha_1Au_1+\cdots+\alpha_mAu_m+0=0\Rightarrow
+  \alpha_1=\ldots=\alpha_m=0$ e, por conseguinte,
+  $\alpha_1u_1+\cdots+\alpha_mu_m+\beta_1v_1+\cdots+\beta_nv_n=0\Rightarrow
+  \beta_1v_1+\cdots+\beta_nv_n=0\Rightarrow
+  \beta_1=\ldots=\beta_n=0$. Dado $v\in E$, existem
+  $\alpha_1,\ldots,\alpha_m\in\R$ tais que
+  $Av=\alpha_1Au_1+\cdots+\alpha_mAu_m$. Logo,
+  $A(v-\alpha_1u_1-\cdots-\alpha_mu_m)=0$, o que implica que
+  $v-\alpha_1u_1-\cdots-\alpha_mu_m\in N(A)$. Consequentemente,
+  existem $\beta_1,\ldots,\beta_n\in\R$ tais que
+  $v-\alpha_1u_1-\cdots-\alpha_mu_m=\beta_1v_1+\cdots+\beta_nv_n$, ou
+  seja,
+  $v=\alpha_1u_1+\cdots+\alpha_mu_m+\beta_1v_1+\cdots+\beta_nv_n$. Portanto
+  ${\cal B}$ é uma base de $E$.
+\end{proof}
+
+\begin{cor}
+  \label{thm:13}
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita com
+  $\dim E=\dim F$. Uma transformação linear $A:E\to F$ é injetiva se,
+  e somente se, é sobrejetiva.
+\end{cor}
+
+O corolário~\ref{thm:13} em geral é falso para espaços vetoriais de
+dimensão infinita. Por exemplo, consideremos os operadores lineares
+$A,B:\R^\N\to\R^\N$ definidos por
+$A(x_1,x_2,\ldots)=(0,x_1,x_2,\ldots)$ e
+$B(x_1,x_2,x_3,\ldots)=(x_2,x_3,\ldots)$. Vemos que $A$ é injetivo mas
+não é sobrejetivo e que $B$ é sobrejetivo mas não é injetivo.
+
+\section{Soma direta e projeção}
+
+Sejam $E_1$ e $E_2$ espaços vetoriais. O produto cartesiano
+$E_1\times E_2$ é um espaço vetorial se definimos
+$(u_1,u_2)+(v_1,v_2)=(u_1+v_1,u_2+v_2)$ e
+$\alpha(u_1,v_1)=(\alpha u_1,\alpha v_1)$ para quaisquer
+$u_1,v_1\in E_1$, $u_2,v_2\in E_2$ e $\alpha\in\R$.
+
+Sejam $F_1$ e $F_2$ subespaços de um espaço vetorial $E$ de dimensão
+finita tais que $E=F_1\oplus F_2$. Se $\{u_1,\ldots,u_m\}$ e
+$\{v_1,\ldots,v_n\}$ são bases de $F_1$ e $F_2$ respectivamente, vemos
+imediatamente que $\{(u_1,0),\ldots,(u_m,0),(0,v_1),\ldots,(0,v_n)\}$
+é uma base de $F_1\times F_2$. Logo, a transformação linear
+$A:F_1\times F_2\to E$ definida por $A(u_i,0)=u_i$, $i=1,\ldots,m$, e
+$A(0,v_j)=v_j$, $j=1,\ldots,n$, é um isomorfismo, pois
+$\{u_1,\ldots,u_m,v_1,\ldots,v_n\}$ é uma base de $E$.
+
+\begin{thm}
+  Sejam $E_1$ e $E_2$ espaços vetoriais de dimensão finita. Tem-se que
+  $\dim E_1+\dim E_2=\dim(E_1\cap E_2)+\dim (E_1+E_2)$.
+\end{thm}
+\begin{proof}
+  A transformação linear $A:E_1\times E_2\to E_1+E_2$ definida por
+  $A(v_1,v_2)=v_1+v_2$ é claramente sobrejetiva. Vemos que
+  $A(v_1,v_2)=0\Rightarrow v_1=-v_2\Rightarrow N(A)=\{(v,-v)\in
+  E_1\times E_2:v\in E_1\}$. Considerando o isomorfismo
+  $B:E_1\cap E_2\to N(A)$ definido por $B(v)=(v,-v)$, temos que
+  $\dim N(A)=\dim (E_1\cap E_2)$. Portanto, pelo teorema do núcleo e
+  da imagem,
+  $\dim E_1+\dim E_2=\dim (E_1\times E_2)=\dim (E_1\cap E_2)+\dim
+  (E_1+E_2)$.
+\end{proof}
+
+Sejam $F_1,F_2$ subespaços de um espaço vetorial $E$ tais que
+$E=F_1\oplus F_2$. Define-se a \textit{projeção de $E$ sobre $F_1$
+  paralelamente a} $F_2$ como o operador linear $P:E\to E$ definido
+por $Pv=u_1$, onde $v=u_1+u_2$, com $u_1\in F_1$ e $u_2\in F_2$. Vemos
+imediatamente que $Im(P)=F_1$ e $N(P)=F_2$.
+
+Um operador linear $A:E\to E$ é \textit{idempotente} quando $A^2=A$.
+
+\begin{thm}
+  Um operador linear $P:E\to E$ é a projeção de $E$ sobre $Im(P)$
+  paralelamente a $N(P)$ se, e somente se, $P^2=P$.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Dado $w\in E$, existem únicos $u\in Im(P)$ e
+  $v\in N(P)$ tais que $w=u+v$ e $Pw=u$. Logo,
+  $P^2w=P(u+0)=u=Pw$. Portanto $P^2=P$. ($\Leftarrow$) Dado $v\in E$,
+  temos que $v=Pv+(v-Pv)$. Como $P(v-Pv)=Pv-P^2v=0$, temos que
+  $v-Pv\in N(P)$. Se $v\in Im(P)\cap N(P)$, existe $u\in E$ tal que
+  $Pu=v$ e $Pv=0$, ou seja, $P^2u=Pu=v=0$. Logo, $E=Im(P)\oplus
+  N(P)$. Isso implica que, dado $w\in E$, existem únicos $z\in Im(P)$
+  e $v\in N(P)$ tais que $w=z+v$. Como existe $u\in E$ tal que $Pu=z$,
+  segue que $Pw=Pz=P^2u=Pu=z$. Portanto, $P$ é uma projeção de $E$
+  sobre $Im(P)$ paralelamente a $N(P)$.
+\end{proof}
+
+Uma \textit{involução} é um operador linear $S:E\to E$ tal que
+$S^2v=v$ para todo $v\in E$. Por exemplo, o operador $S:\R^2\to\R^2$
+definido por $S(1,0)=(1,0)$ e $S(0,1)=(0,-1)$ é uma involução que
+reflete todo vetor do plano em torno do eixo das abscissas.
+
+\begin{thm}
+  Seja $S:E\to E$ uma involução. Os conjuntos $F_1=\{v\in E:Sv=v\}$ e
+  $F_2=\{v\in E:Sv=-v\}$ são subespaços tais que $E=F_1\oplus
+  F_2$. Para todo $v=u_1+u_2$, com $u_1\in F_1$ e $u_2\in F_2$, tem-se
+  que $Sv=u_1-u_2$. Além disso, se $I:E\to E$ é o operador identidade,
+  então $P=(S+I)/2$ é a projeção de $E$ sobre $F_1$ paralelamente a
+  $F_2$.
+\end{thm}
+\begin{proof}
+  $F_1$ e $F_2$ são claramente subespaços. Dado $v\in E$, temos que
+  $v=(v+Sv)/2+(v-Sv)/2$, onde $(v+Sv)/2\in F_1$ e $(v-Sv)/2\in
+  F_2$. Além disso, $v\in F_1\cap F_2$ implica que $Sv=v$ e
+  $Sv=-v$. Logo, $v=0$ e, por conseguinte, $E=F_1\oplus F_2$. Dado
+  $v\in E$, existem então únicos $u_1\in F_1$ e $u_2\in F_2$ tais que
+  $v=u_1+u_2$. Logo, $Sv=u_1-u_2$. Finalmente, se $P=(S+I)/2$, então
+  $P^2=(S^2+2S+I)/4=(S+I)/2$ e, como podemos ver facilmente,
+  $Im(P)=F_1$ e $N(P)=F_2$. Portanto, $P$ é a projeção de $E$ sobre
+  $F_1$ paralelamente a $F_2$.
+\end{proof}
+
+\section{A matriz de uma transformação linear}
+
+Dados os espaços vetoriais $E$ e $F$ de dimensão finita, seja
+$A:E\to F$ uma transformação linear. Se ${\cal V}=\{u_1,\ldots,u_n\}$
+e ${\cal W}=\{v_1,\ldots,v_m\}$ são bases de $E$ e de $F$
+respectivamente, o vetor $Au_j$ pode ser expressado como uma
+combinação linear de vetores de ${\cal W}$. Dessa maneira,
+\begin{equation}
+  \label{eq:4}
+  Au_j=\sum_{i=1}^na_{ij}v_i\,,\quad j=1,\ldots,n
+\end{equation}
+Os coeficientes $a_{ij}$, $i=1,\ldots,m$, $j=1,\ldots,n$, podem ser
+interpretados como os termos de uma matriz
+${\bf a}\in{\cal M}(m\times n)$, chamada da \textit{matriz da
+  transformação linear} $A$. Vemos que, fixadas as bases ${\cal V}$ e
+${\cal W}$, a cada transformação linear $A:E\to F$ lhe corresponde uma
+única matriz ${\bf a}\in {\cal M}(m\times n)$. Por outro lado, dada
+uma matriz ${\bf a}\in{\cal M}(m\times n)$, a equação~(\ref{eq:4})
+define uma única transformação linear $A:E\to F$, em virtude do
+teorema~\ref{thm:4}, desde que as bases ${\cal V}$ e ${\cal W}$
+estejam fixadas. Mais precisamente, podemos provar facilmente que a
+transformação linear $\varphi:{\cal L}(E,F)\to{\cal M}(m\times n)$
+definida por $\varphi(A)={\bf a}$ é um isomorfismo. Em particular,
+segue disso que $\dim{\cal L}(E,F)=mn$.
+
+A matriz de uma transformação linear $A:\R^n\to\R^m$ é entendida como
+sendo a matriz de $A$ em relação às bases canônicas de $\R^n$ e
+$\R^m$, a menos que se indique o contrário. Por exemplo, a matriz do
+operador linear $R:\R^2\to\R^2$ definido por
+$R(1,0)=(\cos\theta,\sen\theta)$ e $R(0,1)=(-\sen\theta,\cos\theta)$ é
+$${\bf r}=\dsqr{
+  \begin{array}{cc}
+    \cos\theta&-\sen\theta\\
+    \sen\theta&\cos\theta
+  \end{array}
+}\,.$$
+
+\begin{thm}
+  Dados os espaços vetoriais $E, F$ e $G$ de dimensão finita, sejam
+  $A:E\to F$ e $B: F\to G$ transformações lineares. Fixadas as bases
+  ${\cal U}=\{u_1,\ldots,u_n\}$, ${\cal V}=\{v_1,\ldots,v_p\}$ e
+  ${\cal W}=\{w_1,\ldots,w_m\}$ de $E, F$ e $G$, sejam ${\bf a}$ e
+  ${\bf b}$ as matrizes de $A$ e de $B$ respectivamente. Se ${\bf c}$
+  é a matriz de $BA$, então $c_{ij}=\sum_{k=1}^pb_{ik}a_{kj}$,
+  $i=1,\ldots,m$, $j=1,\ldots,n$. A matriz ${\bf c}$ é chamada do
+  \emph{produto das matrizes} ${\bf b}$ e ${\bf a}$ e é denotada por
+  ${\bf c}={\bf ba}$.
+\end{thm}
+\begin{proof}
+  Temos que
+  \begin{equation*}
+    \begin{split}
+      Au_j&=\sum_{k=1}^pa_{kj}v_k\,,\quad j=1,\ldots,n\,,\\
+      Bv_k&=\sum_{i=1}^mb_{ik}w_i\,,\quad k=1,\ldots,p\,,\\
+      \text{e}\quad ABu_j&=\sum_{i=1}^mc_{ij}w_i\,,\quad
+      j=1,\ldots,n\,.
+    \end{split}
+  \end{equation*}
+  Dos dois primeiros grupos de equações temos que
+  $$BAu_j=\sum_{k=1}^pa_{kj}Bv_k=\sum_{k=1}^p\sum_{i=1}^ma_{kj}b_{ik}w_i=\sum_{i=1}^m\dpar{\sum_{k=1}^pb_{ik}a_{kj}}w_i\,.$$
+  Logo, usando o terceiro grupo de equações, temos que
+  $$\sum_{i=1}^mc_{ij}w_i=\sum_{i=1}^m\dpar{\sum_{k=1}^pb_{ik}a_{kj}}w_i\,.$$
+  Como ${\cal W}$ é um conjunto L.I., segue que
+  $c_{ij}=\sum_{k=1}^pb_{ik}a_{kj}$.
+\end{proof}
+
+As seguintes propriedades de matrizes são consequências diretas das
+propriedades sobre transformações lineares:
+\begin{enumerate}
+\item Dados ${\bf a}\in{\cal M}(m\times n)$,
+  ${\bf b}\in{\cal M}(n\times p)$ e ${\bf c}\in{\cal M}(p\times q)$,
+  tem-se que ${\bf a}({\bf bc})=({\bf ab}){\bf c}$.
+\item Dados ${\bf a}\in{\cal M}(m\times n)$ e
+  ${\bf b},{\bf c}\in{\cal M}(n\times p)$, tem-se que
+  ${\bf a}({\bf b}+{\bf c})={\bf ab}+{\bf ac}$.
+\item Dados ${\bf a},{\bf b}\in{\cal M}(m\times n)$ e
+  ${\bf c}\in{\cal M}(n\times p)$, tem-se que
+  $({\bf a}+{\bf b}){\bf c}={\bf ac}+{\bf bc}$.
+\item Os termos da \textit{matriz identidade}
+  ${\bf I}_n\in{\cal M}(n\times n)$ são $I_{ij}=\delta_{ij}$,
+  $i,j\in\{1,\ldots,n\}$, onde $\delta_{ij}$ é o \textit{símbolo de
+    Kronecker}, definido por $\delta_{ij}=1$ se $i=j$ e
+  $\delta_{ij}=0$ se $i\ne j$.
+\item Dado ${\bf a}\in{\cal M}(m\times n)$, tem-se que
+  ${\bf aI}_n={\bf a}$ e ${\bf I}_m{\bf a}={\bf a}$.
+\item Uma matriz ${\bf a}\in{\cal M}(m\times n)$ tem uma
+  \textit{inversa à esquerda} se existe
+  ${\bf b}\in{\cal M}(n\times m)$ tal que ${\bf ba}={\bf I}_n$. A
+  matriz ${\bf a}$ tem uma inversa à esquerda se, e somente se, os
+  vetores-coluna de ${\bf a}$ são L.I.
+\item Uma matriz ${\bf a}\in{\cal M}(m\times n)$ tem uma
+  \textit{inversa à direita} se existe ${\bf b}\in{\cal M}(n\times m)$
+  tal que ${\bf ab}={\bf I}_m$. A matriz ${\bf a}$ tem uma inversa à
+  direita se, e somente se, os vetores-coluna de ${\bf a}$ geram
+  $\R^m$.
+\item Uma matriz ${\bf a}\in{\cal M}(m\times n)$ é \textit{invertível}
+  se ela tem uma inversa à esquerda ${\bf b}\in{\cal M}(n\times m)$ e
+  uma inversa à direita ${\bf c}\in{\cal M}(n\times m)$. Nesse caso
+  tem-se que ${\bf b}={\bf c}={\bf a}^{-1}$, chamada da
+  \textit{inversa} de ${\bf a}$, e que $m=n$, ou seja, a matriz
+  ${\bf a}$ é \textit{quadrada}.
+\item Uma matriz ${\bf a}\in {\cal M}(n\times n)$ possui uma inversa à
+  esquerda se, e somente se, possui uma inversa à direita. Nesse caso,
+  ambas inversas são iguais a ${\bf a}^{-1}$.
+\end{enumerate}
+
+Sejam ${\cal V}=\{v_1,\ldots,v_n\}$ e ${\cal V}'=\{v_1',\ldots,v_n'\}$
+bases de um espaço vetorial $E$ e ${\cal W}=\{w_1,\ldots,w_m\}$ e
+${\cal W}'=\{w_1',\ldots,w_m'\}$ bases de um espaço vetorial
+$F$. Sejam também ${\bf a}$ e ${\bf a}'$ as matrizes de uma
+transformação linear $A:E\to F$ quando se consideram os pares de bases
+$({\cal V},{\cal W})$ e $({\cal V}',{\cal W}')$ respectivamente. Temos
+então que $Av_j=\sum_{i=1}^ma_{ij}w_i$ e
+$Av_j'=\sum_{i=1}^ma_{ij}'w_i'$, $j=1,\ldots,n$. Considerando os
+isomorfismos $P:E\to E$ e $Q:F\to F$ definidos por $Pv_j=v_j'$,
+$j=1,\ldots,n$ e $Qw_i=w_i'$, $i=1,\ldots,m$, temos que
+$$\sum_{k=1}^m(ap)_{kj}w_k=APv_j=Av_j'=\sum_{i=1}^ma_{ij}'w_i'=\sum_{i=1}^m\sum_{k=1}^ma_{ij}'q_{ki}w_k\,,$$
+o que implica que $(ap)_{kj}=\sum_{i=1}^ma_{ij}'q_{ki}=(qa)_{kj}$, ou
+seja ${\bf ap}={\bf qa}'$. Portanto, ${\bf a}'={\bf q}^{-1}{\bf
+  ap}$. A matriz ${\bf p}$ é chamada de uma \textit{matriz de
+  passagem} da base ${\cal V}$ para a base ${\cal V}'$. Vemos que as
+coordenadas do $j$-ésimo vetor-coluna de ${\bf p}$ são as coordenadas
+do vetor $v_j'$ na base ${\cal V}$. Observações análogas valem para a
+matriz de passagem ${\bf q}$.
+
+Seja $A:\R^2\to\R^2$ o operador linear definido por $A(1,1)=(1,1)$ e
+$A(-1,1)=(0,0)$. Logo, a matriz de $A$ na base
+${\cal B}=\{(1,1),(-1,1)\}$ é
+$${\bf a}=\dsqr{
+  \begin{array}{cc}
+    1&0\\
+    0&0
+  \end{array}
+}\,.$$ Podemos verificar facilmente que $A(1,0)=(1/2,1/2)$ e
+$A(0,1)=(1/2,1/2)$. Logo, a matriz de $A$ na base canônica é
+$${\bf a}'=\dsqr{
+\begin{array}{cc}
+  1/2&1/2\\
+  1/2&1/2
+\end{array}
+}\,.
+$$
+A matriz ${\bf a}'$ pode ser obtida mais dificilmente usando a matriz
+de passagem
+$${\bf p}=\dsqr{
+  \begin{array}{rc}
+    1/2&1/2\\
+    -1/2&1/2
+  \end{array}
+}$$ da base ${\cal B}$ para a base canônica e a relação
+${\bf a}'={\bf p}^{-1}{\bf ap}$.
+
+Sejam $E$ e $F$ espaços vetoriais de dimensão finita. O \textit{posto}
+de uma transformação linear $A:E\to F$ é a dimensão da sua imagem. Se
+${\bf a}$ é a matriz de $A$, então o posto de $A$ é a dimensão do
+subespaço gerado pelos vetores-coluna de ${\bf a}$.
+
+Dada uma matriz ${\bf a}\in{\cal M}(m\times n)$, define-se o
+\textit{posto segundo colunas} de ${\bf a}$ como a dimensão do
+subespaço de $\R^m$ gerado pelos vetores-coluna de ${\bf
+  a}$. Define-se também o \textit{posto segundo linhas} de ${\bf a}$
+como a dimensão do subespaço de $\R^n$ gerado pelos vetores-linha de
+${\bf a}$. Embora o subespaço gerado pelos vetores-coluna de ${\bf a}$
+e o gerado pelos vetores-linha de ${\bf a}$ sejam em geral diferentes,
+tem-se o seguinte:
+
+\begin{thm}
+  \label{thm:14}
+  O posto segundo linhas de uma matriz ${\bf a}\in{\cal M}(m\times n)$
+  é igual a seu posto segundo colunas.
+\end{thm}
+\begin{proof}
+  Seja $\{u_1,\ldots,u_r\}\subset \R^m$ uma base do subespaço gerado
+  pelos ve\-to\-res-coluna $v_1,\ldots,v_n$ de ${\bf a}$. Logo,
+  $v_j=\sum_{k=1}^r\alpha_{jk}u_k$, $j=1,\ldots,n$. Considerando que
+  $u_k=(u_{k1},\ldots,u_{km})$, $k=1,\ldots,r$, temos que
+  $a_{ij}=\sum_{k=1}^r\alpha_{jk}u_{ki}$, $i=1,\ldots,m$,
+  $j=1,\ldots,n$. Logo, o $i$-ésimo vetor-linha de ${\bf a}$ é
+  $$w_i=\dpar{\sum_{k=1}^r\alpha_{1k}u_{ki},\ldots,\sum_{k=1}^r\alpha_{nk}u_{ki}}=\sum_{k=1}^ru_{ki}z_k\,,$$
+  onde $z_k=(\alpha_{1k},\ldots,\alpha_{nk})$, $k=1,\ldots,r$. Isso
+  implica que os vetores $z_1,\ldots,z_r$ e $w_1,\ldots,w_m$ geram o
+  mesmo subespaço de $\R^n$. Dessa maneira, o posto segundo linhas de
+  ${\bf a}$ é $\le r$. Fazendo um procedimento análogo começando com
+  uma base do subespaço gerado pelas colunas de ${\bf a}$, vamos
+  concluir que o posto segundo colunas de ${\bf a}$ não excede o posto
+  segundo linhas de ${\bf a}$. Portanto, ambos postos devem ser
+  iguais.
+\end{proof}
+
+Dado um espaço vetorial $E$ de dimensão $n$, sejam
+$f_1,\ldots,f_m:E\to\R$ funcionais lineares não-nulos. Queremos
+determinar a dimensão do subespaço $F=N(f_1)\cap\ldots\cap N(f_m)$. Se
+$\{u_1,\ldots,u_n\}$ é uma base de $E$, então
+$N(f_i)=\{(x_1,\ldots,x_n)\in E:\sum_{j=1}^nf_i(u_j)x_j=0\}$,
+$i=1,\ldots,m$. Segue imediatamente disso que $F$ é isomorfo ao núcleo
+da transformação linear $A:\R^n\to\R^m$ cuja matriz é
+$${\bf a}=\dsqr{
+  \begin{array}{ccc}
+    f_1(u_1)&\ldots&f_1(u_n)\\
+    \vdots&&\vdots\\
+    f_m(u_1)&\ldots&f_m(u_n)
+  \end{array}
+}\,.$$ Dessa maneira, pelo teorema do núcleo e da imagem,
+$\dim F=\dim N(A)=n-\dim Im(A)$. Por outro lado, o subespaço gerado
+pelos vetores-linha de ${\bf a}$ é claramente isomorfo ao subespaço de
+$E^*$ gerado pelos funcionais $f_1,\ldots,f_m$. Se $r$ é a dimensão
+desse subespaço, pelo teorema~\ref{thm:14}, temos que $\dim
+Im(A)=r$. Portanto, $\dim F=n-r$.
+
+Seja $E$ um espaço vetorial de dimensão $n$. Vamos mostrar um método
+prático para determinar uma base do subespaço gerado por um conjunto
+$\{v_1,\ldots,v_m\}\subset E$. Esse método está baseado nos seguintes
+fatos de verificação imediata:
+\begin{enumerate}
+\item para quaisquer $i,j\in\{1,\ldots,n\}$,
+  $$S(\{v_1,\ldots,v_i,\ldots,v_j,\ldots,v_n\})=S(\{v_1,\ldots,v_j,\ldots,v_i,\ldots,v_n\})\,;$$
+\item para quaisquer $\alpha\in\R$ e $i,j\in\{1,\ldots,n\}$,
+  $$S(\{v_1,\ldots,v_i,\ldots,v_j,\ldots,v_n\})=S(\{v_1,\ldots,v_i+\alpha
+  v_j,\ldots,v_j,\ldots,v_n\})\,.$$
+\end{enumerate}
+Prosseguimos agora com a descrição do método:
+\begin{enumerate}
+\item Construímos uma matriz ${\bf a}$ cujos vetores-linha são os
+  vetores $v_1,\ldots,v_m$;
+\item Caso seja necessário, trocamos convenientemente as linhas da
+  matriz ${\bf a}$ de tal forma que obtemos uma matriz ${\bf a}'$ cuja
+  primeira coluna não-nula tem o primeiro termo diferente de zero. Por
+  exemplo,
+  $$\dsqr{
+    \begin{array}{cccc}
+      0&0&2&0\\
+      0&1&3&1\\
+      0&3&0&2
+    \end{array}
+  }\xrightarrow{L_1\leftrightarrow L_2}\dsqr{
+    \begin{array}{cccc}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&3&0&2
+    \end{array}
+  }\,.$$
+\item Para $i=2,\ldots,m$, adicionamos à $i$-ésima linha de ${\bf a}'$
+  um múltiplo da primeira linha de ${\bf a}'$ de tal forma que obtemos
+  uma matriz ${\bf a}''$ cuja primeira coluna não-nula tem o $i$-ésimo
+  termo igual a zero. Por exemplo,
+  $$\dsqr{
+    \begin{array}{cccc}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&3&0&2
+    \end{array}
+  }\xrightarrow{L_3-3L_1}\dsqr{
+    \begin{array}{ccrr}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&0&-7&-1
+    \end{array}
+  }$$
+\item Obtendo uma matriz ${\bf a''}$, desconsideramos a primeira linha
+  e a primeira coluna não-nula. Dessa maneira, a segunda coluna
+  não-nula de ${\bf a}''$ é considerada como a primeira coluna
+  não-nula e repetimos os passos 2 e 3. Por exemplo,
+  $$\dsqr{
+    \begin{array}{ccrr}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&0&-7&-1
+    \end{array}
+  }\xrightarrow{L_3+(7/2)L_2}\dsqr{
+    \begin{array}{ccrr}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&0&0&-1
+    \end{array}
+  }$$
+\item O processo para quando obtemos uma \textit{matriz escalonada},
+  que é uma matriz tal que o primeiro termo não-nulo da $i$-esima
+  linha está à esquerda do primeiro termo não-nulo das linhas
+  subsequentes e as linhas nulas, caso existam, se encontram abaixo
+  das linhas não nulas. Por exemplo,
+  $${\bf b}=\dsqr{
+    \begin{array}{ccrr}
+      0&1&3&1\\
+      0&0&2&0\\
+      0&0&0&-1
+    \end{array}
+  }$$ é uma matriz escalonada.
+\item Os vetores-linha não-nulos da matriz escalonada obtida formam
+  uma base de $S(\{v_1,\ldots,v_m\})$, pois são claramente L.I..
+\end{enumerate}
+Os passos 2, 3, 4 e 5 formam o chamado \textit{processo de eliminação}
+ou \textit{método de Gauss}. As modificações realizadas nos passos 2 e
+3 são chamadas de \textit{operações elementares}.
+
+A \textit{transposta} de uma matriz ${\bf a}\in{\cal M}(m\times n)$ é
+a matriz ${\bf a}^T\in {\cal M}(n\times m)$ tal que $a^T_{ji}=a_{ij}$,
+$j=1,\ldots,n$, $i=1,\ldots,m$. Dada uma transformação linear
+$A:E\to F$ entre espaços vetoriais de dimensão finita, o processo de
+eliminação pode ser aplicado para encontrarmos uma base de
+$Im(A)$. Nesse caso, se ${\bf a}$ é a matriz de $A$, devemos aplicar o
+processo de eliminação à matriz ${\bf a}^T$. Logo, os vetores-linha da
+matriz escalonada obtida formarão uma base de $Im(A)$. Se só estamos
+interessados no posto de $A$, podemos aplicar o processo de eliminação
+diretamente à matriz ${\bf a}$, em virtude do
+teorema~\ref{thm:14}. Nesse caso, o posto de $A$ será o número de
+linhas não-nulas da matriz escalonada obtida.
+
+Um sistema linear
+\begin{equation}
+  \label{eq:5}
+  \begin{split}
+    a_{11}x_1+\cdots+a_{1n}x_n&=b_1\\
+    \vdots\qquad\qquad&\quad\,\,\,\vdots\\
+    a_{mn}x_1+\cdots+a_{mn}x_n&=b_m
+  \end{split}
+\end{equation}
+pode ser escrito matricialmente como ${\bf a}{\bf x}={\bf b}$, onde
+$${\bf a}=\dsqr{
+  \begin{array}{ccc}
+    a_{11}&\ldots&a_{1n}\\
+    \vdots&&\vdots\\
+    a_{m1}&\ldots&a_{mn}
+  \end{array}
+}\,,\quad {\bf x}=\dsqr{
+  \begin{array}{c}
+    x_1\\
+    \vdots\\
+    x_n
+  \end{array}
+}\quad\text{e}\quad {\bf b}=\dsqr{
+  \begin{array}{c}
+    b_1\\
+    \vdots\\
+    b_m
+  \end{array}
+}\,.$$ Esse sistema tem solução se, e somente se, o vetor
+$b=(b_1,\ldots,b_m)\in\R^m$ pertence à imagem da transformação linear
+$A:\R^n\to\R^m$, cuja matriz é ${\bf a}$. Logo, o sistema~(\ref{eq:5})
+tem solução se, e somente se, o subespaço gerado por $b$ e os
+vetores-coluna de ${\bf a}$ é igual a $Im(A)$. Além disso, nesse caso,
+a solução é única se, e somente se, $A$ é injetiva (ver
+teorema~\ref{thm:11}).
+
+Definindo a matriz aumentada
+$$[{\bf a},{\bf b}]=\dsqr{
+\begin{array}{cccc}
+  a_{11}&\ldots&a_{1n}&b_1\\
+  \vdots&&\vdots&\vdots\\
+  a_{m1}&\ldots&a_{mn}&b_m
+\end{array}
+}\,,$$ temos o seguinte:
+\begin{enumerate}
+\item O sistema~(\ref{eq:5}) não tem solução se, e somente se, o posto
+  de $[{\bf a},{\bf b}]$ é maior do que o posto de ${\bf a}$, ou seja,
+  ao aplicarmos o processo de eliminação a $[{\bf a}, {\bf b}]$, o
+  número de linhas não-nulas da matriz escalonada obtida
+  $[{\bf a}',{\bf b}']$ é maior do que o número de linhas não-nulas da
+  matriz escalonada ${\bf a}'$.
+\item O sistema~(\ref{eq:5}) tem uma única solução se, e somente se, o
+  posto de $[{\bf a},{\bf b}]$ e o posto de ${\bf a}$ são iguais a
+  $n$, ou seja, ao aplicarmos o processo de eliminação a
+  $[{\bf a}, {\bf b}]$, o número de linhas não-nulas da matriz
+  escalonada obtida $[{\bf a}',{\bf b}']$ e o número de linhas
+  não-nulas da matriz escalonada ${\bf a}'$ são iguais a $n$. Em
+  particular, para isso acontecer é necessário ter $m\ge n$.
+\item O sistema~(\ref{eq:5}) tem infinitas soluções se, e somente se,
+  o posto de $[{\bf a},{\bf b}]$ e o posto de ${\bf a}$ são iguais a
+  $r<n$, ou seja, ao aplicarmos o processo de eliminação a
+  $[{\bf a}, {\bf b}]$, o número de linhas não-nulas da matriz
+  escalonada obtida $[{\bf a}',{\bf b}']$ e o número de linhas
+  não-nulas da matriz escalonada ${\bf a}'$ são iguais a $r<n$.
+\end{enumerate}
+
+Em termos das equações do sistema~(\ref{eq:5}), as operações
+elementares efetuadas sobre $[{\bf a}, {\bf b}]$ para obter
+$[{\bf a}',{\bf b}']$ se traduzem em
+\begin{itemize}
+\item alterar a ordem das equações;
+\item somar um múltiplo de uma equação a outra equação.
+\end{itemize}
+Dessa maneira, se o sistema~(\ref{eq:5}) tem solução, a matriz
+aumentada $[{\bf a}',{\bf b}']$ corresponde a um sistema linear
+${\bf a}'{\bf x}={\bf b}'$ que tem as mesmas soluções que o
+sistema~(\ref{eq:5}). No entanto, como $[{\bf a}',{\bf b}']$ é
+escalonada, o sistema ${\bf a}'{\bf x}={\bf b}'$ pode ser resolvido
+facilmente de baixo para cima.
+
+Vamos resolver o sistema linear
+\begin{equation}
+  \label{eq:6}
+  \begin{split}
+    x+y+z&=3\\
+    x-y+2z&=5\\
+    3x+2y&=5\,.
+  \end{split}
+\end{equation}
+A matriz aumentada associada a esse sistema é
+$$\dsqr{
+  \begin{array}{rrrr}
+    1&1&1&3\\
+    1&-1&2&5\\
+    3&2&0&5
+  \end{array}
+}\,.$$ Logo,
+$$\dsqr{
+  \begin{array}{rrrr}
+    1&1&1&3\\
+    1&-1&2&5\\
+    3&2&0&5
+  \end{array}
+}\xrightarrow{L_2-L_1, L_3-3L_1}\dsqr{
+  \begin{array}{rrrr}
+    1&1&1&3\\
+    0&-2&1&2\\
+    0&-1&-3&-4
+  \end{array}
+}\xrightarrow{L_3-L_2/2} \dsqr{
+  \begin{array}{rrrr}
+    1&1&1&3\\
+    0&-2&1&2\\
+    0&0&-7/2&-5
+  \end{array}
+}$$ Vemos que a única solução do sistema~(\ref{eq:6}) é solução do
+sistema linear
+\begin{equation*}
+  \begin{split}
+    x+y+z&=3\\
+    -2y+z&=2\\
+    -7z/2&=5\,.
+  \end{split}
+\end{equation*}
+De onde obtemos que $z=-10/7$, $y=-12/7$ e $x=43/7$.
+
+O processo de eliminação pode ser estendido considerando mais uma
+operação elementar que consiste em multiplicar uma linha por um número
+real diferente de zero. Esse procedimento é conhecido como
+\textit{método de Gauss-Jordan}, cuja aplicação fornece um método
+prático para calcular a inversa de uma matriz quadrada
+${\bf a}\in{\cal M}(n\times n)$, a qual existe se, e somente se, o
+posto de ${\bf a}$ é igual a $n$. De fato, encontrar a inversa de
+${\bf a}$ equivale a resolver $n$ sistemas de $n$ equações lineares,
+os quais podem ser escritos de forma compacta como
+${\bf aa}^{-1}={\bf I}_n$, onde os termos de ${\bf a}^{-1}$ são as
+incógnitas. O método prático para encontrar ${\bf a}^{-1}$ é
+considerar a matriz aumentada $[{\bf a}, {\bf I}_n]$ e aplicar o
+método de Gauss-Jordan com o objetivo de obtermos a matriz
+$[{\bf I}_n,{\bf b}]$. Dessa maneira, a matriz ${\bf a}^{-1}$, deve
+satisfazer a condição ${\bf I}_n{\bf a}^{-1}={\bf b}$, ou seja,
+${\bf a}^{-1}={\bf b}$.
+
+Vamos encontrar a inversa da matriz
+$${\bf a}=\dsqr{
+  \begin{array}{rrr}
+    1&1&1\\
+    1&-1&2\\
+    3&2&0
+  \end{array}
+}\,.$$ Temos que
+\begin{equation*}
+  \begin{split}
+    &\dsqr{
+      \begin{array}{rrrrrr}
+        1&1&1&1&0&0\\
+        1&-1&2&0&1&0\\
+        3&2&0&0&0&1
+      \end{array}
+    }\xrightarrow{L_2-L_1,L_3-3L_1}\dsqr{
+      \begin{array}{rrrrrr}
+        1&1&1&1&0&0\\
+        0&-2&1&-1&1&0\\
+        0&-1&-3&-3&0&1
+      \end{array}
+    }\\
+    &\xrightarrow{L_3-L_2/2}\dsqr{
+      \begin{array}{rrrrrr}
+        1&1&1&1&0&0\\
+        0&-2&1&-1&1&0\\
+        0&0&-7/2&-5/2&-1/2&1
+      \end{array}
+    }\\
+    &\xrightarrow{(-1/2)L_2,(-2/7)L_3}\dsqr{
+      \begin{array}{rrrrrr}
+        1&1&1&1&0&0\\
+        0&1&-1/2&1/2&-1/2&0\\
+        0&0&1&5/7&1/7&-2/7
+      \end{array}
+    }\\
+    &\xrightarrow{L_1-L_2}\dsqr{
+      \begin{array}{rrrrrr}
+        1&0&3/2&1/2&1/2&0\\
+        0&1&-1/2&1/2&-1/2&0\\
+        0&0&1&5/7&1/7&-2/7
+      \end{array}
+    }\\
+    &\xrightarrow{L_1-3L_3/2,L_2+L_3/2}\dsqr{
+      \begin{array}{rrrrrr}
+        1&0&0&-4/7&2/7&3/7\\
+        0&1&0&6/7&-3/7&-1/7\\
+        0&0&1&5/7&1/7&-2/7
+      \end{array}
+    }\,.
+  \end{split}
+\end{equation*}
+Portanto,
+$${\bf a}^{-1}=\dsqr{
+  \begin{array}{rrr}
+    -4/7&2/7&3/7\\
+    6/7&-3/7&-1/7\\
+    5/7&1/7&-2/7
+  \end{array}
+}\,.$$
+
+\section{Produto interno}
+
+Um \textit{produto interno} em um espaço vetorial $E$ é uma função
+$\ang{\cdot,\cdot}:E\times E\to\R$ que tem as seguintes propriedades:
+\begin{enumerate}
+\item dados $u,v,w\in E$, tem-se que $\ang{u,v+w}=\ang{u,v}+\ang{u,w}$
+  e $\ang{u+w,v}=\ang{u,v}+\ang{w,v}$;
+\item dados $u,v\in E$ e $\alpha\in\R$, tem-se que
+  $\ang{\alpha u,v}=\alpha\ang{u,v}=\ang{u,\alpha v}$;
+\item para quaisquer $u,v\in E$, $\ang{u,v}=\ang{v,u}$;
+\item para qualquer $v\in E$ com $v\ne 0$, tem-se que $\ang{v,v}>0$.
+\end{enumerate}
+
+\begin{thm}
+  Seja $E$ um espaço vetorial munido de um produto interno. Logo,
+  \begin{enumerate}
+  \item para qualquer $v\in E$, $\ang{v,0}=0$;
+  \item se $u\in E$ é tal que $\ang{u,v}=0$ para todo $v\in E$, então
+    $u=0$;
+  \item se $u,v\in E$ são tais que $\ang{u,w}=\ang{v,w}$, então $u=v$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item $\ang{v,0}=\ang{v,0+0}=2\ang{v,0}$. Logo, $\ang{v,0}=0$.
+  \item se fosse $u\ne 0$, teríamos que $\ang{u,v}>0$ quando
+    $v=u$. Contradição! Logo, devemos ter $u=0$.
+  \item Segue diretamente do item 2.\qedhere
+  \end{enumerate}
+\end{proof}
+
+Seja $E$ um espaço vetorial munido de um produto interno. A
+\textit{norma} de um vetor $v\in E$ é definida por
+$|v|=\sqrt{\ang{v,v}}$. Se $v\in E$ é tal que $|v|=1$, diz-se que $v$
+é um \textit{vetor unitário}.
+
+No espaço euclidiano $\R^n$, define-se o \textit{produto interno
+  canônico} de dois vetores
+$u=(x_1,\ldots,x_n),v=(y_1,\ldots,y_n)\in\R^n$, expressos na base
+canônica de $\R^n$, por $\ang{u,v}=x_1y_1+\cdots+x_ny_n$.
+
+Dados $u,v\in\R^2$, vamos mostrar que $\ang{u,v}=|u||v|\cos\theta$,
+onde $\theta$ é o ângulo formado pelos vetores $u$ e $v$. Se um dos
+vetores é igual a $0$, a igualdade é verdadeira. Consideremos então
+que $u\ne 0$ e $v\ne 0$. Logo, temos que
+$u=|u|(\cos\alpha,\sin\alpha)$ e $v=|v|(\sen\beta,\cos\beta)$, onde
+$\alpha$ e $\beta$ são os ângulos que os vetores $u$ e $v$ formam com
+o vetor $(1,0)$ respectivamente. Logo
+$\ang{u,v}=|u||v|(\cos\alpha\cos\beta+\sin\alpha\sin\beta)=|u||v|\cos(\beta-\alpha)=|u||v|\cos\theta$.
+
+A função $\ang{\cdot,\cdot}:C^0([a,b])\times C^0([a,b])\to\R$ definida
+por $\ang{f,g}=\int_a^bf(x)g(x)\,dx$, é um produto interno no espaço
+vetorial $C^0([a,b])$. Com efeito, só temos que provar que, dada a
+função $f\in C^0([a,b])$ não-nula, $\ang{f,f}>0$, pois as condições
+restantes que caracterizam um produto interno são claramente
+satisfeitas. Como $f^2\in C^0([a,b])$ e $[f(x)]^2>0$ para todo
+$x\in [a,b]$, existe $c\in[a,b]$ tal que $[f(x)]^2\ge
+[f(c)]^2>0$. Logo, $\ang{f,f}\ge [f(c)]^2(b-a)>0$.
+
+Se $E$ é um espaço vetorial de dimensão finita e
+${\cal B}=\{u_1,\ldots,u_n\}$ é uma base de $E$, então a função
+$\ang{\cdot,\cdot}:E\times E\to \R$ definida por
+$\ang{v,w}=\alpha_1\beta_1+\cdots+\alpha_n\beta_n$, onde
+$v=\alpha_1u_1+\cdots+\alpha_nu_n$ e $w=\beta_1u_1+\cdots\beta_nu_n$,
+é claramente um produto interno. Logo, todo espaço vetorial de
+dimensão finita pode ser considerado como um espaço vetorial munido de
+um produto interno.
+
+Seja $E$ um espaço vetorial munido de um produto interno. Diz-se que
+dois vetores $u,v\in E$ são \textit{ortogonais}, e escreve-se
+$u\perp v$, quando $\ang{u,v}=0$. Um conjunto $X\subset E$ é dito
+\textit{ortogonal} se qualquer par de vetores de $X$ são
+ortogonais. Se cada vetor de $X$ é unitário, diz-se ainda que $X$ é um
+\textit{conjunto ortonormal}. Nesse caso, se $X$ é uma base de $E$,
+diz-se que $X$ é uma \textit{base ortonormal}.
+
+\begin{thm}[Teorema de Pitágoras]
+  Seja $E$ um espaço vetorial munido de um produto interno. Se
+  $u,v\in E$ são tais que $u\perp v$, então $|u+v|^2=|u|^2+|v|^2$.
+\end{thm}
+
+\begin{thm}
+  Seja $E$ um espaço vetorial munido de um produto interno. Se
+  $X\subset E$ é um conjunto ortogonal que não contém o vetor nulo,
+  então é L.I..
+\end{thm}
+\begin{proof}
+  Sejam $v_1,,\ldots,v_n\in X$ tais que
+  $\alpha_1v_1+\cdots+\alpha_nv_n=0$. Logo,
+  $\ang{v_i,\alpha_1v_1+\cdots+\alpha_nv_n}=\alpha_i|v_i|^2=0$,
+  $i=1,\ldots,n$, o que implica que $\alpha_i=0$. Portanto, $X$ é
+  L.I..
+\end{proof}
+
+Seja $E$ um espaço vetorial munido de um produto interno. Dados
+$u,v\in E$ com $u\ne 0$, define-se a \textit{projeção ortogonal de $v$
+  sobre o eixo que contém $u$} por
+$$\pr_u(v)=\frac{\ang{v,u}}{|u|^2}u\,.$$
+O nome é devido a que o vetor $w=v-\pr_u(v)$ é tal que $\ang{w,u}=0$,
+ou seja, $w\perp u$.
+
+\begin{thm}[Desigualdade de Schwarz]
+  Seja $E$ um espaço vetorial munido de um produto interno. Se
+  $u,v\in E$, então $|\ang{u,v}|\le |u||v|$. Além disso, a igualdade
+  ocorre se, e somente se, $v$ é um múltiplo de $u$.
+\end{thm}
+\begin{proof}
+  Se $u=0$, OK. Se $u\ne 0$, o vetor $w=v-\pr_u(v)$ é ortogonal a
+  $u$. Logo, pelo teorema de Pitágoras,
+  $|v|^2=|\pr_u(v)|^2+|w|^2$. Logo, $|v|^2\ge |\pr_u(v)|^2$, o que
+  implica que $|u||v|\ge |\ang{u,v}|$. Além disso, vemos que a
+  igualdade acontece se, e somente se, $w=0$, ou seja, quando $v$ é um
+  múltiplo de $u$.
+\end{proof}
+
+\begin{cor}[Desigualdade triangular]
+  Seja $E$ um espaço vetorial munido de um produto interno. Se
+  $u,v\in E$, então $|u+v|\le |u|+|v|$, onde a igualdade ocorre se, e
+  somente se, existe $\alpha\ge 0$ tal que $v=\alpha u$.
+\end{cor}
+
+Seja $E$ um espaço métrico munido de um produto interno. Define-se a
+\textit{distância} entre dois vetores $u,v\in E$ por
+$d(u,v)=|u-v|$. Vemos que $d(u,v)>0$ se $u\ne v$, $d(u,v)=d(v,u)$ e
+$d(u,v)\le d(u,w)+d(w,v)$ para todo $w\in E$.
+
+Seja $E$ um espaço vetorial de dimensão finita munido de um produto
+interno. Vamos descrever o \textit{processo de ortonormalização de
+  Gram-Schmidt} para obter uma base ortonormal
+$\{u_1,\ldots,u_n\}\subset E$ a partir de uma base qualquer
+$\{v_1,\ldots,v_n\}\subset E$ tal que $u_i\in S(\{v_1,\ldots,v_i\})$,
+$i=1,\ldots,n$. Primeiramente pomos $w_1=v_1$. Supondo definidos
+$w_1,\ldots,w_m\in E$, ortogonais dois a dois, definimos
+$$w_{m+1}=v_{m+1}-\sum_{i=1}^m\pr_{w_i}(v_{m+1})\,.$$
+Vemos que
+$\ang{w_j,w_{m+1}}=\ang{w_j,v_{m+1}}-\ang{w_j,\pr_{w_j}(v_{m+1})}=0$,
+$j=1,\ldots,m$. Além disso, $w_{m+1}\ne 0$, pois
+$v_{m+1}\not\in S(\{w_1,\ldots,w_m\})=S(\{v_1,\ldots,v_m\})$. Dessa
+maneira, obtemos um conjunto ortogonal $\{w_1,\ldots,w_n\}\subset
+E$. Finalmente, pondo $u_i=w_i/|w_i|$, $i=1,\ldots,n$, obtemos uma
+base ortonormal $\{u_1,\ldots,u_n\}\subset E$. Observamos que, se
+$v_1,\ldots,v_r$, $r<n$, são vetores ortonormais, então a base
+ortonormal $\{u_1,\ldots,u_n\}$, obtida pelo processo de Gram-Schmidt,
+é tal que $u_1=v_1,\ldots,u_r=v_r$. Portanto, toda base ortonormal de
+um subespaço $F\subset E$ pode ser estendida a uma base ortonormal de
+$E$.
+
+Seja $E$ um espaço vetorial munido de um produto interno. Se
+$\{u_1,\ldots,u_m\}$ é uma base ortonormal de um subespaço
+$F\subset E$, define-se a \textit{projeção ortogonal de um vetor
+  $v\in E$ sobre $F$} por
+$$\pr_F(v)=\sum_{i=1}^m\pr_{u_i}(v)\,.$$
+O vetor $\pr_F(v)$ não depende da escolha da base ortonormal de
+$F$. Com efeito, se $\{w_1,\ldots,w_m\}$ é outra base ortonormal de
+$F$, então
+$$\sum_{i=1}^m\pr_{w_i}(v)=\sum_{i=1}^m\ang{v,w_i}w_i=\sum_{i=1}^m\sum_{j=1}^m\ang{v,w_i}\ang{w_i,u_j}u_j\,,$$
+pois, para qualquer $z\in F$, $z=\sum_{j=1}^m\ang{z,u_j}u_j$. Logo,
+$$\sum_{i=1}^m\pr_{w_i}(v)=\sum_{j=1}^m\dang{v,\sum_{i=1}^m\ang{u_j,w_i}w_i}u_j=\sum_{j=1}^m\ang{v,u_j}u_j=\pr_F(v)\,.$$
+O vetor $v-\pr_F(v)$ é ortogonal a todo vetor da base ortonormal
+$\{u_1,\ldots,u_n\}$ e, por conseguinte, é ortogonal a todo vetor de
+$F$. Além disso, dado $z\in F$, vemos que
+$v-z=[v-\pr_F(v)]+[\pr_F(v)-z]$. Como $\pr_F(v)-z\in F$, segue que
+$v-\pr_F(v)\perp \pr_F(v)-z$. Logo, pelo teorema de Pitágoras, temos
+que $|v-z|^2=|v-\pr_F(v)|^2+|\pr_F(v)-z|^2$ e, por conseguinte,
+$|v-z|\ge |v-\pr_F(v)|$. Portanto, $\pr_F(v)$ é o vetor de $F$ que
+está a menor distância de $v$.
+
+Seja ${\cal B}=\{u_1,\ldots,u_n\}$ uma base ortonormal de um espaço
+vetorial $E$, munido de um produto interno. Se $v,w\in E$, vemos que
+$$\ang{v,w}=\dang{\sum_{i=1}^n\ang{v,u_i}u_i,\sum_{j=1}^n\ang{w,u_j}u_j}=\sum_{i=1}^n\sum_{j=1}^n\ang{v,u_i}\ang{w,u_j}\ang{u_i,u_j}=\sum_{i=1}^n\ang{v,u_i}\ang{u_i,w}\,,$$
+que é análogo ao produto interno canônico em $\R^n$. Se
+$\{v_1,\ldots,v_n\}$ é uma base de $E$, não necessariamente
+ortonormal, pode-se definir um produto interno
+$[\cdot,\cdot]:E\times E\to\R$ pondo
+$$[w,z]=\sum_{i=1}^n\sum_{j=1}^ng_{ij}\alpha_i\beta_j\,,$$
+quando $w=\alpha_1v_1+\cdots+\alpha_nv_n$,
+$z=\beta_1v_1+\cdots+\beta_nv_n$, onde ${\bf g}$ é uma matriz
+\textit{positiva}, ou seja, ${\bf g}^T={\bf g}$ e
+${\bf x}^T{\bf gx}>0$ para qualquer matriz
+${\bf x}\in{\cal M}(n\times 1)$ não-nula.
+
+\section{A adjunta}
+
+Seja $E$ um espaço vetorial munido de um produto interno. Para cada
+$u\in E$, a função $f:E\to\R$ definida por $f(v)=\ang{u,v}$ é
+claramente um funcional linear.
+
+\begin{thm}
+  \label{thm:15}
+  Seja $E$ um espaço vetorial de dimensão finita munido de um produto
+  interno. Se $f:E\to\R$ é um funcional linear, existe um único
+  $w\in E$ tal que $f(v)=\ang{w,v}$ para todo $v\in E$.
+\end{thm}
+\begin{proof}
+  Seja $\{u_1,\ldots,u_n\}$ uma base ortonormal de $E$. Dado $v\in E$,
+  temos que $v=\ang{v,u_1}u_1+\cdots+\ang{v,u_n}u_n$. Logo,
+  $$f(v)=\sum_{i=1}^n\ang{v,u_i}f(u_i)=\dang{v,\sum_{i=1}^nf(u_i)u_i}\,.$$
+  Dessa maneira, existe $w=f(u_1)u_1+\cdots+f(u_n)u_n\in E$ tal que
+  $f(v)=\ang{w,v}$. Se existe $w'\in E$ tal que $f(v)=\ang{w',v}$ para
+  todo $v\in E$, então $\ang{w',v}=\ang{w,v}$ para todo $v\in E$, o
+  que implica que $w'=w$.
+\end{proof}
+
+Sejam $E$ e $F$ espaços vetoriais de dimensão finita munidos de
+produto interno. A \textit{adjunta} de uma transformação linear
+$A:E\to F$ é uma aplicação $A^*:F\to E$ tal que
+$\ang{Au,v}=\ang{u,A^*v}$ para quaisquer $u\in E$ e $v\in F$. Em
+virtude do teorema~\ref{thm:15}, para cada $v\in F$, existe um único
+$w\in F$ tal que o funcional linear $f:E\to F$ definido por
+$f(u)=\ang{Au,v}$ é tal que $f(u)=\ang{u,w}$ para todo $u\in E$. Logo,
+nesse caso, devemos ter $A^*v=w$. Portanto, a adjunta de $A$ existe e,
+como pode-se verificar facilmente, é única. Além disso, $A^*$ é uma
+transformação linear, pois, dados $u\in E$, $v,w\in F$ e
+$\alpha\in\R$, temos que
+$\ang{u,A^*(v+w)}=\ang{Au,v+w}=\ang{Au,v}+\ang{Au,w}=\ang{u,A^*v+A^*w}$
+e
+$\ang{u,A^*(\alpha v)}=\ang{Au,\alpha
+  v}=\alpha\ang{Au,v}=\ang{u,\alpha A^*v}$.
+
+\begin{thm}
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita, munidos de
+  produto interno. Se ${\cal V}=\{u_1,\ldots,u_n\}$ e
+  ${\cal W}=\{v_1,\ldots,v_m\}$ são bases ortonormais de $E$ e $F$
+  respectivamente e ${\bf a}$ é a matriz de uma transformação linear
+  $A:E\to F$, então a matriz de $A^*$ é ${\bf a}^T$.
+\end{thm}
+\begin{proof}
+  Como $A^*v_j=\sum_{i=1}^na^*_{ij}u_i$, $j=1,\ldots,m$, vemos que
+  $a^*_{ij}=\ang{u_i,A^*v_j}=\ang{Au_i,v_j}$, $i=1,\ldots,n$,
+  $j=1,\ldots,m$. Por outro lado, $Au_i=\sum_{j=1}^ma_{ji}v_j$,
+  $i=1,\ldots,n$, de onde segue que $a_{ji}=\ang{v_j,Au_i}=a_{ij}^*$,
+  $i=1,\ldots,n$, $j=1,\ldots,m$. Portanto, ${\bf a}^*={\bf a}^T$.
+\end{proof}
+\begin{cor}
+  Seja $A:E\to F$ uma transformação linear entre espaços vetoriais de
+  dimensão finita, munidos de produto interno. Logo, o posto de $A^*$
+  é igual ao posto de $A$.
+\end{cor}
+
+\begin{thm}
+  Sejam $E,F$ e $G$ espaços vetoriais de dimensão finita, munidos de
+  produto interno. Logo,
+  \begin{enumerate}
+  \item se $I:E\to E$ é o operador identidade, então $I^*=I$;
+  \item dados $A,B\in{\cal L}(E,F)$, tem-se que $(A+B)^*=A^*+B^*$;
+  \item dados $A\in{\cal L}(E,F)$ e $\alpha\in\R$, tem-se que
+    $(\alpha A)^*=\alpha A^*$;
+  \item dados $A\in{\cal L}(E,F)$ e $B\in{\cal L}(F,G)$, tem-se que
+    $(BA)^*=A^*B^*$;
+  \item dado $A\in{\cal L}(E,F)$, tem-se que $A^{**}=A$;
+  \item $A\in{\cal L}(E,F)$ é injetiva se, e somente se, $A^*$ é
+    sobrejetiva;
+  \item $A\in{\cal L}(E,F)$ é um isomorfismo se, e somente se, $A^*$ é
+    também um isomorfismo; tem-se ainda que $(A^*)^{-1}=(A^{-1})^*$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item[6.] ($\Rightarrow$) Se $A$ é injetiva, $A$ tem uma inversa à
+    esquerda $B:F\to E$. Logo, $BA=I_E$ e, pelos itens 1 e 4, temos
+    que $A^*B^*=I_E$. Dessa maneira, $A^*$ tem uma inversa à direita,
+    o que implica que é sobrejetiva. ($\Leftarrow$) Análogo.\qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  \begin{enumerate}
+  \item[]
+  \item ${\bf I}^T={\bf I}$;
+  \item dados ${\bf a}, {\bf b}\in {\cal M}(m\times n)$, tem-se que
+    $({\bf a}+{\bf b})^T={\bf a}^T+{\bf b}^T$;
+  \item dados ${\bf a}\in {\cal M}(m\times n)$ e $\alpha\in R$, tem-se
+    $(\alpha{\bf a})^T=\alpha{\bf a}^T$;
+  \item dados ${\bf a}\in {\cal M}(m\times n)$ e
+    ${\bf b}\in{\cal M}(n\times p)$, tem-se que
+    $({\bf ba})^T={\bf a}^T{\bf b}^T$;
+  \item dado ${\bf a}\in{\cal M}(m\times n)$, tem-se que
+    $({\bf a}^{T})^T={\bf a}$;
+  \item uma matriz quadrada ${\bf a}$ é invertível se, e somente se,
+    ${\bf a}^T$ é invertível; tem-se ainda que
+    $({\bf a}^T)^{-1}=({\bf a}^{-1})^T$.
+  \end{enumerate}
+\end{cor}
+
+Seja $E$ um espaço vetorial munido de um produto interno. Define-se o
+\textit{complemento ortogonal} de um conjunto $X\subset E$ como o
+conjunto $X^\perp=\{v\in E:\forall x\in X,\ang{v,x}=0\}$. Vemos
+imediatamente que $X^\perp$ é um subespaço de $E$. Além disso, se
+$u\in E$ é uma combinação linear de vetores de $X$, então
+$v\in X^\perp\Rightarrow \ang{v,u}=0\Rightarrow v\in S(X)^\perp$. Como
+a recíproca é claramente verdadeira, temos que $S(X)^\perp=X^\perp$.
+
+\begin{thm}
+  Seja $E$ um espaço vetorial de dimensão finita munido de um produto
+  interno. Para qualquer subespaço $F\subset E$, tem-se que
+  $E=F\oplus F^\perp$.
+\end{thm}
+\begin{proof}
+  Seja $\{u_1,\ldots,u_m\}$ uma base ortonormal de $F$. O operador
+  linear $P:E\to E$ definido por
+  $P(v)=\pr_F(v)=\sum_{i=1}^m\ang{u_i,v}u_i$ é uma projeção. Além
+  disso, $Im(P)=F$ e $N(P)=F^\perp$. Portanto, $E=F\oplus F^\perp$.
+\end{proof}
+
+\begin{cor}
+  Seja $E$ um espaço vetorial de dimensão finita munido de um produto
+  interno. Para qualquer subespaço $F\subset E$, tem-se que
+  $\dim E=\dim F+\dim F^\perp$.
+\end{cor}
+
+\begin{cor}
+  \label{thm:16}
+  Seja $E$ um espaço vetorial de dimensão finita munido de um produto
+  interno. Para qualquer subespaço $F\subset E$, tem-se que
+  $(F^\perp)^\perp=F$.
+\end{cor}
+
+\begin{thm}
+  Sejam $E$ e $F$ espaços vetoriais de dimensão finita munidos de
+  produto interno. Dada a transformação linear $A:E\to F$, tem-se que
+  \begin{enumerate}
+  \item $N(A)^\perp=Im(A^*)$;
+  \item $Im(A)^\perp=N(A^*)$;
+  \item $N(A^*)^\perp=Im(A)$;
+  \item $Im(A^*)^\perp=N(A)$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+  \begin{enumerate}
+  \item[]
+  \item Vemos que
+    $u\in Im(A^*)\Rightarrow \exists w\in F: A^*w=u\Rightarrow \forall
+    v\in N(A),\ang{v,u}=\ang{Av,w}=0\Rightarrow u\in
+    N(A)^\perp$. Logo, $Im(A^*)\subset N(A)^\perp$. Como
+    $\dim N(A)^\perp=\dim E-\dim N(A)=\dim Im(A)=\dim Im(A^*)$, segue
+    que $Im(A^*)=N(A)^\perp$.
+  \item[2-4.] Podem ser obtidos a partir do item 1, usando o fato
+    de que $A^{**}=A$ e o corolário~\ref{thm:16}.\qedhere
+  \end{enumerate}
+\end{proof}
+
+\begin{cor}
+  O sistema linear
+  \begin{equation*}
+    \begin{split}
+      a_{11}x_1+\cdots+a_{1n}x_n&=b_1\\
+      \vdots\qquad\qquad&\quad\,\,\vdots\\
+      a_{m1}x_1+\cdots+a_{mn}x_n&=b_n
+    \end{split}
+  \end{equation*}
+  tem solução se, e somente se, o vetor $(b_1,\ldots,b_n)\in\R^n$ é ortogonal a toda solução do sistema linear
+  \begin{equation*}
+    \begin{split}
+      a_{11}y_1+\cdots+a_{m1}y_m&=0\\
+      \vdots\qquad\qquad&\quad\,\,\vdots\\
+      a_{1n}y_1+\cdots+a_{nm}y_m&=0\,.
+    \end{split}
+  \end{equation*}
+\end{cor}
+
+\section{Subespaços invariantes}
+
+Seja $E$ um espaço vetorial. Diz-se que um subespaço $F\subset E$ é
+\textit{invariante} por um operador linear $A:E\to E$ quando
+$A(F)\subset F$. Por exemplo, $N(A)$ e $Im(A)$ são exemplos de
+subespaços invariantes por $A$. Um vetor $v\in E$, $v\ne 0$, é dito um
+\textit{autovetor} de $A$ quando existe $\lambda\in\R$ tal que
+$Av=\lambda v$. Nesse caso, $\lambda$ é chamado de um
+\textit{autovalor} de $A$. Vemos que dizer que existe um subespaço de
+dimensão $1$ invariante por $A$ equivale a dizer que $A$ tem um
+autovetor.
+
+Seja $p(x)=a_0+a_1x+\cdots+a_nx^n$ um polinômio com $a_n>0$. Diz-se
+que $p$ é \textit{mônico} quando $a_n=1$. Pelo teorema fundamental da
+álgebra, o polinômio $p$ tem $n$ raízes complexas $r_1,\ldots,r_n$ e,
+dessa maneira, $p(x)=(x-r_1)\cdots(x-r_n)$. Se queremos trabalhar só
+com números reais, então alguns pares de fatores na decomposição de
+$p(x)$ formarão \textit{polinômios irredutíveis} de grau $2$, ou seja,
+que não têm raízes reais. Dessa maneira, todo polinômio não-constante
+pode ser escrito como o produto de polinômios mônicos irredutíveis de
+grau $1$ ou $2$.
+
+Se $A:E\to E$ é um operador linear em um espaço de dimensão finita e
+$p(x)=a_0+a_1x+\cdots+a_nx^n$, definimos $p(A)=a_0+a_1A\cdots+a_nA^n$.
+
+\begin{lem}
+  \label{thm:17}
+  Seja $E$ um espaço vetorial de dimensão finita. Dado um operador
+  linear $A:E\to E$, existem um polinômio mônico irredutível $p$, de
+  grau $1$ ou $2$, e um vetor $v\in E$ não-nulo tais que $p(A)v=0$.
+\end{lem}
+\begin{proof}
+  Se $\dim E=n$, então o espaço vetorial ${\cal L}(E)$ tem dimensão
+  $n^2$, pois é isomorfo ao espaço ${\cal M}(n\times n)$. Logo, o
+  conjunto $\{I,A,\ldots,A^{n^2}\}$ é L.D.. Logo, existem
+  $\alpha_0,\alpha_1,\ldots,\alpha_{n^2}\in\R$ não todos nulos tais
+  que $\alpha_0I+\alpha_1A+\cdots+\alpha_{n^2}A^{n^2}=0$. Seja $m$ o
+  maior índice para o qual $\alpha_m\ne 0$ e definamos o polinômio
+  $p(x)=\alpha_0+\alpha_1x+\cdots+\alpha_mx^m$. Pelo teorema
+  fundamental da álgebra, existem polinômios mônicos irredutíveis
+  $q_1,\ldots,q_r$, $r<m$, de grau $1$ ou $2$ tais que
+  $p(x)=q_1(x)\cdots q_r(x)$. Logo, $q_1(A)\cdots q_r(A)=p(A)=0$. Isso
+  implica que pelo menos um dos operadores $q_i(A)$, $i=1,\ldots,r$,
+  não deve ser invertível e, por conseguinte, não deve ser
+  injetivo. Logo, existem um polinômio mônico irredutível $q(x)$ de
+  grau $1$ ou $2$ e um vetor $v\in E$, $v\ne 0$, tais que $q(A)v=0$.
+\end{proof}
+
+\begin{thm}
+  Dado um espaço vetorial de dimensão finita $E$, seja $A:E\to E$ um
+  operador linear. Existem subespaços de dimensão $1$ ou $2$
+  invariantes por $A$.
+\end{thm}
+\begin{proof}
+  Segue do lema~\ref{thm:17} que existem um polinômio mônico
+  irredutível $p$, de grau $1$ ou $2$, e um vetor $v\in E$ não-nulo
+  tais que $p(A)v=0$. Se $p$ tem grau $1$, então existe $\lambda\in\R$
+  tal que $p(x)=-\lambda+x$. Logo, $p(A)v=0\Rightarrow Av=\lambda v$,
+  ou seja, $v$ é um autovetor de $A$. Se $p$ tem grau $2$, existem
+  $\alpha_0,\alpha_1\in\R$ tais que $p(x)=\alpha_0+\alpha_1x+x^2$ e
+  $\alpha_1^2-4\alpha_0<0$. Logo,
+  $p(A)v=0\Rightarrow A^2v=-\alpha_0v-\alpha_1Av$, o que implica que
+  $A^2v\in S(\{v,Av\})$. Dessa maneira, $S(\{v,Av\})$ é invariante por
+  $A$. Por outro lado, $\{v,Av\}$ é um conjunto L.I., pois caso
+  contrário existiria $\lambda\in\R$ tal que $Av=\lambda v$. Isso
+  implicaria que $p(A)v=(\alpha_0+ a_1\lambda+\lambda^2)v=0$, ou seja,
+  $\alpha_0+ a_1\lambda+\lambda^2=0$. Porém, isso é impossível para
+  todo $\lambda\in\R$. Portanto, $S(\{v,Av\})$ tem dimensão $2$.
+\end{proof}
+
+\begin{thm}
+  A autovalores diferentes de um operador linear $A:E\to E$
+  correspondem autovetores L.I..
+\end{thm}
+\begin{proof}
+  Sejam $v_1,v_2\in E$ autovetores de $A$ correspondentes a
+  autovalores diferentes $\lambda_1,\lambda_2\in\R$. Se
+  $\alpha_1v_1+\alpha_2v_2=0$, então $\alpha_1Av_1+\alpha_2Av_2=0$ e,
+  por conseguinte,
+  $\alpha_1\lambda_1v_1+\alpha_2\lambda_2v_2=0$. Multiplicando a
+  primeira equação por $\lambda_2$, obtemos que
+  $\alpha_1\lambda_2v_1+\alpha_2\lambda_2v_2=0$. Logo, restando a
+  terceira equação, vamos ter que
+  $\alpha_1(\lambda_1-\lambda_2)v_1=0$, o que implica que $\alpha_1=0$
+  e, por conseguinte, $\alpha_2=0$. Suponhamos que, se
+  $v_1,\ldots,v_n\in E$ são autovetores de $A$ que correspondem a
+  autovalores diferentes $\lambda_1,\ldots,\lambda_n\in\R$, o conjunto
+  $\{v_1,\ldots,v_n\}$ é L.I.. Se $v_{n+1}\in E$ é um autovetor de $A$
+  que corresponde a um autovalor
+  $\lambda_{n+1}\not\in\{\lambda _1,\ldots,\lambda_n\}$ e
+  $\alpha_1v_1+\cdots+\alpha_nv_n+\alpha_{n+1}v_{n+1}=0$, então
+  $\alpha_1\lambda_1v_1+\cdots+\alpha_n\lambda_nv_n+\alpha_{n+1}\lambda_{n+1}v_{n+1}=0$. Multiplicando
+  a primeira equação por $\lambda_{n+1}$ e restando a segunda equação
+  à equação resultante, obtemos que
+  $\alpha_1(\lambda_1-\lambda_{n+1})v_1+\cdots+\alpha_n(\lambda_n-\lambda_{n+1})v_n=0$. Logo,
+  $\alpha_1=\ldots=\alpha_n=0$, pois $\{v_1,\ldots,v_n\}$ é L.I., e
+  isso implica que $\alpha_{n+1}=0$.
+\end{proof}
+
+\begin{cor}
+  Seja $E$ um espaço vetorial dimensão $n$. Se um operador linear
+  $A:E\to E$ tem $n$ autovalores diferentes, então existe uma base
+  $\{v_1,\ldots,v_n\}$ de $E$ formada pelos autovetores de $A$. A
+  matriz de $A$ em relação a essa base é \emph{diagonal}, ou seja,
+  $a_{ij}=0$ se $i\ne j$.
+\end{cor}
+
+Dado um operador linear $A:E\to E$, tem-se que $\lambda\in\R$ é um
+autovalor de $A$ se, e somente se, existe $v\in E$, $v\ne 0$, tal que
+$(A-\lambda I_E)v=0$. Em outras palavras $\lambda$ é um autovalor de
+$A$ se, e somente se, $A-\lambda I_E$ é um operador linear
+não-invertível. Se $\dim E=2$, dada uma base $\{u,v\}$ de $E$, existem
+$a,b,c,d\in\R$ tais que $A(u)=au+bv$ e $A(v)=cu+dv$.
+
+\end{document}
