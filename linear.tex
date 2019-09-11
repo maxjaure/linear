@@ -1,0 +1,231 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[portuguese]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[colorlinks,allcolors=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+\let\emptyset=\varnothing
+
+\newcommand{\tb}{\textbf}
+\newcommand{\tbu}[1]{\tb{\textup{#1}}}
+\newcommand{\mb}{\mathbf}
+
+\newcommand{\dpar}[1]{\left(#1\right)}
+\newcommand{\dsqr}[1]{\left[#1\right]}
+\newcommand{\dcur}[1]{\left\{#1\right\}}
+\newcommand{\dabs}[1]{\left|#1\right|}
+\newcommand{\ang}[1]{\left\langle#1\right\rangle}
+
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+
+\newtheorem{thm}{Teorema}[chapter]
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+\newtheorem{thm*}[thm]{Teorema*}
+\newtheorem{lem*}[thm]{Lema*}
+\newtheorem{cor*}[thm]{Corolário*}
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\arcsen}{arc sen}
+\DeclareMathOperator{\senh}{senh}
+
+\title{Notas de álgebra linear}
+\author{Max Jáuregui}
+
+%\linespread{1.2}
+%\linespread{1.213} %11pt
+%\linespread{1.241} %12pt
+
+\begin{document}
+\maketitle
+  Estas notas foram criadas principalmente para meu uso pessoal e pode eventualmente ser usado como um curso elementar de álgebra linear. Todo o conteúdo foi produzido por mim, seguindo como roteiros o livro: E. L. Lima, \textit{Álgebra linear}, 8 ed. (IMPA, Rio de Janeiro, 2012).
+
+  \begin{flushright}
+    Max Jáuregui
+  \end{flushright}
+\tableofcontents
+
+\chapter{Matrizes}
+
+Uma \tb{matriz} de \tb{ordem} $m\times n$ é um arranjo retangular de $mn$ números reais ou complexos que tem $m$ linhas e $n$ colunas. Se $\mb{a}$ é uma matriz $m\times n$, então
+$$\mb{a}=\begin{bmatrix}
+  a_{11}&\ldots&a_{1n}\\
+  \vdots&\vdots&\vdots\\
+  a_{m1}&\ldots&a_{mn}\\
+\end{bmatrix}\,,$$
+em que, para cada $i\in\{1,\ldots,m\}$ e $j\in\{1,\ldots,n\}$, o número $a_{ij}$ é chamado de \tb{elemento} na posição $(i,j)$ da matriz $\mb{a}$.
+
+Formatos especiais de matrizes:
+
+\begin{enumerate}
+  \item \tb{Matriz quadrada:} É uma matriz cujo número de linhas é igual ao seu número de colunas. Se $\mb{a}$ é uma matriz quadrada, os elementos $a_{ii}$ são chamados de elementos da \tb{diagonal} de $\mb{a}$. Exemplos:
+  $$\begin{bmatrix}
+    4&0\\
+    2/3&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&-2&1\\
+    0&0&10\\
+    2&1&\pi
+  \end{bmatrix}\,.$$
+  Os elementos da diagonal dessas matrizes são $(4,-1)$ e $(5,0,\pi)$ respectivamente.
+  \item \tb{Matriz diagonal:} É uma matriz quadrada cujos elementos fora da diagonal são nulos. Exemplos:
+  $$\begin{bmatrix}
+    4&0\\
+    0&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&0&0\\
+    0&0&0\\
+    0&0&\pi
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz identidade:} É uma matriz diagonal na qual todos os elementos da diagonal são iguais a $1$. A matriz identidade $n\times n$ é denotada por $\mb{I}_n$. Exemplos:
+  $$\mb{I}_2=\begin{bmatrix}
+    1&0\\
+    0&1
+  \end{bmatrix}\,,\quad \mb{I}_3=\begin{bmatrix}
+    1&0&0\\
+    0&1&0\\
+    0&0&1
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz triangular superior:} É uma matriz quadrada na qual todos os elementos debaixo da diagonal são nulos. Exemplos:
+  $$\begin{bmatrix}
+    4&3\\
+    0&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&3&0\\
+    0&0&2\\
+    0&0&\pi
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz triangular inferior:} É uma matriz quadrada na qual todos os elementos acima da diagonal são nulos. Exemplos:
+  $$\begin{bmatrix}
+    4&0\\
+    3&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&0&0\\
+    3&0&0\\
+    0&2&\pi
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz simétrica:} É uma matriz quadrada $\mb{a}$ tal que $a_{ij}=a_{ji}$ para quaisquer $i$ e $j$, ou seja, é uma matriz simétrica em relação à sua diagonal. Exemplos:
+  $$\begin{bmatrix}
+    4&3\\
+    3&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&3&0\\
+    3&0&2\\
+    0&2&\pi
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz antissimétrica:} É uma matriz quadrada $\mb{a}$ tal que $a_{ij}=-a_{ji}$ para quaisquer $i$ e $j$. Segue daqui que $a_{ii}=-a_{ii}$ para todo $i$, o que implica que os elementos da diagonal de $\mb a$ são nulos. Exemplos:
+  $$\begin{bmatrix}
+    0&-3\\
+    3&0
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    0&3&0\\
+    -3&0&2\\
+    0&-2&0
+  \end{bmatrix}\,.$$
+  \item \tb{Matriz hermitiana:} É uma matriz quadrada $\mb a$ tal que $a_{ij}=\overline{a_{ji}}$ para quaisquer $i$ e $j$, em que $\overline{a_{ji}}$ denota o complexo conjugado de $a_{ji}$. Segue daqui que $a_{ii}=\overline{a_{ii}}$ para todo $i$, o que implica que os elementos da diagonal de $\mb a$ são reais. Exemplos:
+  $$\begin{bmatrix}
+    4&3i\\
+    -3i&-1
+  \end{bmatrix}\,,\quad \begin{bmatrix}
+    5&3+i&0\\
+    3-i&0&-2i\\
+    0&2i&\pi
+  \end{bmatrix}\,.$$
+\end{enumerate}
+
+Como veremos mais na frente, o conjunto de todas as matrizes $m\times n$ é um espaço vetorial, pois nele podem ser definidas duas operações: adição de matrizes e multiplicação de uma matriz por um número (real ou complexo dependendo das circunstâncias). As seguintes equações definem essas operações:
+$$\mb{a}+\mb{b}=\begin{bmatrix}
+  a_{11}+b_{11}&\ldots&a_{1n}+b_{1n}\\
+  \vdots&\vdots&\vdots\\
+  a_{m1}+b_{m1}&\ldots&a_{mn}+b_{mn}
+\end{bmatrix}\,,\quad
+\alpha\mb{a}=\begin{bmatrix}
+  \alpha a_{11}&\ldots&\alpha a_{1n}\\
+  \vdots&\vdots&\vdots\\
+  \alpha a_{m1}&\ldots&\alpha a_{mn}
+\end{bmatrix}\,.$$
+Pode-se verificar facilmente que essas operações têm as seguintes propriedades:
+\begin{enumerate}
+  \item Associatividade: $\mb{a}+(\mb{b}+\mb{c})=(\mb{a}+\mb b)+\mb c$ e $\alpha(\beta \mb a)=(\alpha\beta)\mb a$.
+  \item Comutatividade: $\mb a+\mb b=\mb b+\mb a$.
+  \item Elemento neutro: Existe uma matriz $\mb 0$ tal que $\mb a+\mb 0=\mb a$ para qualquer $\mb a$.
+  \item Elemento inverso: Para cada $\mb a$ existe uma matriz $-\mb a$ tal que $\mb a+(-\mb a)=\mb 0$.
+  \item Multiplicação por $1$: $1\mb a=\mb a$.
+  \item Distributividade: $\alpha(\mb a+\mb b)=\alpha\mb a+\alpha\mb b$ e $(\alpha+\beta)\mb a=\alpha\mb a+\beta\mb a$.
+\end{enumerate}
+
+Define-se a \tb{transposta} de uma matriz $\mb a$ como a matriz $\mb a^T$ cujas linhas são as colunas de $\mb a$, ou seja, $a_{ij}^T=a_{ji}$ para quaisquer $i$ e $j$. Segue diretamente dessa definição que $(\mb a^T)^T=\mb a$, $(\mb a+\mb b)^T=\mb a^T+\mb b^T$ e $(\alpha\mb a)^T=\alpha\mb a^T$.
+
+Exemplos:
+
+\begin{enumerate}
+  \item Uma matriz $\mb a$ é simétrica (antissimétrica) se, e somente se, $\mb a=\mb a^T$ ($\mb a=-\mb a^T$).
+  \item Toda matriz quadrada $\mb a$ pode ser escrita como a soma de uma matriz simétrica e uma matriz antissimétrica. Com efeito, definindo $\mb s=(\mb a+\mb a^T)/2$ e $\mb t=(\mb a-\mb a^T)/2$, temos que $\mb s=\mb s^T$, $\mb t=-\mb t^T$ e $\mb a=\mb s+\mb t$.
+\end{enumerate}
+
+Além das duas operações anteriores, pode ser definida uma \tb{multiplicação de matrizes}. Se $\mb a$ é uma matriz $m\times n$ e $\mb b$ é uma matriz $n\times p$, então a multiplicação de $\mb a$ com $\mb b$ pode ser efetuada e o produto é uma matriz $\mb c$ de ordem $m\times p$ tal que
+$$c_{ik}=\sum_{j=1}^na_{ij}b_{jk}=a_{i1}b_{1k}+\cdots+a_{in}b_{nk}\,.$$
+Em outras palavras, o elemento $c_{ik}$ da matriz produto $\mb c$ é obtido multiplicando cada elemento da linha $i$ da matriz $\mb a$ com o elemento respectivo na coluna $k$ da matriz $\mb b$ e somando esses produtos.
+
+Exemplos:
+\begin{enumerate}
+  \item Dadas as matrizes
+  $$\mb a=\begin{bmatrix}
+    1&0&-3\\
+    2&1&0
+  \end{bmatrix}\quad\text{e}\quad\mb b=\begin{bmatrix}
+    1&5&0\\
+    4&-1&3\\
+    0&2&0
+  \end{bmatrix}\,,$$
+  temos que
+  $$\mb {ab}=\begin{bmatrix}
+    1&-1&0\\
+    6&9&3
+  \end{bmatrix}\,.$$
+  No entanto, o produto $\mb{ba}$ não está definido, pois o número de linhas de $\mb a$ é diferente do número de colunas de $\mb b$.
+  \item Se $\mb a$ é uma matriz $m\times n$, o produto de $\mb a$ com $\mb I_n$ é o próprio $\mb a$ (isso justifica o nome de matriz identidade). Com efeito, os elementos da matriz $\mb I_n$ são dados pelo \tb{símbolo de Kronecker}
+  $$\delta_{ij}=\begin{cases}
+    1&\text{se $i=j$}\\
+    0&\text{se $i\ne j$.}
+  \end{cases}$$
+  Logo, se $\mb c=\mb {aI}_n$, então $c_{ik}=\sum_{j=1}^na_{ij}\delta_{jk}=a_{ik}\delta_{kk}=a_{ik}$. De forma análoga pode-se provar que $\mb I_m\mb a=\mb a$.
+  \item Duas matrizes não nulas podem ter como produto a matriz nula. Com efeito,
+  $$\begin{bmatrix}
+    1&0&-1\\
+    0&-1&2
+  \end{bmatrix}\begin{bmatrix}
+    -1&3\\
+    2&-6\\
+    1&-3
+  \end{bmatrix}=\begin{bmatrix}
+    0&0\\
+    0&0
+  \end{bmatrix}\,.$$
+  Por outro lado
+  $$\begin{bmatrix}
+    -1&3\\
+    2&-6\\
+    1&-3
+  \end{bmatrix}\begin{bmatrix}
+    1&0&-1\\
+    0&-1&2
+  \end{bmatrix}=\begin{bmatrix}
+    -1&-3&7\\
+    2&6&-14\\
+    1&3&-7
+  \end{bmatrix}\,,$$
+  o que mostra que a multiplicação de matrizes não é comutativa.
+\end{enumerate}
+\end{document}
