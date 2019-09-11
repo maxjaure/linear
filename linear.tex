@@ -39,6 +39,7 @@
 \DeclareMathOperator{\sen}{sen}
 \DeclareMathOperator{\arcsen}{arc sen}
 \DeclareMathOperator{\senh}{senh}
+\DeclareMathOperator{\tr}{tr}
 
 \title{Notas de álgebra linear}
 \author{Max Jáuregui}
@@ -49,7 +50,7 @@
 
 \begin{document}
 \maketitle
-  Estas notas foram criadas principalmente para meu uso pessoal e pode eventualmente ser usado como um curso elementar de álgebra linear. Todo o conteúdo foi produzido por mim, seguindo como roteiros o livro: E. L. Lima, \textit{Álgebra linear}, 8 ed. (IMPA, Rio de Janeiro, 2012).
+  Estas notas foram criadas principalmente para meu uso pessoal e pode eventualmente ser usado como um curso elementar de álgebra linear. Todo o conteúdo foi produzido por mim, seguindo como roteiro o livro: E. L. Lima, \textit{Álgebra linear}, 8 ed. (IMPA, Rio de Janeiro, 2012).
 
   \begin{flushright}
     Max Jáuregui
@@ -203,7 +204,7 @@ Exemplos:
   Logo, se $\mb c=\mb {aI}_n$, então $c_{ik}=\sum_{j=1}^na_{ij}\delta_{jk}=a_{ik}\delta_{kk}=a_{ik}$. De forma análoga pode-se provar que $\mb I_m\mb a=\mb a$.
   \item Duas matrizes não nulas podem ter como produto a matriz nula. Com efeito,
   $$\begin{bmatrix}
-    1&0&-1\\
+    1&0&1\\
     0&-1&2
   \end{bmatrix}\begin{bmatrix}
     -1&3\\
@@ -219,13 +220,121 @@ Exemplos:
     2&-6\\
     1&-3
   \end{bmatrix}\begin{bmatrix}
-    1&0&-1\\
+    1&0&1\\
     0&-1&2
   \end{bmatrix}=\begin{bmatrix}
-    -1&-3&7\\
-    2&6&-14\\
-    1&3&-7
+    -1&-3&5\\
+    2&6&-10\\
+    1&3&-5
   \end{bmatrix}\,,$$
   o que mostra que a multiplicação de matrizes não é comutativa.
 \end{enumerate}
+
+\begin{thm}
+  Sejam $\mb a$ e $\mb b$ matrizes $m\times n$, $\mb c$ e $\mb d$ matrizes $n\times p$ e $\alpha$ um número. Tem-se que $\mb a(\mb b+\mb c)=\mb {ab}+\mb{ac}$, $(\mb a+\mb b)\mb c=\mb {ac}+\mb{bc}$ e $\mb a(\alpha\mb b)=\alpha (\mb {ab})=(\alpha \mb a)\mb b$.
+\end{thm}
+\begin{proof}
+  Se $\mb p=\mb a(\mb b+\mb c)$, então
+  $$p_{ik}=\sum_{j=1}^na_{ij}(b_{jk}+c_{jk})=\sum_{j=1}^na_{ij}b_{jk}+\sum_{j=1}^na_{ij}c_{jk}\,,$$
+  o que implica que $\mb p=\mb {ab}+\mb{ac}$. A igualdade $(\mb a+\mb b)\mb c=\mb {ac}+\mb{bc}$ pode ser provada de forma análoga.
+\end{proof}
+
+Exemplo: Dada a matriz
+$$\mb a=\begin{bmatrix}
+  1&x\\
+  0&1
+\end{bmatrix}\,,$$
+temos que
+$$\mb a^n=\begin{bmatrix}
+  1&nx\\
+  0&1
+\end{bmatrix}$$
+para todo $n\in\N$. Com efeito, definindo
+$$\mb t=\begin{bmatrix}
+  0&x\\
+  0&0
+\end{bmatrix}$$
+temos que $\mb a=\mb I_2+\mb t$ e que $\mb t^2=\mb 0$. Logo,
+$$\mb a^2=(\mb I_2+\mb t)^2=(\mb I_2+\mb t)(\mb I_2+\mb t)=\mb I_2^2+\mb I_2\mb t+\mb t\mb I_2+\mb t^2=\mb I_2+2\mb t\,.$$
+Supondo que $\mb a^n=\mb I_2+n\mb t$ para algum $n\in\N$, temos que
+$$\mb a^{n+1}=\mb a^n\mb a=(\mb I_2+n\mb t)(\mb I_2+\mb t)=\mb I_2^2+\mb I_2\mb t+n\mb t\mb I_2+n\mb t^2=\mb I_2+(n+1)\mb t\,.$$
+Portanto, $\mb a^n=\mb I_2+n\mb t$ para todo $n\in\N$.
+
+\begin{thm}
+  Sejam $\mb a$ uma matriz $m\times n$, $\mb b$ uma matriz $n\times p$ e $\mb c$ uma matriz $p\times q$. Tem-se que $\mb a(\mb {bc})=(\mb{ab})\mb c$.
+\end{thm}
+\begin{proof}
+  Sejam $\mb r=\mb{ab}$, $\mb s=\mb {bc}$ e $\mb t=\mb {as}$. Temos que
+  $$t_{ik}=\sum_{j=1}^na_{ij}s_{jk}=\sum_{j=1}^na_{ij}\sum_{l=1}^pb_{jl}c_{lk}=\sum_{j=1}^n\sum_{l=1}^pa_{ij}b_{jl}c_{lk}=\sum_{l=1}^p\dpar{\sum_{j=1}^na_{ij}b_{jl}}c_{lk}=\sum_{l=1}^pr_{il}c_{lk}\,.$$
+  Portanto, $\mb t=\mb {rc}$.
+\end{proof}
+
+\begin{thm}
+  Sejam $\mb a$ uma matriz $m\times n$ e $\mb b$ uma matriz $n\times p$. Tem-se que $(\mb a\mb b)^T=\mb b^T\mb a^T$.
+\end{thm}
+\begin{proof}
+  Se $\mb c=\mb {ab}$, então
+  $$c^T_{ik}=c_{ki}=\sum_{j=1}^na_{kj}b_{ji}=\sum_{j=1}^na_{jk}^Tb_{ij}^T=\sum_{j=1}^nb_{ij}^Ta_{jk}^T\,.$$
+  Portanto, $\mb c^T=\mb b^T\mb a^T$.
+\end{proof}
+
+Define-se o \tb{traço} de uma matriz quadrada $\mb a$ como a soma dos elementos da sua diagonal. O traço de $\mb a$ é denotado por $\tr(\mb a)$. Segue imediatamente dessa definição que $\tr(\mb a)=\tr(\mb a^T)$, pois $\mb a$ e $\mb a^T$ têm a mesma diagonal.
+
+\begin{thm}
+  Sejam $\mb a$ uma matriz $m\times n$ e $\mb b$ uma matriz $n\times m$. Tem-se que $\tr(\mb {ab})=\tr(\mb{ba})$.
+\end{thm}
+\begin{proof}
+  Se $\mb c=\mb a\mb b$, então $\tr(\mb {ab})=\sum_{i=1}^m c_{ii}$. Como $c_{ii}=\sum_{j=1}^na_{ij}b_{ji}$, segue que
+  $$\tr(\mb{ab})=\sum_{i=1}^m\sum_{j=1}^na_{ij}b_{ji}=\sum_{j=1}^n\sum_{i=1}^ma_{ij}b_{ji}=\sum_{j=1}^n\sum_{i=1}^mb_{ji}a_{ij}\,.$$
+  Portanto, $\tr(\mb{ab})=\tr(\mb{ba})$.
+\end{proof}
+
+Diz-se que uma matriz é \tb{escalonada} quando o primeiro elemento não-nulo de cada linha está à esquerda dos primeiros elementos não-nulos das linhas subsequentes. Dessa maneira, debaixo do primeiro elemento não-nulo de cada linha só se tem zeros. Exemplos:
+$$\begin{bmatrix}
+  2&-1&0&4\\
+  0&2&3&-1\\
+  0&0&0&5
+\end{bmatrix}\,,\quad \begin{bmatrix}
+  0&1&2&3&4\\
+  0&0&0&3&5\\
+  0&0&0&0&1\\
+  0&0&0&0&0
+\end{bmatrix}\,.$$
+
+Vamos agora descrever o método de eliminação de Gauss que nos permite transformar uma matriz qualquer em uma matriz escalonada. O método de eliminação consiste em usar sistematicamente as seguintes operações nas linhas da matriz até obter uma matriz escalonada:
+\begin{enumerate}
+  \item permutar duas linhas;
+  \item multiplicar uma linha por um número diferente de $0$;
+  \item somar a uma linha um múltiplo não-nulo de uma outra linha.
+\end{enumerate}
+Essas operações são às vezes chamadas de \tb{operações elementares}.
+
+Exemplo:
+\begin{multline*}
+  \begin{bmatrix}
+    0&0&2&0\\
+    0&1&3&1\\
+    0&3&0&2
+  \end{bmatrix}\xrightarrow{L_1\leftrightarrow L_2} \begin{bmatrix}
+    0&1&3&1\\
+    0&0&2&0\\
+    0&3&0&2
+\end{bmatrix}\xrightarrow{L_3-3L_1} \begin{bmatrix}
+  0&1&3&1\\
+  0&0&2&0\\
+  0&0&-9&-1
+\end{bmatrix}\xrightarrow{L_2/2}\begin{bmatrix}
+  0&1&3&1\\
+  0&0&1&0\\
+  0&0&-9&-1
+\end{bmatrix}\\
+\xrightarrow{L_3+9L_2}\begin{bmatrix}
+  0&1&3&1\\
+  0&0&1&0\\
+  0&0&0&-1
+\end{bmatrix}\,.
+\end{multline*}
+
+Define-se o \tb{posto} de uma matriz como o número de linhas não-nulas da matriz escalonada obtida usando o método de eliminação. Segue imediatamente daqui que o posto de uma matriz $m\times n$ é no máximo igual a $m$. O posto de uma matriz não depende dos detalhes do processo de eliminação (isso será justificado mais na frente). Por exemplo, a matriz considerada no exemplo anterior tem posto $3$.
+
 \end{document}
