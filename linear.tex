@@ -134,7 +134,7 @@ Formatos especiais de matrizes:
     -3&0&2\\
     0&-2&0
   \end{bmatrix}\,.$$
-  \item \tb{Matriz hermitiana:} É uma matriz quadrada $\mb a$ tal que $a_{ij}=\overline{a_{ji}}$ para quaisquer $i$ e $j$, em que $\overline{a_{ji}}$ denota o complexo conjugado de $a_{ji}$. Segue daqui que $a_{ii}=\overline{a_{ii}}$ para todo $i$, o que implica que os elementos da diagonal de $\mb a$ são reais. Exemplos:
+  \item \tb{Matriz hermitiana:} É uma matriz quadrada $\mb a$ tal que $a_{ij}=\overline{a_{ji}}$ para quaisquer $i$ e $j$, em que $\overline{a_{ji}}$ denota o complexo conjugado de $a_{ji}$ ($\overline{x+iy}=x-iy$, em que $i=\sqrt{-1}$). Segue daqui que $a_{ii}=\overline{a_{ii}}$ para todo $i$, o que implica que os elementos da diagonal de $\mb a$ são reais. Exemplos:
   $$\begin{bmatrix}
     4&3i\\
     -3i&-1
@@ -172,6 +172,7 @@ Exemplos:
 
 \begin{enumerate}
   \item Uma matriz $\mb a$ é simétrica (antissimétrica) se, e somente se, $\mb a=\mb a^T$ ($\mb a=-\mb a^T$).
+  \item Uma matriz $\mb a$ é hermitiana se, e somente se, $\mb a^T=\overline{\mb a}$, em que $\overline{\mb a}$ é a matriz obtida ao tomar o complexo conjugado de cada elemento de $\mb a$.
   \item Toda matriz quadrada $\mb a$ pode ser escrita como a soma de uma matriz simétrica e uma matriz antissimétrica. Com efeito, definindo $\mb s=(\mb a+\mb a^T)/2$ e $\mb t=(\mb a-\mb a^T)/2$, temos que $\mb s=\mb s^T$, $\mb t=-\mb t^T$ e $\mb a=\mb s+\mb t$.
 \end{enumerate}
 
@@ -228,6 +229,26 @@ Exemplos:
     1&3&-5
   \end{bmatrix}\,,$$
   o que mostra que a multiplicação de matrizes não é comutativa.
+  \item Mesmo a multiplicação de duas matrizes quadradas não é comutativa, pois, por exemplo,
+  $$\begin{bmatrix}
+    2&3\\
+    -1&0
+  \end{bmatrix} \begin{bmatrix}
+    0&1\\
+    1&0
+  \end{bmatrix}=\begin{bmatrix}
+    3&2\\
+    0&-1
+  \end{bmatrix}\quad\text{e}\quad\begin{bmatrix}
+    0&1\\
+    1&0
+  \end{bmatrix} \begin{bmatrix}
+    2&3\\
+    -1&0
+  \end{bmatrix}= \begin{bmatrix}
+    -1&0\\
+    2&3
+  \end{bmatrix}\,.$$
 \end{enumerate}
 
 \begin{thm}
@@ -278,7 +299,7 @@ Portanto, $\mb a^n=\mb I_2+n\mb t$ para todo $n\in\N$.
   Portanto, $\mb c^T=\mb b^T\mb a^T$.
 \end{proof}
 
-Define-se o \tb{traço} de uma matriz quadrada $\mb a$ como a soma dos elementos da sua diagonal. O traço de $\mb a$ é denotado por $\tr(\mb a)$. Segue imediatamente dessa definição que $\tr(\mb a)=\tr(\mb a^T)$, pois $\mb a$ e $\mb a^T$ têm a mesma diagonal.
+Define-se o \tb{traço} de uma matriz quadrada $\mb a$ como a soma dos elementos da sua diagonal. O traço de $\mb a$ é denotado por $\tr(\mb a)$. Segue imediatamente dessa definição que $\tr(\mb a)=\tr(\mb a^T)$, pois $\mb a$ e $\mb a^T$ têm a mesma diagonal. Além disso, $\tr(\mb a+\mb b)=\tr(\mb a)+\tr(\mb b)$ e $\tr(\alpha\mb a)=\alpha\tr(\mb a)$.
 
 \begin{thm}
   Sejam $\mb a$ uma matriz $m\times n$ e $\mb b$ uma matriz $n\times m$. Tem-se que $\tr(\mb {ab})=\tr(\mb{ba})$.
@@ -336,5 +357,32 @@ Exemplo:
 \end{multline*}
 
 Define-se o \tb{posto} de uma matriz como o número de linhas não-nulas da matriz escalonada obtida usando o método de eliminação. Segue imediatamente daqui que o posto de uma matriz $m\times n$ é no máximo igual a $m$. O posto de uma matriz não depende dos detalhes do processo de eliminação (isso será justificado mais na frente). Por exemplo, a matriz considerada no exemplo anterior tem posto $3$.
+
+Diz-se que uma matriz $\mb a$ de ordem $n\times n$ é \tb{invertível} se existe uma matriz $\mb a^{-1}$ de ordem $n\times n$, chamada de \tb{inversa} da matriz $\mb a$, tal que $\mb a\mb a^{-1}=\mb a^{-1}\mb a=\mb I_n$. Como será justificado mais na frente, uma matriz quadrada é invertível se, e somente se, seu posto é igual ao seu número de colunas (ou linhas).
+
+Exemplos:
+\begin{enumerate}
+  \item A matriz
+  $$\mb a=\begin{bmatrix}
+    1&2&3\\
+    4&5&6\\
+    7&8&9
+  \end{bmatrix}$$
+  não é invertível. Com efeito, temos que
+  $$\begin{bmatrix}
+    1&2&3\\
+    4&5&6\\
+    7&8&9
+  \end{bmatrix}\xrightarrow[L_3-7L_1]{L_2-4L_1} \begin{bmatrix}
+    1&2&3\\
+    0&-3&-6\\
+    0&-6&-12
+  \end{bmatrix}\xrightarrow{L3-2L_2} \begin{bmatrix}
+    1&2&3\\
+    0&-3&-6\\
+    0&0&0
+  \end{bmatrix}\,,$$
+  do qual segue que o posto de $\mb a$ é $2\ne 3$.
+\end{enumerate}
 
 \end{document}
