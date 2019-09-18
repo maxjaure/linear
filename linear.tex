@@ -15,6 +15,7 @@
 \newcommand{\tb}{\textbf}
 \newcommand{\tbu}[1]{\tb{\textup{#1}}}
 \newcommand{\mb}{\mathbf}
+\newcommand{\mc}{\mathcal}
 
 \newcommand{\dpar}[1]{\left(#1\right)}
 \newcommand{\dsqr}[1]{\left[#1\right]}
@@ -29,6 +30,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 
+
 \newtheorem{thm}{Teorema}[chapter]
 \newtheorem{lem}[thm]{Lema}
 \newtheorem{cor}[thm]{Corolário}
@@ -41,6 +43,7 @@
 \DeclareMathOperator{\senh}{senh}
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\posto}{posto}
+\DeclareMathOperator{\sgn}{sgn}
 
 \title{Notas de álgebra linear}
 \author{Max Jáuregui}
@@ -640,4 +643,35 @@ Exemplos:
   \end{bmatrix}\,.$$
   Segue daqui que $\posto([\mb a|\mb b])=3\ne 2=\posto(\mb a)$ e, por conseguinte, o sistema não tem solução. Uma outra forma de chegar nessa conclusão é escrevendo a matriz escalonada obtida como um sistema linear. Nesse sistema a terceira equação diz é $0=-1$, o que é absurdo.
 \end{enumerate}
+
+\chapter{Determinantes}
+
+Uma \tb{permutação} da lista $(1,\ldots,n)$ é uma lista $\pi=(\pi_1,\ldots,\pi_n)$, em que $\pi_i\in\{1,\ldots,n\}$ e $\pi_{i}\ne \pi_j$ para quaisquer $i,j\in\{1,\ldots,n\}$. A permutação $\pi$ também pode ser vista como uma bijeção $\pi:\{1,\ldots,n\}\to\{1,\ldots,n\}$.
+
+Exemplo: As seguintes listas são permutações da lista $(1,2,3,4,5,6)$: $(1,3,5,2,4,6)$, $(2,4,1,5,6,3)$.
+
+Denotaremos por $\mc P_n$ o conjunto de todas as permutações da lista $(1,\ldots,n)$. Podemos verificar facilmente que o número de elementos de $\mc P_n$ é $n!=n(n-1)\cdots 1$.
+
+Realizar uma \tb{transposição} em uma lista de números é permutar qualquer par de elementos da lista.
+
+Exemplo: A lista $(1,2,4,3,5)$ é obtida realizando transposição na lista $(1,2,5,3,4)$ que consiste em permutar os elementos $5$ e $4$.
+
+\begin{thm}
+  Se $n\ge 2$, toda permutação da lista $(1,\ldots,n)$ pode ser obtida realizando um número finito de transposições na lista.
+\end{thm}
+\begin{proof}
+  Usamos indução em $n$. Se $n=2$, as únicas permutações da lista $(1,2)$ são $(1,2)$ e $(2,1)$, as quais podem ser obtidas realizando duas e uma transposições respectivamente. Suponhamos que o teorema seja verdadeiro para a lista $(1,\ldots,n)$. Se $\pi$ é uma permutação de $(1,\ldots,n,n+1)$, existe $i_0\in\{1,\ldots,n+1\}$ tal que $\pi_{i_0}=n+1$.
+  Excluindo $\pi_{i_0}$ da lista $\pi$, obtemos uma permutação $\sigma$ de $(1,\ldots,n)$, a qual pode ser obtida realizando um número finito de transposições. Como claramente a lista $\pi$ pode ser obtida usando um número finito de transposições na lista $(\sigma_1,\ldots,\sigma_n,n+1)$, o teorema é verdadeiro para $n+1$. Portanto, o teorema é verdadeiro para qualquer $n\ge 2$.
+\end{proof}
+
+Diz-se que uma permutação é \tb{par} (\tb{ímpar}) se ela pode ser obtida realizando um número par (ímpar) de transposições.
+
+Exemplos: Dada a lista $(1,2,3,4)$, a lista $(2,3,4,1)$ é uma permutação ímpar enquanto que a lista $(3,1,2,4)$ é uma permutação par.
+
+Define-se o sinal de uma permutação $\pi$ por
+$$\sgn(\pi)=\begin{cases}
+  1&\text{se $\pi$ é uma permutação par}\\
+  -1&\text{se $\pi$ é uma permutação ímpar.}
+\end{cases}$$
+
 \end{document}
