@@ -332,7 +332,7 @@ Vamos agora descrever o \tb{método de eliminação de Gauss} que nos permite tr
 \begin{enumerate}
   \item permutar duas linhas;
   \item multiplicar uma linha por um número diferente de $0$;
-  \item somar a uma linha um múltiplo não-nulo de uma outra linha.
+  \item somar a uma linha um múltiplo de uma outra linha.
 \end{enumerate}
 Essas operações são às vezes chamadas de \tb{operações elementares}.
 
@@ -529,7 +529,7 @@ As operações elementares que podem ser usadas nessa matriz são equivalentes a
 \begin{enumerate}
   \item permutar duas equações do sistema;
   \item multiplicar uma equação do sistema por um número;
-  \item somar a uma equação do sistema um múltiplo não-nulo de outra equação do sistema.
+  \item somar a uma equação do sistema um múltiplo de outra equação do sistema.
 \end{enumerate}
 Usando o método de eliminação na matriz aumentada da matriz podemos encontrar o seu posto e simultaneamente o posto da matriz $\mb a$. Com isso temos os seguintes casos:
 \begin{enumerate}
@@ -642,6 +642,117 @@ Exemplos:
     0&0&0&|&-1
   \end{bmatrix}\,.$$
   Segue daqui que $\posto([\mb a|\mb b])=3\ne 2=\posto(\mb a)$ e, por conseguinte, o sistema não tem solução. Uma outra forma de chegar nessa conclusão é escrevendo a matriz escalonada obtida como um sistema linear. Nesse sistema a terceira equação diz é $0=-1$, o que é absurdo.
+\end{enumerate}
+
+Como vimos anteriormente, o método de eliminação pode ser usado para determinar se uma matriz quadrada $\mb a$ é invertível. Além disso, no caso afirmativo, o método de eliminação pode ser usado para o cálculo efetivo da inversa de $\mb a$.
+
+Sejam as matrizes
+$$\mb a=\begin{bmatrix}
+  a_{11}&\ldots&a_{1n}\\
+  \vdots&&\vdots\\
+  a_{n1}&\ldots&a_{nn}
+\end{bmatrix}\quad\text{e}\quad \mb x=\begin{bmatrix}
+  x_{11}&\ldots&x_{1n}\\
+  \vdots&&\vdots\\
+  x_{n1}&\ldots&x_{nn}
+\end{bmatrix}\,.$$
+Para que $\mb x$ seja a matriz inversa de $\mb a$, deve-se ter em particular que $\mb a\mb x=\mb I_n$. Logo, se queremos encontrar os elementos da matriz $\mb x$, temos que resolver $n$ sistemas lineares com $n$ equações e $n$ incógnitas. O primeiro sistema corresponderia à obtenção da primeira coluna de $\mb I_n$, ou seja,
+\begin{equation*}
+  \begin{split}
+    a_{11}x_{11}+\cdots+a_{1n}x_{n1}&=1\\
+    a_{21}x_{11}+\cdots+a_{2n}x_{n1}&=0\\
+    \vdots\qquad\qquad&\quad\,\,\,\vdots\\
+    a_{n1}x_{11}+\cdots+a_{nn}x_{n1}&=0\,.
+  \end{split}
+\end{equation*}
+O segundo sistema, que corresponde à obtenção da segunda coluna de $\mb I_n$, é
+\begin{equation*}
+  \begin{split}
+    a_{11}x_{12}+\cdots+a_{1n}x_{n2}&=0\\
+    a_{21}x_{12}+\cdots+a_{2n}x_{n2}&=1\\
+    \vdots\qquad\qquad&\quad\,\,\,\vdots\\
+    a_{n1}x_{12}+\cdots+a_{nn}x_{n2}&=0\,.
+  \end{split}
+\end{equation*}
+Vemos daqui que todos os $n$ sistemas lineares tem a mesma matriz de coeficientes, $\mb a$. Logo, para analisar todos eles de forma simultânea, podemos considerar matriz aumentada
+$$[\mb a|\mb I_n]=\begin{bmatrix}
+  a_{11}&\ldots&a_{1n}&|&1&\ldots&0\\
+  \vdots&&\vdots&|&\vdots&&\vdots\\
+  a_{n1}&\ldots&a_{nn}&|&0&\ldots&1
+\end{bmatrix}\,.$$
+Para achar os elementos da matriz $\mb x$ devemos usar o método de eliminação na matriz $[\mb a|\mb I_n]$ até transformá-la numa matriz $[\mb I_n|\mb b]$. Se isso for possível (se $\mb a$ for invertível), vamos ter $\mb x=\mb b$ e assim $\mb b=\mb a^{-1}$.
+
+Exemplos:
+\begin{enumerate}
+  \item Seja a matriz
+ $$\mb a=\begin{bmatrix}
+   1&1&1\\
+   2&-1&2\\
+   1&-3&2
+ \end{bmatrix}\,.$$
+ Vamos provar que ela é uma matriz invertível e vamos encontrar a sua inversa. Para isso, consideramos
+ \begin{multline*}
+   \begin{bmatrix}
+     1&1&1&|&1&0&0\\
+     2&-1&2&|&0&1&0\\
+     1&-3&2&|&0&0&1
+   \end{bmatrix}\xrightarrow[L_3-L_1]{L_2-2L_1}\begin{bmatrix}
+     1&1&1&|&1&0&0\\
+     0&-3&0&|&-2&1&0\\
+     0&-4&1&|&-1&0&1
+   \end{bmatrix}\\
+   \xrightarrow{L_2/(-3)}\begin{bmatrix}
+     1&1&1&|&1&0&0\\
+     0&1&0&|&2/3&-1/3&0\\
+     0&-4&1&|&-1&0&1
+   \end{bmatrix}\xrightarrow[L_3+4L_2]{L_1-L_2}\begin{bmatrix}
+     1&0&1&|&1/3&1/3&0\\
+     0&1&0&|&2/3&-1/3&0\\
+     0&0&1&|&5/3&-4/3&1
+   \end{bmatrix}\\
+   \xrightarrow{L_1-L3}\begin{bmatrix}
+     1&0&0&|&-4/3&5/3&-1\\
+     0&1&0&|&2/3&-1/3&0\\
+     0&0&1&|&5/3&-4/3&1
+   \end{bmatrix}\,.
+ \end{multline*}
+ Portanto, $\mb a$ é invertível e
+ $$\mb a^{-1}=\begin{bmatrix}
+   -4/3&5/3&-1\\
+   2/3&-1/3&0\\
+   5/3&-4/3&1
+ \end{bmatrix}\,.$$
+ \item Seja a matriz
+ $\mb a=\begin{bmatrix}
+   \alpha&\beta\\
+   \gamma&\delta
+ \end{bmatrix}$
+ tal que $D=\alpha\delta-\gamma\beta\ne 0$. Segue daqui que $\alpha\ne 0$ ou $\gamma\ne 0$. Supondo que $\alpha\ne 0$, temos que
+ \begin{multline*}
+   \begin{bmatrix}
+     \alpha&\beta&|&1&0\\
+     \gamma&\delta&|&0&1
+   \end{bmatrix}\xrightarrow{L_1/\alpha}\begin{bmatrix}
+     1&\beta/\alpha&|&1/\alpha&0\\
+     \gamma&\delta&|&0&1
+   \end{bmatrix}\xrightarrow{L_2-\gamma L_1}\begin{bmatrix}
+     1&\beta/\alpha&|&1/\alpha&0\\
+     0&D/\alpha&|&-\gamma/\alpha&1
+   \end{bmatrix}\\
+   \xrightarrow{[\alpha/D]L_2}\begin{bmatrix}
+     1&\beta/\alpha&|&1/\alpha&0\\
+     0&1&|&-\gamma/D&\alpha/D
+   \end{bmatrix}\xrightarrow{L_1-(\beta/\alpha)L_2}\begin{bmatrix}
+     1&0&|&\delta/D&-\beta/D\\
+     0&1&|&-\gamma/D&\alpha/D
+   \end{bmatrix}\,.
+ \end{multline*}
+ Portanto, a matriz $\mb a$ é invertível se $D\ne 0$ e $\alpha\ne 0$ e
+ $$\mb a^{-1}=\frac{1}{D}\begin{bmatrix}
+   \delta&-\beta\\
+   -\gamma&\alpha
+ \end{bmatrix}\,.$$
+ De forma similar pode-se mostrar que $\mb a$ é invertível se $D\ne 0$ e $\gamma\ne 0$ e que $\mb a^{-1}$ é dada pela mesma expressão.
 \end{enumerate}
 
 \chapter{Determinantes}
