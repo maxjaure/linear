@@ -37,7 +37,7 @@
 \DeclareMathOperator{\posto}{posto}
 \DeclareMathOperator{\sgn}{sgn}
 
-\title{Primeira lista de álgebra linear}
+\title{Primeira lista de matemática II}
 \author{Prof.: Max Jáuregui}
 \date{}
 %\linespread{1.2}
@@ -47,10 +47,8 @@
 \begin{document}
 \maketitle
 \begin{enumerate}
-  \item Construa uma matriz $4\times4$ antissimétrica e não-nula. Quantos elementos da matriz você tem liberdade de escolher?
-  \item Construa uma matriz $2\times 2$ hermitiana cujos elementos não sejam todos reais e cujo traço seja $1$.
-  \item Construa uma matriz triangular inferior $3\times 3$ e uma matriz simétrica $4\times 4$, ambas não-nulas e que tenham o mesmo traço.
-  \item Usando o símbolo de Kronecker, escreva os elementos de uma matriz diagonal arbitrária de ordem $n\times n$.
+  \item Construa uma matriz $3\times 3$ antissimétrica e não-nula. Quantos elementos da matriz você tem liberdade de escolher?
+  \item Construa uma matriz triangular inferior $3\times 3$ e uma matriz simétrica $3\times 3$, ambas não-nulas e que tenham o mesmo traço.
   \item Dadas as matrizes
   $$\mb a=\begin{bmatrix}
     2&0&3\\
@@ -63,23 +61,6 @@
     -1&0&-1
   \end{bmatrix}\,,$$
   calcule (i) $\mb a+2\mb b$, (ii) $2\mb a^T-\mb b^T$, (iii) $2\mb b+2\mb c$, (iv) $\mb a^T\mb b$, (v) $\mb b\mb c^T$, (vi) $\mb a^T\mb c+\mb b^T\mb c$.
-  \item Seja $\mb a$ uma matriz $2\times 3$. Se
-  $$\mb b=\begin{bmatrix}
-    1&0&a_{11}&a_{12}&a_{13}\\
-    0&1&a_{21}&a_{22}&a_{23}\\
-    0&0&1&0&0\\
-    0&0&0&1&0\\
-    0&0&0&0&1
-  \end{bmatrix}=\begin{bmatrix}
-    \mb I_2&\mb a\\
-    \mb 0&\mb I_3
-  \end{bmatrix}\,,$$
-  mostre que
-  $$\mb b^2=\begin{bmatrix}
-    \mb I_2&2\mb a\\
-    \mb 0&\mb I_3
-  \end{bmatrix}\,.$$
-  Isso ilustra que é possível multiplicar matrizes por blocos.
   \item Dadas as matrizes
   $$\mb a=\begin{bmatrix}
     5&0\\
@@ -92,7 +73,6 @@
     1&-4&5&-8
   \end{bmatrix}\,,$$
   calcule $\mb a(\mb{bc})$.
-  \item Mostre que $\sum_{j=1}^na_i\delta_{ij}b_j\delta_{jk}=a_ib_i\delta_{ik}$, em que os índices $i$ e $k$ são fixos. Usando isso, conclua que o produto de duas matrizes diagonais $\mb a$ e $\mb b$ da mesma ordem é uma matriz diagonal cujos elementos da diagonal são obtidos multiplicando os elementos da diagonal de $\mb a$ com os de $\mb b$.
   \item Use o método de eliminação para transformar a seguinte matriz em uma matriz escalonada:
   $$\begin{bmatrix}
     0&2&-1&1\\
@@ -118,10 +98,9 @@
   \item Mostre que o seguinte sistema linear tem como única solução a lista $(1,0,0,0)$:
   \begin{equation*}
     \begin{split}
-      2x-y&=2\\
-      y+z-t&=0\\
-      x+z-t&=1\\
-      2y+z+t&=0\,.
+      x-y&=1\\
+      2y+3z&=0\\
+      3x+z&=3
     \end{split}
   \end{equation*}
   \item Determine a inversa da matriz
