@@ -674,7 +674,7 @@ O segundo sistema, que corresponde à obtenção da segunda coluna de $\mb I_n$,
     a_{n1}x_{12}+\cdots+a_{nn}x_{n2}&=0\,.
   \end{split}
 \end{equation*}
-Vemos daqui que todos os $n$ sistemas lineares tem a mesma matriz de coeficientes, $\mb a$. Logo, para analisar todos eles de forma simultânea, podemos considerar matriz aumentada
+Vemos daqui que todos os $n$ sistemas lineares têm a mesma matriz de coeficientes, $\mb a$. Logo, para analisar todos eles de forma simultânea, podemos considerar matriz aumentada
 $$[\mb a|\mb I_n]=\begin{bmatrix}
   a_{11}&\ldots&a_{1n}&|&1&\ldots&0\\
   \vdots&&\vdots&|&\vdots&&\vdots\\
@@ -765,24 +765,326 @@ Denotaremos por $\mc P_n$ o conjunto de todas as permutações da lista $(1,\ldo
 
 Realizar uma \tb{transposição} em uma lista de números é permutar qualquer par de elementos da lista.
 
-Exemplo: A lista $(1,2,4,3,5)$ é obtida realizando transposição na lista $(1,2,5,3,4)$ que consiste em permutar os elementos $5$ e $4$.
+Exemplo: A lista $(1,2,4,3,5)$ é obtida realizando uma transposição na lista $(1,2,5,3,4)$ que consiste em permutar os elementos $5$ e $4$.
 
-\begin{thm}
+\begin{thm*}
   Se $n\ge 2$, toda permutação da lista $(1,\ldots,n)$ pode ser obtida realizando um número finito de transposições na lista.
-\end{thm}
+\end{thm*}
 \begin{proof}
   Usamos indução em $n$. Se $n=2$, as únicas permutações da lista $(1,2)$ são $(1,2)$ e $(2,1)$, as quais podem ser obtidas realizando duas e uma transposições respectivamente. Suponhamos que o teorema seja verdadeiro para a lista $(1,\ldots,n)$. Se $\pi$ é uma permutação de $(1,\ldots,n,n+1)$, existe $i_0\in\{1,\ldots,n+1\}$ tal que $\pi_{i_0}=n+1$.
   Excluindo $\pi_{i_0}$ da lista $\pi$, obtemos uma permutação $\sigma$ de $(1,\ldots,n)$, a qual pode ser obtida realizando um número finito de transposições. Como claramente a lista $\pi$ pode ser obtida usando um número finito de transposições na lista $(\sigma_1,\ldots,\sigma_n,n+1)$, o teorema é verdadeiro para $n+1$. Portanto, o teorema é verdadeiro para qualquer $n\ge 2$.
 \end{proof}
 
+\begin{thm*}
+  Se uma permutação $\pi$ da lista $(1,\ldots,n)$ é obtida realizando um número par (ímpar) de transposições específicas, então qualquer sequência de transposições aplicadas na lista $(1,\ldots,n)$ que leve à permutação $\pi$ terá também um número par (ímpar) de transposições.
+\end{thm*}
+\begin{proof}
+  Usamos indução em $n$. Se $n=2$, OK. Supondo que o teorema seja verdadeiro para algum $n\ge 2$, consideremos uma permutação $\pi$ da lista $(1,\ldots,n,n+1)$ que é obtida a partir dessa lista realizando um número par de transposições específicas. Se $\pi_{n+1}=n+1$, os primeiros $n$ elementos de $\pi$ formam uma permutação $\pi'$ da lista $(1,\ldots,n)$, a qual é claramente obtida usando as transposições específicas usadas na construção de $\pi$. Logo, pela nossa hipótese, qualquer sequência de transposições aplicadas na lista $(1,\ldots,n)$ que leve à permutação $\pi'$ terá também um número par de transposições. Isso implica que o mesmo acontece para a permutação $\pi$ devido a que $\pi_{n+1}=n+1$.
+  Se, por outro lado, $\pi_{n+1}\ne n+1$, existe um índice $i_0$ tal que $\pi_{i_0}=n+1$. Logo, a permutação $\pi$ pode ser levada a uma permutação $\sigma=(\pi_1,\ldots,\pi_{i_0-1},\pi_{n+1},\pi_{i_0+1},\ldots,n+1)$ pelo uso de uma única transposição.
+  Segue daqui que $\sigma$ pode ser obtida a partir da lista $(1,\ldots,n,n+1)$ usando um número ímpar de transposições específicas e, por conseguinte, qualquer sequência de transposições aplicadas na lista $(1,\ldots,n,n+1)$ que leve à permutação $\sigma$ terá também um número ímpar de transposições. Portanto, qualquer sequência de transposições aplicadas na lista $(1,\ldots,n,n+1)$ que leve à permutação $\pi$ terá um número par de transposições.
+\end{proof}
+
+
 Diz-se que uma permutação é \tb{par} (\tb{ímpar}) se ela pode ser obtida realizando um número par (ímpar) de transposições.
 
 Exemplos: Dada a lista $(1,2,3,4)$, a lista $(2,3,4,1)$ é uma permutação ímpar enquanto que a lista $(3,1,2,4)$ é uma permutação par.
 
-Define-se o sinal de uma permutação $\pi$ por
+Define-se o \tb{sinal} de uma permutação $\pi$ por
 $$\sgn(\pi)=\begin{cases}
   1&\text{se $\pi$ é uma permutação par}\\
   -1&\text{se $\pi$ é uma permutação ímpar.}
 \end{cases}$$
+
+Define-se o \tb{determinante} de uma matriz $\mb a$ de ordem $n\times n$ por
+$$\det(\mb a)=\begin{vmatrix}
+  a_{11}&\ldots& a_{1n}\\
+  \vdots&&\vdots\\
+  a_{n1}&\ldots&a_{nn}
+\end{vmatrix}=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}\,.$$
+
+Exemplos:
+\begin{enumerate}
+  \item Se $\mb a$ é uma matriz $2\times 2$, então
+ $$\det(\mb a)=\sgn(1,2)a_{11}a_{22}+\sgn(2,1)a_{12}a_{21}=a_{11}a_{22}-a_{21}a_{12}\,.$$
+ Em outros termos, se
+ $$\mb a=\begin{bmatrix}
+   \alpha&\beta\\
+   \gamma&\delta
+ \end{bmatrix}\,,$$
+ então
+ $$\det(\mb a)=\begin{vmatrix}
+   \alpha&\beta\\
+   \gamma&\delta
+ \end{vmatrix}=\alpha\delta-\gamma\beta\,.$$
+ \item Temos que
+ $$\begin{vmatrix}
+   3&-4\\
+   1&-2
+ \end{vmatrix}=3\cdot (-2)-1\cdot (-4)=-2\,.$$
+ \item Se $\mb a$ é uma matriz $n\times n$ que tem uma linha nula, então $\det(\mb a)=0$.
+\end{enumerate}
+
+\begin{lem*}
+  \label{perm.nonid}
+  Se $\pi$ é uma permutação de $(1,\ldots,n)$ tal que $\pi_i\ne i$ para algum índice $i$, então existem índices $j$ e $k$ tais que $\pi_j<j$ e $\pi_k>k$.
+\end{lem*}
+\begin{proof}
+  Usamos indução em $n$. Se $n=2$, OK. Supondo que o lema seja verdadeiro para algum $n\ge 2$, consideremos uma permutação $\pi$ da lista $(1,\ldots,n,n+1)$ tal que $\pi_i\ne i$ para algum índice $i$. Se $\pi_{n+1}=n+1$, os primeiros $n$ números de $\pi$ conformam uma permutação $\pi'$ de $(1,\ldots,n)$ tal que $\pi'_i\ne i$ para algum índice $i$.
+  Logo, pela nossa hipótese, existem índices $j$ e $k$ tais que $\pi_j<j$ e $\pi_k>k$.
+  Por outro lado, se $\pi_{n+1}<n+1$, existe um índice $i_0<n+1$ tal que $\pi_{i_0}=n+1$, ou seja, $\pi_{i_0}>i_0$. Portanto, o lema é verdadeiro para qualquer $n\ge 2$.
+\end{proof}
+
+\begin{thm}
+  Se $\mb a$ é uma matriz triangular $n\times n$, então $\det(\mb a)=a_{11}a_{22}\ldots a_{nn}$, ou seja, o determinante de uma matriz triangular é igual ao produto dos elementos da sua diagonal.
+\end{thm}
+\begin{proof}
+  Se $\mb a$ é uma matriz triangular superior $n\times n$, então $a_{ij}=0$ se $i>j$. Logo, usando o lema~\ref{perm.nonid}, podemos concluir que
+  $$\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=a_{11}a_{22}\ldots a_{nn}\,,$$
+  pois toda permutação $\pi\in\mc P_n$, $\pi\ne (1,\ldots,n)$, contribui com um termo nulo no somatório. De maneira análoga podemos provar que, se $\mb a$ é uma matriz triangular inferior $n\times n$, seu determinante é dado por $\det(\mb a)=a_{11}a_{22}\cdots a_{nn}$.
+\end{proof}
+
+\begin{thm}
+  \label{det.anti}
+  Seja $\mb a$ uma matriz $n\times n$. Se $\mb b$ é a matriz obtida ao permutar duas linhas da matriz $\mb a$, então $\det(\mb b)=-\det(\mb a)$.
+\end{thm}
+\begin{proof}
+  Suponhamos que $\mb b$ seja obtida ao permutar as linhas $i$ e $j$, $i<j$, da matriz $\mb a$. Dado $\pi\in\mc P_n$, temos que
+  \begin{equation*}
+    \begin{split}
+      \sgn(\pi)b_{1\pi_1}\cdots b_{i\pi_i}\cdots b_{j\pi_j}\cdots b_{n\pi_n}&=\sgn(\pi)a_{1\pi_1}\cdots a_{j\pi_i}\cdots a_{i\pi_j}\cdots a_{n\pi_n}\\
+      &=\sgn(\pi)a_{1\pi_1}\cdots a_{i\pi_j}\cdots a_{j\pi_i}\cdots a_{n\pi_n}
+    \end{split}
+  \end{equation*}
+  Definindo a permutação $\sigma=(\pi_1,\ldots,\pi_j,\ldots,\pi_i,\ldots,\pi_n)$, vemos que $\sgn(\sigma)=-\sgn(\pi)$. Logo,
+  $$\sgn(\pi)b_{1\pi_1}\cdots b_{i\pi_i}\cdots b_{j\pi_j}\cdots b_{n\pi_n}=-\sgn(\sigma)a_{1\sigma_1}\cdots a_{i\sigma_i}\cdots a_{j\sigma_j}\cdots a_{n\sigma_n}\,.$$
+  Dessa maneira,
+  $$\det(\mb b)=\sum_{\pi\in\mc P_n}\sgn(\pi)b_{1\pi_1}b_{2\pi_2}\cdots b_{n\pi_n}=-\sum_{\sigma\in\mc P_n}\sgn(\sigma)a_{1\sigma_1}a_{2\sigma_2}\cdots a_{n\sigma_n}\,,$$
+  ou seja, $\det(\mb b)=-\det(\mb a)$.
+\end{proof}
+\begin{cor}
+  Se uma matriz quadrada $\mb a$ tem duas linhas iguais, então $\det(\mb a)=0$.
+\end{cor}
+
+\begin{thm}
+  \label{det.lin}
+  Para qualquer número $\alpha$ tem-se que
+  $$\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    \alpha a_{i1}&\ldots&\alpha a_{in}\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}=\alpha\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    a_{i1}&\ldots& a_{in}\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}\,.$$
+  Por outro lado,
+  $$\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    a_{i1}+b_1&\ldots&a_{in}+b_n\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}=\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    a_{i1}&\ldots& a_{in}\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}+\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    b_1&\ldots& b_n\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}\,.$$
+  Em outras palavras, o determinante de uma matriz $n\times n$ é uma função $n$-linear das linhas da matriz.
+\end{thm}
+\begin{proof}
+  A primeira igualdade segue imediatamente de observarmos que
+  $$\begin{vmatrix}
+    a_{11}&\ldots& a_{1n}\\
+    \vdots&&\vdots\\
+    \alpha a_{i1}&\ldots&\alpha a_{in}\\
+    \vdots&&\vdots\\
+    a_{n1}&\ldots&a_{nn}
+  \end{vmatrix}=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}\cdots (\alpha a_{i\pi_i})\cdots a_{n\pi_n}
+  =\alpha\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}\cdots a_{i\pi_i}\cdots a_{n\pi_n}\,.$$
+  De forma análoga, a segunda igualdade do teorema segue diretamente de notarmos que
+  \begin{equation*}
+    \begin{split}
+      \begin{vmatrix}
+        a_{11}&\ldots& a_{1n}\\
+        \vdots&&\vdots\\
+        a_{i1}+b_1&\ldots&a_{in}+b_n\\
+        \vdots&&\vdots\\
+        a_{n1}&\ldots&a_{nn}
+      \end{vmatrix}&=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}\cdots (a_{i\pi_i}+b_{\pi_i})\cdots a_{n\pi_n}\\
+      &=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}\cdots a_{i\pi_i}\cdots a_{n\pi_n}+\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}\cdots b_{\pi_i}\cdots a_{n\pi_n}\,.\qedhere
+    \end{split}
+  \end{equation*}
+\end{proof}
+
+\begin{cor}
+  O determinante de uma matriz quadrada não muda se somamos a uma de suas linhas um múltiplo de outra linha da matriz.
+\end{cor}
+
+Exemplos:
+\begin{enumerate}
+  \item Temos que
+  $$\begin{vmatrix}
+    3&9&6\\
+    5&3&1\\
+    1&3&2
+  \end{vmatrix}=3\begin{vmatrix}
+    1&3&2\\
+    5&3&1\\
+    1&3&2
+  \end{vmatrix}=0\,.$$
+  \item Temos que
+  $$\begin{vmatrix}
+    3&1&6\\
+    6&3&1\\
+    0&0&2
+  \end{vmatrix}=\begin{vmatrix}
+    3&1&6\\
+    6-2\cdot 3&3-2\cdot1&1-2\cdot 6\\
+    0&0&2
+  \end{vmatrix}=\begin{vmatrix}
+    3&1&6\\
+    0&1&-11\\
+    0&0&2
+  \end{vmatrix}=6\,.$$
+\end{enumerate}
+
+\begin{lem*}
+  \label{det.minor1}
+  Seja $\mb a$ uma matriz $n\times n$ tal que sua $p$-ésima linha tenha seus elementos nulos com a exceção do elemento $a_{pq}=1$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então $\det(\mb a)=(-1)^{p+q}\det(\mb M_{pq})$.
+\end{lem*}
+\begin{proof}
+  Suponhamos que $p=1$. Logo,
+  $$a_{1j}=\begin{cases}
+    1&\text{se $j=q$}\\
+    0&\text{se $j\ne q$.}
+  \end{cases}$$
+  Usando isso temos que
+  $$\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=\sum_{\substack{\pi\in\mc P_n\\\pi_1=q}}\sgn(\pi)a_{1q}a_{2\pi_2}\cdots a_{n\pi_n}\,,$$
+  em que o último somatório é sobre todas as permutações $\pi\in\mc P_n$ que tem primeira componente igual a $q$. Cada uma dessas permutações tem a forma $(q,\sigma)$, em que $\sigma$ é uma permutação da lista $(1,\ldots,q-1,q+1,\ldots,n)$.
+  A permutação $\sigma$ pode ser transformada na lista $(1,\ldots,q-1,q+1,\ldots,n)$ realizando um número par ou ímpar de transposições $l$. Logo, em qualquer caso, para transformar a permutação $(q,\sigma)\in\mc P_n$ na lista $(1,\ldots,q-1,q,q+1,\ldots,n)$, devemos realizar $l+q-1$ transposições. Segue daqui que $\sgn(q,\sigma)=(-1)^{l+q-1}=(-1)^{q-1}\sgn(\sigma)$.
+  Como a lista $(1,\ldots,q-1,q+1,\ldots,n)$ tem $n-1$ elementos, cada permutação $\sigma$ dessa lista pode ser associada de forma biunívoca com uma permutação $\tau\in\mc P_{n-1}$ que realiza as mesmas transposições na lista $(1,\ldots,n-1)$ e assim $\sgn(\sigma)=\sgn(\tau)$. Dessa maneira, se $\mb M_{1q}$ é a matriz obtida removendo a primeira linha e a coluna $q$ da matriz $\mb a$, temos que
+  $$\det(\mb a)=\sum_{\tau\in\mc P_{n-1}}(-1)^{q-1}\sgn(\tau)(M_{1q})_{1\tau_1}\cdots (M_{1q})_{n-1,\tau_{n-1}}=(-1)^{q-1}\det(\mb M_{1q})\,.$$
+  Finalmente, se $p\ne 1$, realizando $p-1$ permutações de pares de linhas de $\mb a$ podemos cair no caso anterior e assim $\det(\mb a)=(-1)^{p-1}(-1)^{q-1}\det(\mb M_{pq})=(-1)^{p+q}\det(\mb M_{pq})$.
+\end{proof}
+
+\begin{thm}
+  Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para qualquer $i\in\{1,\ldots,n\}$ tem-se
+  $$\det(\mb a)=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})\,.$$
+\end{thm}
+\begin{proof}
+  Em virtude do teorema~\ref{det.lin} temos que
+  \begin{multline*}
+    \begin{vmatrix}
+      a_{11}&a_{12}&\ldots&a_{1n}\\
+      \vdots&\vdots&&\vdots\\
+      a_{i1}&a_{i2}&\ldots&a_{in}\\
+      \vdots&\vdots&&\vdots\\
+      a_{n1}&a_{n2}&\ldots&a_{nn}
+    \end{vmatrix}=a_{i1}\begin{vmatrix}
+      a_{11}&a_{12}&\ldots&a_{1n}\\
+      \vdots&\vdots&&\vdots\\
+      1&0&\ldots&0\\
+      \vdots&\vdots&&\vdots\\
+      a_{n1}&a_{n2}&\ldots&a_{nn}
+    \end{vmatrix}+a_{i2}\begin{vmatrix}
+      a_{11}&a_{12}&\ldots&a_{1n}\\
+      \vdots&\vdots&&\vdots\\
+      0&1&\ldots&0\\
+      \vdots&\vdots&&\vdots\\
+      a_{n1}&a_{n2}&\ldots&a_{nn}
+    \end{vmatrix}+\cdots\\
+    +a_{in}\begin{vmatrix}
+      a_{11}&a_{12}&\ldots&a_{1n}\\
+      \vdots&\vdots&&\vdots\\
+      0&0&\ldots&1\\
+      \vdots&\vdots&&\vdots\\
+      a_{n1}&a_{n2}&\ldots&a_{nn}
+    \end{vmatrix}\,.
+  \end{multline*}
+  Logo, pelo lema~\ref{det.minor1}, temos que
+  $$\det(\mb a)=a_{i1}(-1)^{i+1}\det(\mb M_{i1})+a_{i2}(-1)^{i+2}\det(\mb M_{i2})+\cdots+a_{in}(-1)^{i+n}\det(\mb M_{in})$$
+  e assim $\det(\mb a)=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})$.
+\end{proof}
+
+Exemplo: Temos que
+  \begin{equation*}
+    \begin{split}
+      \begin{vmatrix}
+        a_{11}&a_{12}&a_{13}\\
+        a_{21}&a_{22}&a_{23}\\
+        a_{31}&a_{32}&a_{33}
+      \end{vmatrix}&=a_{11}\begin{vmatrix}
+        a_{22}&a_{23}\\
+        a_{32}&a_{33}
+      \end{vmatrix}-a_{12}\begin{vmatrix}
+        a_{21}&a_{23}\\
+        a_{31}&a_{33}
+      \end{vmatrix}+a_{13}\begin{vmatrix}
+        a_{21}&a_{22}\\
+        a_{31}&a_{32}
+      \end{vmatrix}\\
+      &=a_{11}(a_{22}a_{33}-a_{32}a_{23})-a_{12}(a_{21}a_{33}-a_{31}a_{23})+a_{13}(a_{21}a_{32}-a_{31}a_{22})\\
+      &=a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31}+a_{13}a_{21}a_{32}-(a_{13}a_{22}a_{31}+a_{11}a_{23}a_{32}+a_{12}a_{21}a_{33})\,.
+    \end{split}
+  \end{equation*}
+
+\begin{thm}
+  Seja $\mb a$ uma matriz $n\times n$. Tem-se que $\det (\mb a)=\det (\mb a^T)$.
+\end{thm}
+\begin{proof}
+  Temos $\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}$. Se $\pi\in\mc P_n$ é uma permutação par, $\pi$ pode ser obtida realizando um número par de transposições na lista $(1,\ldots,n)$. Logo, a lista $\pi$ pode ser transformada na lista $(1,\ldots,n)$ realizando as transposições inversas, que também são em número par.
+  Assim, podemos construir uma permutação $\sigma\in\mc P_n$ tal que $\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}$ e $\sgn(\sigma)=\sgn(\pi)$. Se $\pi\in\mc P_n$ é uma permutação ímpar, podemos proceder de forma análoga. Dessa maneira,
+  $$\det(\mb a)=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a^T_{1\sigma_1}a^T_{2\sigma_2}\cdots a^T_{n\sigma_n}\,.$$
+  Portanto, $\det(\mb a)=\det(\mb a^T)$.
+\end{proof}
+
+\begin{cor}
+  Os teoremas~\ref{det.anti} e~\ref{det.lin} assim como seus corolários continuam sendo verdadeiros se trocamos a palavra linha por coluna.
+\end{cor}
+
+\begin{cor}
+  Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para qualquer $j\in\{1,\ldots,n\}$ tem-se
+  $$\det(\mb a)=\sum_{i=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})\,.$$
+\end{cor}
+
+Exemplo: Temos que
+$$\begin{vmatrix}
+  1&2&3&4\\
+  0&4&0&0\\
+  0&5&1&1\\
+  1&3&2&0
+\end{vmatrix}=4 \begin{vmatrix}
+  1&3&4\\
+  0&5&1\\
+  1&2&0
+\end{vmatrix}=4\begin{vmatrix}
+  0&1&4\\
+  0&5&1\\
+  1&2&0
+\end{vmatrix}=4\cdot 1 \begin{vmatrix}
+  1&4\\
+  5&1
+\end{vmatrix}=4(1-20)=-76\,.$$
+
+\begin{thm}
+  Uma matriz $\mb a$ de ordem $n\times n$ é invertível se, e somente se, $\det(\mb a)\ne 0$.
+\end{thm}
+\begin{proof}
+  ($\Rightarrow$) Se $\mb a$ é invertível, então $\posto(\mb a)=n$. Usando o método de eliminação podemos transformar a matriz $\mb a$ em uma matriz escalonada $\mb b$.
+  A matriz $\mb b$ satisfaz as condições $\posto(\mb b)=n$ e $\det(\mb b)=\alpha\det(\mb a)$, em que $\alpha\ne 0$ é um número. Segue da primeira condição que os elementos da diagonal de $\mb b$ são não-nulos. Logo, como $\mb b$ é de fato uma matriz triangular superior, temos que $\det(\mb b)\ne 0$. Portanto, $\det(\mb a)\ne 0$.
+  ($\Leftarrow$) Se $\mb a$ não é invertível, então $\posto(\mb a)<n$. Logo, se $\mb b$ é a matriz escalonada obtida usando o método de eliminação na matriz $\mb a$, $\mb b$ deve ter pelo menos uma linha nula. Isso implica que $\det(\mb b)=0$. Como $\det(\mb b)=\alpha\det(\mb a)$ para algum número $\alpha\ne 0$, segue que $\det(\mb a)=0$.
+\end{proof}
 
 \end{document}
