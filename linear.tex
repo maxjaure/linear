@@ -844,8 +844,18 @@ Exemplos:
 \end{proof}
 
 \begin{thm}
+  Seja $\mb a$ uma matriz $n\times n$. Tem-se que $\det (\mb a)=\det (\mb a^T)$.
+\end{thm}
+\begin{proof}
+  Temos $\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}$. Se $\pi\in\mc P_n$ é uma permutação par, $\pi$ pode ser obtida realizando um número par de transposições na lista $(1,\ldots,n)$. Logo, a lista $\pi$ pode ser transformada na lista $(1,\ldots,n)$ realizando as transposições inversas, que também são em número par.
+  Assim, podemos construir uma permutação $\sigma\in\mc P_n$ tal que $\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}$ e $\sgn(\sigma)=\sgn(\pi)$. Se $\pi\in\mc P_n$ é uma permutação ímpar, podemos proceder de forma análoga. Dessa maneira,
+  $$\det(\mb a)=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a^T_{1\sigma_1}a^T_{2\sigma_2}\cdots a^T_{n\sigma_n}\,.$$
+  Portanto, $\det(\mb a)=\det(\mb a^T)$.
+\end{proof}
+
+\begin{thm}
   \label{det.anti}
-  Seja $\mb a$ uma matriz $n\times n$. Se $\mb b$ é a matriz obtida ao permutar duas linhas da matriz $\mb a$, então $\det(\mb b)=-\det(\mb a)$.
+  Seja $\mb a$ uma matriz $n\times n$. Se $\mb b$ é a matriz obtida ao permutar duas linhas (colunas) da matriz $\mb a$, então $\det(\mb b)=-\det(\mb a)$.
 \end{thm}
 \begin{proof}
   Suponhamos que $\mb b$ seja obtida ao permutar as linhas $i$ e $j$, $i<j$, da matriz $\mb a$. Dado $\pi\in\mc P_n$, temos que
@@ -862,7 +872,7 @@ Exemplos:
   ou seja, $\det(\mb b)=-\det(\mb a)$.
 \end{proof}
 \begin{cor}
-  Se uma matriz quadrada $\mb a$ tem duas linhas iguais, então $\det(\mb a)=0$.
+  Se uma matriz quadrada $\mb a$ tem duas linhas (colunas) iguais, então $\det(\mb a)=0$.
 \end{cor}
 
 \begin{thm}
@@ -901,7 +911,7 @@ Exemplos:
     \vdots&&\vdots\\
     a_{n1}&\ldots&a_{nn}
   \end{vmatrix}\,.$$
-  Em outras palavras, o determinante de uma matriz $n\times n$ é uma função $n$-linear das linhas da matriz.
+  Em outras palavras, o determinante de uma matriz $n\times n$ é uma função $n$-linear das linhas da matriz. Da mesma maneira, esse determinante é também uma função $n$-linear das colunas da matriz.
 \end{thm}
 \begin{proof}
   A primeira igualdade segue imediatamente de observarmos que
@@ -929,7 +939,7 @@ Exemplos:
 \end{proof}
 
 \begin{cor}
-  O determinante de uma matriz quadrada não muda se somamos a uma de suas linhas um múltiplo de outra linha da matriz.
+  O determinante de uma matriz quadrada não muda se somamos a uma de suas linhas (colunas) um múltiplo de outra linha (coluna) da matriz.
 \end{cor}
 
 Exemplos:
@@ -958,11 +968,25 @@ Exemplos:
     0&1&-11\\
     0&0&2
   \end{vmatrix}=6\,.$$
+  Por outro lado, temos também que
+  $$\begin{vmatrix}
+    3&1&6\\
+    6&3&1\\
+    0&0&2
+  \end{vmatrix}=\begin{vmatrix}
+    3-2\cdot 1&1&6\\
+    6-2\cdot 3&3&1\\
+    0-2\cdot 0&0&2
+  \end{vmatrix}=\begin{vmatrix}
+    1&1&6\\
+    0&3&1\\
+    0&0&2
+  \end{vmatrix}=6\,.$$
 \end{enumerate}
 
 \begin{lem*}
   \label{det.minor1}
-  Seja $\mb a$ uma matriz $n\times n$ tal que sua $p$-ésima linha tenha seus elementos nulos com a exceção do elemento $a_{pq}=1$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então $\det(\mb a)=(-1)^{p+q}\det(\mb M_{pq})$.
+  Seja $\mb a$ uma matriz $n\times n$ tal que sua $p$-ésima linha ($q$-ésima coluna) tenha seus elementos nulos com a exceção do elemento $a_{pq}=1$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então $\det(\mb a)=(-1)^{p+q}\det(\mb M_{pq})$.
 \end{lem*}
 \begin{proof}
   Suponhamos que $p=1$. Logo,
@@ -980,8 +1004,8 @@ Exemplos:
 \end{proof}
 
 \begin{thm}
-  Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para qualquer $i\in\{1,\ldots,n\}$ tem-se
-  $$\det(\mb a)=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})\,.$$
+  Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para quaisquer $i,k\in\{1,\ldots,n\}$ tem-se
+  $$\det(\mb a)=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})=\sum_{j=1}^n(-1)^{j+k}a_{jk}\det(\mb M_{jk})\,.$$
 \end{thm}
 \begin{proof}
   Em virtude do teorema~\ref{det.lin} temos que
@@ -1040,24 +1064,14 @@ Exemplo: Temos que
     \end{split}
   \end{equation*}
 
-\begin{thm}
-  Seja $\mb a$ uma matriz $n\times n$. Tem-se que $\det (\mb a)=\det (\mb a^T)$.
-\end{thm}
-\begin{proof}
-  Temos $\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}$. Se $\pi\in\mc P_n$ é uma permutação par, $\pi$ pode ser obtida realizando um número par de transposições na lista $(1,\ldots,n)$. Logo, a lista $\pi$ pode ser transformada na lista $(1,\ldots,n)$ realizando as transposições inversas, que também são em número par.
-  Assim, podemos construir uma permutação $\sigma\in\mc P_n$ tal que $\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}$ e $\sgn(\sigma)=\sgn(\pi)$. Se $\pi\in\mc P_n$ é uma permutação ímpar, podemos proceder de forma análoga. Dessa maneira,
-  $$\det(\mb a)=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a_{\sigma_11}a_{\sigma_22}\cdots a_{\sigma_nn}=\sum_{\sigma\in\mc P_n}\sgn(\sigma)a^T_{1\sigma_1}a^T_{2\sigma_2}\cdots a^T_{n\sigma_n}\,.$$
-  Portanto, $\det(\mb a)=\det(\mb a^T)$.
-\end{proof}
-
-\begin{cor}
-  Os teoremas~\ref{det.anti} e~\ref{det.lin} assim como seus corolários continuam sendo verdadeiros se trocamos a palavra linha por coluna.
-\end{cor}
-
-\begin{cor}
-  Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para qualquer $j\in\{1,\ldots,n\}$ tem-se
-  $$\det(\mb a)=\sum_{i=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})\,.$$
-\end{cor}
+% \begin{cor}
+%   Os teoremas~\ref{det.anti} e~\ref{det.lin} assim como seus corolários continuam sendo verdadeiros se trocamos a palavra linha por coluna.
+% \end{cor}
+%
+% \begin{cor}
+%   Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para qualquer $j\in\{1,\ldots,n\}$ tem-se
+%   $$\det(\mb a)=\sum_{i=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})\,.$$
+% \end{cor}
 
 Exemplo: Temos que
 $$\begin{vmatrix}
