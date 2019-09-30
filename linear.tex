@@ -54,7 +54,7 @@
 
 \begin{document}
 \maketitle
-  Estas notas foram criadas principalmente para meu uso pessoal e pode eventualmente ser usado como um curso elementar de álgebra linear. Todo o conteúdo foi produzido por mim, seguindo como roteiro o livro: E. L. Lima, \textit{Álgebra linear}, 8 ed. (IMPA, Rio de Janeiro, 2012).
+  Estas notas foram criadas principalmente para meu uso pessoal e pode eventualmente ser usado como um curso elementar de álgebra linear. Todo o conteúdo foi produzido por mim, usando algumas ideias do livro: E. L. Lima, \textit{Álgebra linear}, 8 ed. (IMPA, Rio de Janeiro, 2012).
 
   \begin{flushright}
     Max Jáuregui
@@ -362,8 +362,8 @@ Exemplo:
 \end{bmatrix}\,.
 \end{multline*}
 
-Uma operação elementar na linha de uma matriz $\mb a$ pode ser vista também como o resultado da multiplicação de uma matriz $\mb e$ com $\mb a$. Com efeito, se
-$$\mb{e}_1=\begin{bmatrix}
+Uma operação elementar na linha de uma matriz $\mb a$ pode ser vista também como o resultado da multiplicação de uma matriz $\mb o$ com $\mb a$. Com efeito, se
+$$\mb{o}_1=\begin{bmatrix}
   0&1&0\\
   1&0&0\\
   0&0&1
@@ -373,37 +373,36 @@ $$\mb{e}_1=\begin{bmatrix}
   0&3&0&2
 \end{bmatrix}\,,$$
 temos que
-$$\mb{e}_1\mb a=\begin{bmatrix}
+$$\mb{o}_1\mb a=\begin{bmatrix}
   0&1&3&1\\
   0&0&2&0\\
   0&3&0&2
 \end{bmatrix}\,,$$
-ou seja, multiplicar $\mb e_1$ pela esquerda de $\mb a$ faz permutar as linhas $1$ e $2$ de $\mb a$. Se
-$$\mb e_2=\begin{bmatrix}
+ou seja, multiplicar $\mb o_1$ pela esquerda de $\mb a$ faz permutar as linhas $1$ e $2$ de $\mb a$. Se
+$$\mb o_2=\begin{bmatrix}
   1&0&0\\
   0&1&0\\
   -3&0&1
 \end{bmatrix}\,,$$
 então
-$$\mb e_2\mb e_1\mb a=\begin{bmatrix}
+$$\mb o_2\mb o_1\mb a=\begin{bmatrix}
   0&1&3&1\\
   0&0&2&0\\
   0&0&-9&-1
 \end{bmatrix}\,.$$
-Logo, multiplicar $\mb e_2$ pela esquerda de $\mb e_1\mb a$ é equivalente a fazer a operação elementar $L_3-3L_1$ na matriz $\mb e_1\mb a$. Finalmente, se
-$$\mb e_3=\begin{bmatrix}
+Logo, multiplicar $\mb o_2$ pela esquerda de $\mb o_1\mb a$ é equivalente a fazer a operação elementar $L_3-3L_1$ na matriz $\mb o_1\mb a$. Finalmente, se
+$$\mb o_3=\begin{bmatrix}
   1&0&0\\
   0&1&0\\
   0&9/2&1
 \end{bmatrix}\,,$$
 então
-$$\mb e_3\mb e_2\mb e_1\mb a=\begin{bmatrix}
+$$\mb o_3\mb o_2\mb o_1\mb a=\begin{bmatrix}
   0&1&3&1\\
   0&0&2&0\\
   0&0&0&-1
 \end{bmatrix}\,.$$
-Dessa maneira a matriz $\mb a$ pode ser transformada numa matriz escalonada se multiplicamos a ela sucessivamente as matrizes $\mb e_1,\mb e_2,\mb e_3$ pela esquerda. As matrizes $\mb e_1,\mb e_2,\mb e_3$ são às vezes chamadas de \tb{matrizes elementares}, pois correspondem a operações elementares nas linhas da matriz $\mb a$.
-
+Dessa maneira a matriz $\mb a$ pode ser transformada numa matriz escalonada se multiplicamos a ela sucessivamente as matrizes $\mb o_1,\mb o_2,\mb o_3$ pela esquerda. As matrizes $\mb o_1,\mb o_2,\mb o_3$ são às vezes chamadas de \tb{matrizes elementares}, pois correspondem a operações elementares nas linhas da matriz $\mb a$.
 
 Define-se o \tb{posto} de uma matriz como o número de linhas não-nulas da matriz escalonada obtida usando o método de eliminação. Segue imediatamente daqui que o posto de uma matriz $m\times n$ é no máximo igual a $m$. O posto de uma matriz não depende dos detalhes do processo de eliminação (isso será justificado mais na frente). Por exemplo, a matriz considerada no exemplo anterior tem posto $3$.
 
@@ -939,6 +938,7 @@ Exemplos:
 \end{proof}
 
 \begin{cor}
+  \label{det.lin1}
   O determinante de uma matriz quadrada não muda se somamos a uma de suas linhas (colunas) um múltiplo de outra linha (coluna) da matriz.
 \end{cor}
 
@@ -996,7 +996,7 @@ Exemplos:
   \end{cases}$$
   Usando isso temos que
   $$\det(\mb a)=\sum_{\pi\in\mc P_n}\sgn(\pi)a_{1\pi_1}a_{2\pi_2}\cdots a_{n\pi_n}=\sum_{\substack{\pi\in\mc P_n\\\pi_1=q}}\sgn(\pi)a_{1q}a_{2\pi_2}\cdots a_{n\pi_n}\,,$$
-  em que o último somatório é sobre todas as permutações $\pi\in\mc P_n$ que tem primeira componente igual a $q$. Cada uma dessas permutações tem a forma $(q,\sigma)$, em que $\sigma$ é uma permutação da lista $(1,\ldots,q-1,q+1,\ldots,n)$.
+  em que o último somatório é sobre todas as permutações $\pi\in\mc P_n$ que têm primeira componente igual a $q$. Cada uma dessas permutações tem a forma $(q,\sigma)$, em que $\sigma$ é uma permutação da lista $(1,\ldots,q-1,q+1,\ldots,n)$.
   A permutação $\sigma$ pode ser transformada na lista $(1,\ldots,q-1,q+1,\ldots,n)$ realizando um número par ou ímpar de transposições $l$. Logo, em qualquer caso, para transformar a permutação $(q,\sigma)\in\mc P_n$ na lista $(1,\ldots,q-1,q,q+1,\ldots,n)$, devemos realizar $l+q-1$ transposições. Segue daqui que $\sgn(q,\sigma)=(-1)^{l+q-1}=(-1)^{q-1}\sgn(\sigma)$.
   Como a lista $(1,\ldots,q-1,q+1,\ldots,n)$ tem $n-1$ elementos, cada permutação $\sigma$ dessa lista pode ser associada de forma biunívoca com uma permutação $\tau\in\mc P_{n-1}$ que realiza as mesmas transposições na lista $(1,\ldots,n-1)$ e assim $\sgn(\sigma)=\sgn(\tau)$. Dessa maneira, se $\mb M_{1q}$ é a matriz obtida removendo a primeira linha e a coluna $q$ da matriz $\mb a$, temos que
   $$\det(\mb a)=\sum_{\tau\in\mc P_{n-1}}(-1)^{q-1}\sgn(\tau)(M_{1q})_{1\tau_1}\cdots (M_{1q})_{n-1,\tau_{n-1}}=(-1)^{q-1}\det(\mb M_{1q})\,.$$
@@ -1004,8 +1004,10 @@ Exemplos:
 \end{proof}
 
 \begin{thm}
+  \label{det.minor}
   Seja $\mb a$ uma matriz $n\times n$. Se $\mb M_{pq}$ é a matriz obtida removendo a linha $p$ e a coluna $q$ da matriz $\mb a$, então para quaisquer $i,k\in\{1,\ldots,n\}$ tem-se
   $$\det(\mb a)=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mb M_{ij})=\sum_{j=1}^n(-1)^{j+k}a_{jk}\det(\mb M_{jk})\,.$$
+  O número $\det(\mb M_{ij})$ é chamado de \tbu{menor} associado ao elemento $a_{ij}$.
 \end{thm}
 \begin{proof}
   Em virtude do teorema~\ref{det.lin} temos que
@@ -1093,6 +1095,56 @@ $$\begin{vmatrix}
 \end{vmatrix}=4(1-20)=-76\,.$$
 
 \begin{thm}
+  \label{det.prod}
+  Sejam $\mb a$ e $\mb b$ duas matrizes $n\times n$. Tem-se que $\det(\mb {ab})=\det(\mb a)\det(\mb b)$.
+\end{thm}
+\begin{proof}
+  Sejam $\mb b_1,\ldots,\mb b_n$ as colunas da matriz $\mb b$. Podemos verificar imediatamente que $\mb{ab}=\begin{bmatrix}
+    \mb a\mb b_1&\ldots&\mb a\mb b_n
+  \end{bmatrix}$. Definindo as matrizes
+  $$\mb e_1=\begin{bmatrix}
+    1\\
+    0\\
+    \vdots\\
+    0
+  \end{bmatrix}\,,\quad \mb e_2=\begin{bmatrix}
+    0\\
+    1\\
+    \vdots\\
+    0
+  \end{bmatrix}\,,\ldots\,,\quad \mb e_n=\begin{bmatrix}
+    0\\
+    0\\
+    \vdots\\
+    1
+  \end{bmatrix}\,,$$
+  temos que $\mb b_j=\sum_{i=1}^nb_{ij}\mb e_i$ para todo $j\in\{1,\ldots,n\}$. Logo, $\mb a\mb b_j=\sum_{i=1}^nb_{ij}\mb a\mb e_i$ e, para cada $i\in\{1,\ldots,n\}$, $\mb a\mb e_i$ é igual à coluna $i$ da matriz $\mb a$. Segue do teorema~\ref{det.lin} que
+  $$\det(\mb{ab})=\det\dpar{\begin{bmatrix}
+    \sum_{i=1}^nb_{i1}\mb a\mb e_i&\mb a\mb b_2&\ldots&\mb a\mb b_n
+  \end{bmatrix}}=\sum_{i=1}^nb_{i1}\det\dpar{\begin{bmatrix}
+    \mb a\mb e_i&\mb a\mb b_2&\ldots&\mb a\mb b_n
+  \end{bmatrix}}\,.$$
+  Proseguindo da mesma forma com as colunas $\mb a\mb b_2,\ldots,\mb a\mb b_n$, vamos obter
+  $$\det(\mb{ab})=\sum_{i_1=1}^n\ldots\sum_{i_n=1}^nb_{i_11}\cdots b_{i_nn}\det\dpar{\begin{bmatrix}
+    \mb a\mb e_{i_1}&\ldots&\mb a\mb e_{i_n}
+  \end{bmatrix}}\,.$$
+  Se $i_p=i_q$ então $\mb a\mb e_{i_p}=\mb a\mb e_{i_q}$ e, por conseguinte, $\det\dpar{\begin{bmatrix}
+    \mb a\mb e_{i_1}&\ldots&\mb a\mb e_{i_n}
+  \end{bmatrix}}=0$. Logo,
+  $$\det(\mb{ab})=\sum_{(i_1,\ldots,i_n)\in\mc P_n}b_{i_11}\cdots b_{i_nn}\det\dpar{\begin{bmatrix}
+    \mb a\mb e_{i_1}&\ldots&\mb a\mb e_{i_n}
+  \end{bmatrix}}\,.$$
+  Se $(i_1,\ldots,i_n)$ é uma permutação par, então $\det\dpar{\begin{bmatrix}
+    \mb a\mb e_{i_1}&\ldots&\mb a\mb e_{i_n}
+  \end{bmatrix}}=\det(\mb a)$. Por outro lado, se $(i_1,\ldots,i_n)$ é uma permutação ímpar, então $\det\dpar{\begin{bmatrix}
+    \mb a\mb e_{i_1}&\ldots&\mb a\mb e_{i_n}
+  \end{bmatrix}}=-\det(\mb a)$. Dessa maneira, obtemos que
+  \begin{equation*}
+    \det(\mb{ab})=\sum_{\pi\in\mc P_n} b_{\pi_11}\cdots b_{\pi_nn}\sgn(\pi)\det(\mb a)=\det(\mb b)\det(\mb a)\,.\qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{thm}
   Uma matriz $\mb a$ de ordem $n\times n$ é invertível se, e somente se, $\det(\mb a)\ne 0$.
 \end{thm}
 \begin{proof}
@@ -1101,6 +1153,111 @@ $$\begin{vmatrix}
   ($\Leftarrow$) Se $\mb a$ não é invertível, então $\posto(\mb a)<n$. Logo, se $\mb b$ é a matriz escalonada obtida usando o método de eliminação na matriz $\mb a$, $\mb b$ deve ter pelo menos uma linha nula. Isso implica que $\det(\mb b)=0$. Como $\det(\mb b)=\alpha\det(\mb a)$ para algum número $\alpha\ne 0$, segue que $\det(\mb a)=0$.
 \end{proof}
 
+Exemplo: Vamos achar os valores de $\alpha$ para os quais a matriz
+$$\mb a=\begin{bmatrix}
+  \alpha&0&1\\
+  1&2&3\\
+  4&5&6
+\end{bmatrix}$$
+é invertível. Temos que $\det(\mb a)=-3\alpha-3$. Logo, a matriz $\mb a$ será invertível sempre que se tenha $\alpha\ne -1$.
 
+\begin{thm}
+  \tbu{Regra de Cramer.}
+  Seja um sistema linear de $n$ equações a $n$ incógnitas escrito de forma matricial como $\mb {ax}=\mb b$. Se o sistema tem solução única $(\alpha_1,\ldots,\alpha_n)$, então
+  $$\mb \alpha_k=\frac{\det(\mb a(k,\mb b))}{\det(\mb a)}\,,$$
+  em que $\mb a(k,\mb b)$ é a matriz obtida ao substituir a coluna $k$ da matriz $\mb a$ pela matriz coluna $\mb b$.
+\end{thm}
+\begin{proof}
+  Se $(\alpha_1,\ldots,\alpha_n)$ é uma solução do sistema $\mb {ax}=\mb b$, então $\mb b=\alpha_1\mb a_1+\cdots+\alpha_n\mb a_n$, em que $\mb a_1,\ldots,\mb a_n$ são as colunas da matriz $\mb a$. Logo,
+  $$\det(\mb a(k,\mb b))=\det\dpar{\begin{bmatrix}
+    \mb a_1&\ldots&\mb a_{k-1}&\sum_{j=1}^n\alpha_j\mb a_j&\mb a_{k+1}&\ldots&\mb a_n
+  \end{bmatrix}}\,.$$
+  Usando o corolário~\ref{det.lin1} e o teorema~\ref{det.lin} temos que
+  \begin{equation*}
+    \begin{split}
+      \det(\mb a(k,\mb b))&=\det\dpar{\begin{bmatrix}
+        \mb a_1&\ldots&\alpha_k\mb a_k&\ldots&\mb a_n
+      \end{bmatrix}}\\
+      &=\alpha_k\det\dpar{\begin{bmatrix}
+        \mb a_1&\ldots&\mb a_{k-1}&\mb a_k&\mb a_{k+1}&\ldots&\mb a_n
+      \end{bmatrix}}\,.
+    \end{split}
+  \end{equation*}
+  Como $\det(\mb a)\ne 0$, pois o sistema tem solução única ($\mb x=\mb a^{-1}\mb b$), segue que $\alpha_k=\det(\mb a(k,\mb b))/\det(\mb a)$.
+\end{proof}
+
+Exemplo: Vamos usar a regra de Cramer para encontrar a solução única do sistema linear
+\begin{equation*}
+  \begin{split}
+    2x+3y&=7\\
+    5x-2y&=3\,.
+  \end{split}
+\end{equation*}
+Temos que
+$$x=\frac{\begin{vmatrix}
+  7&3\\
+  3&-2
+\end{vmatrix}}{\begin{vmatrix}
+  2&3\\
+  5&-2
+\end{vmatrix}}=\frac{-23}{-19}=\frac{23}{19}$$
+e
+$$y=\frac{\begin{vmatrix}
+  2&7\\
+  5&3
+\end{vmatrix}}{\begin{vmatrix}
+  2&3\\
+  5&-2
+\end{vmatrix}}=\frac{-29}{-19}=\frac{29}{19}\,.$$
+
+\begin{thm}
+  Se $\mb a$ é uma matriz invertível $n\times n$, então sua inversa é dada por
+  $$\mb a^{-1}=\frac{1}{\det(\mb a)}\mb C^T\,,$$
+  em que $\mb C$ é a chamada \tbu{matriz de cofatores} de $\mb a$, a qual é definida por $C_{ij}=(-1)^{i+j}\det(\mb M_{ij})$.
+\end{thm}
+\begin{proof}
+  Sejam $\mb x_1,\ldots\mb x_n$ as colunas da matriz $\mb a^{-1}$. Como $\mb a\mb a^{-1}=\mb I_n$, temos que $\mb a\mb x_j=\mb e_j$, $j\in\{1,\ldots,n\}$, em que $\mb e_j$ é a matriz coluna cujos elementos são nulos com exceção de $e_{jj}=1$ (isso foi usado na demonstração do teorema~\ref{det.prod}). Usando a regra de Cramer, temos que
+  $$x_{ij}=\frac{\det(\mb a(i,\mb e_j))}{\det(\mb a)}\,.$$
+  Usando o teorema~\ref{det.minor} temos que $\det(\mb a(i,\mb e_j))=(-1)^{j+i}\det(\mb M_{ji})=C_{ij}^T$. Portanto, $\mb a^{-1}=\mb C^T/\det(\mb a)$.
+\end{proof}
+
+Exemplos:
+\begin{enumerate}
+  \item Seja a matriz
+  $$\mb a=\begin{bmatrix}
+    \alpha&\beta\\
+    \gamma&\delta
+  \end{bmatrix}\,.$$
+  A matriz de cofatores de $\mb a$ é
+  $$\mb C=\begin{bmatrix}
+    \delta&-\gamma\\
+    -\beta&\alpha
+  \end{bmatrix}\,.$$
+  Portanto, se $\det(\mb a)=\alpha\delta-\gamma\beta\ne 0$, a inversa de $\mb a$ será
+  $$\mb a^{-1}=\frac{1}{\alpha\delta-\gamma\beta}\begin{bmatrix}
+    \delta&-\beta\\
+    -\gamma&\alpha
+  \end{bmatrix}\,.$$
+  \item Seja a matriz
+  $$\mb a=\begin{bmatrix}
+    1&0&2\\
+    3&1&2\\
+    2&0&-1
+  \end{bmatrix}\,.$$
+  Vemos que $\det(\mb a)=-5$ e, por conseguinte, a matriz $\mb a$ é invertível. A matriz de cofatores de $\mb a$ é
+  $$\mb C=\begin{bmatrix}
+    -1&7&-2\\
+    0&-5&0\\
+    -2&4&1
+  \end{bmatrix}\,.$$
+  Portanto,
+  $$\mb a^{-1}=-\frac{1}{5}\begin{bmatrix}
+    -1&0&-2\\
+    7&-5&4\\
+    -2&0&1
+  \end{bmatrix}\,.$$
+\end{enumerate}
+
+\chapter{Espaços vetoriais}
 
 \end{document}
